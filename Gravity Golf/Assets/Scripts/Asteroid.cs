@@ -6,9 +6,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-[assembly: Debuggable(DebuggableAttribute.DebuggingModes.IgnoreSymbolStoreSequencePoints)]
-[assembly: RuntimeCompatibility(WrapNonExceptionThrows = true)]
-[assembly: AssemblyVersion("0.0.0.0")]
 public class Asteroid : MonoBehaviour
 {
 	public bool Spawner;
