@@ -20,15 +20,13 @@ public class GrassPlace : MonoBehaviour
 
 	public float Max = 0.05f;
 
-	private void Start()
-	{
-		for (int i = 0; i < Density; i++)
-		{
+	private void Start() {
+		for (int i = 0; i < Density; i++) {
 			GameObject grass = Grass;
 			Vector3 position = base.transform.position;
 			Vector3 onUnitSphere = Random.onUnitSphere;
 			Vector3 localScale = base.transform.localScale;
-			GameObject gameObject = Object.Instantiate(grass, position + onUnitSphere * localScale.x, new Quaternion(0f, 0f, 0f, 0f));
+			GameObject gameObject = Object.Instantiate(grass, position + (onUnitSphere * localScale.x), new Quaternion(0f, 0f, 0f, 0f));
 			gameObject.transform.SetParent(base.transform);
 			gameObject.transform.LookAt(base.transform.position);
 			gameObject.transform.Rotate(180f, 0f, 0f);
@@ -43,17 +41,13 @@ public class GrassPlace : MonoBehaviour
 			float num4 = num;
 			Vector3 localScale4 = base.transform.localScale;
 			transform.localScale = new Vector3(x, y, num4 / localScale4.x);
-			if (NoPlace.Length == 0)
-			{
-				continue;
-			}
-			Transform[] noPlace = NoPlace;
-			foreach (Transform transform2 in noPlace)
-			{
-				if (Vector3.Distance(gameObject.transform.position, transform2.position) < NoPlDis)
-				{
-					Object.Destroy(gameObject);
-					i--;
+			if (NoPlace.Length > 0) {
+				Transform[] noPlace = NoPlace;
+				foreach (Transform transform2 in noPlace) {
+					if (Vector3.Distance(gameObject.transform.position, transform2.position) < NoPlDis) {
+						Object.Destroy(gameObject);
+						i--;
+					}
 				}
 			}
 		}

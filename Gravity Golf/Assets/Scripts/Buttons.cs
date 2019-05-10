@@ -11,6 +11,8 @@ public class Buttons : MonoBehaviour
 	public Camera Cam;
 
 	public string LevelName;
+	
+	public KeyCode KeyToPress;
 
 	public GameObject ObjToEnable;
 
@@ -23,7 +25,11 @@ public class Buttons : MonoBehaviour
 	public Color HighColor = new Color(1f, 1f, 1f);
 
 	private bool ButtonPressed;
-
+	
+	void Start () {
+		Cam = Camera.main;
+	}
+	
 	private void Update()
 	{
 		Camera cam = Cam;
@@ -31,9 +37,9 @@ public class Buttons : MonoBehaviour
 		float x = mousePosition.x;
 		Vector3 mousePosition2 = Input.mousePosition;
 		RaycastHit hitInfo;
-		if (Physics.Raycast(cam.ScreenPointToRay(new Vector3(x, mousePosition2.y, 0f)), out hitInfo, float.PositiveInfinity) || ButtonPressed)
+		if (Physics.Raycast(cam.ScreenPointToRay(new Vector3(x, mousePosition2.y, 0f)), out hitInfo, float.PositiveInfinity) || ButtonPressed || KeyToPress != null)
 		{
-			if (hitInfo.collider.gameObject == base.gameObject || ButtonPressed)
+			if (hitInfo.collider.gameObject == base.gameObject || ButtonPressed || KeyToPress != null)
 			{
 				if (ColorChanger)
 				{
@@ -50,7 +56,7 @@ public class Buttons : MonoBehaviour
 						shadow.enabled = true;
 					}
 				}
-				if (Input.GetButtonDown("Fire1") || ButtonPressed)
+				if (Input.GetButtonDown("Fire1") || ButtonPressed || Input.GetKeyDown(KeyToPress))
 				{
 					if (LevelName == "Quit")
 					{
@@ -78,7 +84,7 @@ public class Buttons : MonoBehaviour
 				Text[] componentsInChildren2 = GetComponentsInChildren<Text>();
 				foreach (Text text2 in componentsInChildren2)
 				{
-					GetComponent<Text>().color = DefColor;
+					GetComponentInChildren<Text>().color = DefColor;
 					text2.color = DefColor;
 				}
 				Shadow[] ss2 = Ss;

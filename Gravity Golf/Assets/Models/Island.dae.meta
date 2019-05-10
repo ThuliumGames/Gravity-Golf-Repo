@@ -14,8 +14,10 @@ ModelImporter:
     2100004: No Name
     2300000: Sphere
     2300002: Sphere_001
+    2300004: //RootNode
     3300000: Sphere
     3300002: Sphere_001
+    3300004: //RootNode
     4300000: Sphere
     4300002: Sphere_001
   externalObjects: {}

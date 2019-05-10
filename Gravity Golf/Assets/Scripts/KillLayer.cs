@@ -6,10 +6,10 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class KillLayer : MonoBehaviour
-{
-	private void OnTriggerEnter()
-	{
-		GetComponentInParent<GolfHit>().Die();
+public class KillLayer : MonoBehaviour {
+	private void OnTriggerEnter(Collider Hit) {
+		if (Hit.gameObject.name == ("Golf Ball")) {
+			Hit.gameObject.GetComponent<GolfHit>().Die();
+		}
 	}
 }

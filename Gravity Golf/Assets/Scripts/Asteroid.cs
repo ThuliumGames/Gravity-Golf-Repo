@@ -60,7 +60,7 @@ public class Asteroid : MonoBehaviour
 		{
 			Disable.SetActive(value: false);
 			GetComponent<Rigidbody>().isKinematic = true;
-			ChangeSize.radius = 1f;
+			ChangeSize.radius = 1.5f;
 			Invoke("Die", 5f);
 		}
 	}
