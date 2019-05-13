@@ -29,6 +29,7 @@ public class MusicSystem : MonoBehaviour
 		if (GameObject.Find("GlubGloGabGalab") == null)
 		{
 			base.name = "GlubGloGabGalab";
+			transform.parent = null;
 			Application.DontDestroyOnLoad(base.gameObject);
 		}
 		else

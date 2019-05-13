@@ -90,7 +90,8 @@ public class Win : MonoBehaviour {
 				WinText.text = WinTexts[Par - Ball.GetComponent<GolfHit>().Strokes - 2] + "-Albatross\n-" + (Par - Ball.GetComponent<GolfHit>().Strokes);
 			}
 		}
-		WinText.lineSpacing = Mathf.Clamp(((WinText.text.ToCharArray().Length-7)*10), 1, 250);
+		WinText.lineSpacing = Mathf.Clamp(((WinText.text.ToCharArray().Length-7)*4), 1, 250);
+		WinText.transform.localPosition = new Vector3 (0, Mathf.Clamp(-((WinText.text.ToCharArray().Length)*6), -100, -30), 0);
 		Object.Destroy(Ball);
 	}
 }

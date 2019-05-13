@@ -63,16 +63,16 @@ public class CameraControl : MonoBehaviour {
 			HitAngle += Input.GetAxis ("Mouse ScrollWheel")*10;
 		}
 		CamDist = Mathf.Clamp (CamDist, 3, 25);
-		CamDist = Mathf.Clamp (CamDist, 0, 45);
+		HitAngle = Mathf.Clamp (HitAngle, -80, 0);
 		//Find Planet
 		float num = Mathf.Infinity;
 		Planet[] array = Object.FindObjectsOfType<Planet>();
 		foreach (Planet planet in array) {
-			if (Vector3.Distance(base.transform.position, planet.gameObject.transform.position) < num && planet.tag != "BlackHole") {
+			if (Vector3.Distance(Ball.transform.position, planet.gameObject.transform.position) < num && planet.tag != "BlackHole" && (Vector3.Distance(Ball.transform.position, planet.gameObject.transform.position) >= Vector3.Distance(Ball.transform.position+Ball.GetComponent<Rigidbody>().velocity, planet.gameObject.transform.position) || planet.gameObject.transform == LookObjPrev)) {
 				if (planet.gameObject.transform == LookObjPrev) {
-					num = Vector3.Distance(base.transform.position, planet.gameObject.transform.position)/2;
+					num = Vector3.Distance(Ball.transform.position, planet.gameObject.transform.position)/2;
 				} else {
-					num = Vector3.Distance(base.transform.position, planet.gameObject.transform.position);
+					num = Vector3.Distance(Ball.transform.position, planet.gameObject.transform.position);
 				}
 				LookObj = planet.gameObject.transform;
 			}

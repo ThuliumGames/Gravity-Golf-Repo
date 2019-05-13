@@ -3,14 +3,16 @@ using System.Diagnostics;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEditor;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 [ExecuteInEditMode]
-public class Planet : MonoBehaviour
-{
+public class Planet : MonoBehaviour {
 	private Rigidbody ObjToPull;
 
+	public bool DisableIfClose;
+	float Origpf;
 	public bool isDirectional;
 
 	public Vector3 Direction;
@@ -18,66 +20,58 @@ public class Planet : MonoBehaviour
 	public float Range;
 
 	public float pullForce;
+	
+	public static bool isSelec;
 
-	private void Update()
-	{
-		if (Application.isPlaying)
-		{
+	void Start () {
+		Origpf = pullForce;
+	}
+	private void Update() {
+		if (Application.isPlaying) {
 			Rigidbody[] array = Object.FindObjectsOfType<Rigidbody>();
-			foreach (Rigidbody rigidbody in array)
-			{
-				if (!(rigidbody != GetComponent<Rigidbody>()))
-				{
+			foreach (Rigidbody rigidbody in array) {
+				if (!(rigidbody != GetComponent<Rigidbody>())) {
 					continue;
 				}
 				ObjToPull = rigidbody;
 				float num = Vector3.Distance(ObjToPull.gameObject.transform.position, base.transform.position);
 				float range = Range;
 				Vector3 localScale = base.transform.localScale;
-				if (!(num < range + localScale.x / 2f))
-				{
-					float num2 = Vector3.Distance(ObjToPull.gameObject.transform.position, base.transform.position);
-					float num3 = Range * 20f;
-					Vector3 localScale2 = base.transform.localScale;
-					if (!(num2 < num3 + localScale2.x / 2f) || !(ObjToPull.tag == "Asteroid"))
-					{
-						float num4 = Vector3.Distance(ObjToPull.gameObject.transform.position, base.transform.position);
-						float num5 = Range * 4f;
-						Vector3 localScale3 = base.transform.localScale;
-						if (num4 < num5 + localScale3.x / 2f && !isDirectional)
-						{
-							GameObject gameObject = new GameObject();
-							gameObject.transform.position = base.transform.position;
-							gameObject.transform.LookAt(ObjToPull.gameObject.transform.position);
-							ObjToPull.AddForce(-gameObject.transform.forward * (pullForce / 2f) * Time.deltaTime);
-							Object.Destroy(gameObject);
+				if (!(num < range + localScale.x / 2f)) {
+					float num4 = Vector3.Distance(ObjToPull.gameObject.transform.position, base.transform.position);
+					float num5 = Range * 4f;
+					Vector3 localScale3 = base.transform.localScale;
+					if (num4 < num5 + localScale3.x / 2f && !isDirectional) {
+						GameObject gameObject = new GameObject();
+						gameObject.transform.position = base.transform.position;
+						gameObject.transform.LookAt(ObjToPull.gameObject.transform.position);
+						ObjToPull.AddForce(-gameObject.transform.forward * (pullForce / 2f) * Time.deltaTime);
+						Object.Destroy(gameObject);
+					} else {
+						if (DisableIfClose) {
+							pullForce = Origpf;
 						}
-						continue;
 					}
+					continue;
 				}
 				GameObject gameObject2 = new GameObject();
-				if (isDirectional)
-				{
+				if (isDirectional) {
 					gameObject2.transform.position = ObjToPull.gameObject.transform.position + Direction;
-				}
-				else
-				{
+				} else {
 					gameObject2.transform.position = base.transform.position;
 				}
 				gameObject2.transform.LookAt(ObjToPull.gameObject.transform.position);
-				if (ObjToPull.gameObject.layer == LayerMask.NameToLayer("Boss"))
-				{
+				if (ObjToPull.gameObject.layer == LayerMask.NameToLayer("Boss")) {
 					ObjToPull.AddForce(-gameObject2.transform.forward * (pullForce * 1E+07f) * Time.deltaTime);
-				}
-				else
-				{
+				} else {
 					ObjToPull.AddForce(-gameObject2.transform.forward * pullForce * Time.deltaTime);
+					if (DisableIfClose) {
+						pullForce = 0;
+					}
 				}
 				Object.Destroy(gameObject2);
 			}
-		}
-		else
-		{
+		} else {
 			Transform transform = base.transform;
 			Vector3 localScale4 = base.transform.localScale;
 			float x = localScale4.x;
@@ -87,23 +81,57 @@ public class Planet : MonoBehaviour
 			transform.localScale = new Vector3(x, x2, localScale6.x);
 		}
 	}
+	
+	static Planet() {
+		SceneView.onSceneGUIDelegate += view => {
+			if (Event.current.keyCode == KeyCode.Period) {
+				Planet.isSelec = true;
+			}
+			if (Event.current.keyCode == KeyCode.Comma) {
+				Planet.isSelec = false;
+			}
+		};
+	}
 
-	private void OnDrawGizmos()
-	{
-		Gizmos.color = Color.yellow;
-		Vector3 position = base.transform.position;
-		float range = Range;
-		Vector3 localScale = base.transform.localScale;
-		Gizmos.DrawWireSphere(position, range + localScale.x / 2f);
-		Gizmos.color = new Color(0.5f, 0.5f, 0f);
-		Vector3 position2 = base.transform.position;
-		float num = Range * 4f;
-		Vector3 localScale2 = base.transform.localScale;
-		Gizmos.DrawWireSphere(position2, num + localScale2.x / 2f);
-		Gizmos.color = Color.green;
-		Vector3 position3 = base.transform.position;
-		float num2 = Range * 20f;
-		Vector3 localScale3 = base.transform.localScale;
-		Gizmos.DrawWireSphere(position3, num2 + localScale3.x / 2f);
+	private void OnDrawGizmos() {
+		if (isSelec) {
+			Gizmos.color = Color.yellow;
+			Vector3 position = base.transform.position;
+			float range = Range;
+			Vector3 localScale = base.transform.localScale;
+			Gizmos.DrawWireSphere(position, range + localScale.x / 2f);
+			Gizmos.color = new Color(0.5f, 0.5f, 0f);
+			Vector3 position2 = base.transform.position;
+			float num = Range * 4f;
+			Vector3 localScale2 = base.transform.localScale;
+			Gizmos.DrawWireSphere(position2, num + localScale2.x / 2f);
+		}
+	}
+	
+	private void OnDrawGizmosSelected() {
+		if (!isSelec) {	
+			Gizmos.color = Color.yellow;
+			Vector3 position = base.transform.position;
+			float range = Range;
+			Vector3 localScale = base.transform.localScale;
+			Gizmos.DrawWireSphere(position, range + localScale.x / 2f);
+			Gizmos.color = new Color(0.5f, 0.5f, 0f);
+			Vector3 position2 = base.transform.position;
+			float num = Range * 4f;
+			Vector3 localScale2 = base.transform.localScale;
+			Gizmos.DrawWireSphere(position2, num + localScale2.x / 2f);
+		}
+	}
+	
+	void OnTriggerEnter (Collider Hit) {
+		if (Hit.GetComponent<GolfHit>()) {
+			Hit.GetComponent<GolfHit>().inWater = true;
+		}
+	}
+	
+	void OnTriggerExit (Collider Hit) {
+		if (Hit.GetComponent<GolfHit>()) {
+			Hit.GetComponent<GolfHit>().inWater = false;
+		}
 	}
 }

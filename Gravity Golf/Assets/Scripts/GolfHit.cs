@@ -34,6 +34,7 @@ public class GolfHit : MonoBehaviour
 
 	public bool OnGround = true;
 	public bool PublicOnGround;
+	public bool inWater;
 
 	private float T;
 
@@ -98,7 +99,7 @@ public class GolfHit : MonoBehaviour
 			if (Input.GetButton("Fire1")) {
 				if (RB.velocity.magnitude < 1f) {
 					RB.velocity = Vector3.zero;
-					Power -= Input.GetAxis("Mouse Y");
+					Power -= Input.GetAxis("Mouse Y")*((Power/25)+0.1f);
 					Power = Mathf.Clamp(Power, 0f, 25f);
 					T2 += Time.deltaTime;
 				} else {
@@ -134,7 +135,7 @@ public class GolfHit : MonoBehaviour
 			} else {
 				Camera.main.GetComponentInParent<Collider>().transform.localEulerAngles = new Vector3(0f, 0f, 0f);
 			}
-			if ((GameObject.Find("BossPlanet") == null || !Input.GetKey(KeyCode.D)) && (!OnGround || Direction.GetComponentInParent<CameraControl>().LookObj.name != "Desert")) {
+			if (((GameObject.Find("BossPlanet") == null || !Input.GetKey(KeyCode.D)) && (!OnGround || Direction.GetComponentInParent<CameraControl>().LookObj.name != "Desert")) && !inWater) {
 				if (!OnGround) {
 					RB.drag = 0.025f;
 				} else {
@@ -144,10 +145,14 @@ public class GolfHit : MonoBehaviour
 					RB.drag = 1f;
 				}
 			} else {
-				RB.drag = 4f;
+				if (!inWater) {
+					RB.drag = 4f;
+				} else {
+					RB.drag = 10f;
+				}
 			}
 		} else {
-			if ((GameObject.Find("BossPlanet") == null || !Input.GetKey(KeyCode.D)) && (!OnGround)) {
+			if (((GameObject.Find("BossPlanet") == null || !Input.GetKey(KeyCode.D)) && (!OnGround || GameObject.Find("Golf Ball").GetComponent<GolfHit>().Direction.GetComponentInParent<CameraControl>().LookObj.name != "Desert")) && !inWater) {
 				if (!OnGround) {
 					RB.drag = 0.025f;
 				} else {
@@ -157,7 +162,11 @@ public class GolfHit : MonoBehaviour
 					RB.drag = 1f;
 				}
 			} else {
-				RB.drag = 4f;
+				if (!inWater) {
+					RB.drag = 4f;
+				} else {
+					RB.drag = 10f;
+				}
 			}
 		}
 		if (base.name != "GBC(Clone)") {

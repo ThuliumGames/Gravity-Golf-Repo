@@ -6,10 +6,10 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class PartColl : MonoBehaviour
-{
-	private void OnParticleCollision()
-	{
-		GameObject.Find("GolfBall").GetComponent<GolfHit>().Die();
+public class PartColl : MonoBehaviour {
+	private void OnParticleCollision(GameObject Hit) {
+		if (Hit.name == "Golf Ball") {
+			GameObject.Find("Golf Ball").GetComponent<GolfHit>().Die();
+		}
 	}
 }

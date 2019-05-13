@@ -48,6 +48,23 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1960214188102602
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4983487854408986}
+  - component: {fileID: 114514244580102652}
+  - component: {fileID: 114869357006744808}
+  m_Layer: 0
+  m_Name: Grass Object
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!4 &4425400821913328
 Transform:
   m_ObjectHideFlags: 1
@@ -59,6 +76,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4480371642820344}
+  - {fileID: 4983487854408986}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -74,6 +92,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4425400821913328}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4983487854408986
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1960214188102602}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 10, y: 10, z: 10}
+  m_Children: []
+  m_Father: {fileID: 4425400821913328}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &23328945786273836
 MeshRenderer:
@@ -159,6 +190,23 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1494136895415772}
   m_Mesh: {fileID: 4300000, guid: 15cbf0c81fa11394cb6bfb4b80237790, type: 3}
+--- !u!114 &114514244580102652
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1960214188102602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc699fc4ab039ae4589471131c54aca6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Grass: {fileID: 1189233622738972, guid: 657d9e70a45d0624d93ea3c220ce37d3, type: 2}
+  NoPlace: []
+  NoPlDis: 0
+  Density: 5
+  Min: 1
+  Max: 2
 --- !u!114 &114793802778614330
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -174,6 +222,23 @@ MonoBehaviour:
   Direction: {x: 0, y: 0, z: 0}
   Range: 20
   pullForce: 250
+--- !u!114 &114869357006744808
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1960214188102602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc699fc4ab039ae4589471131c54aca6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Grass: {fileID: 1633430589703634, guid: 1f929cc9c7e9fa04b8754ee89ba3bdd4, type: 2}
+  NoPlace: []
+  NoPlDis: 0
+  Density: 5
+  Min: 1
+  Max: 2
 --- !u!135 &135091912333743970
 SphereCollider:
   m_ObjectHideFlags: 1

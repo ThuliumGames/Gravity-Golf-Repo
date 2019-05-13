@@ -29,7 +29,7 @@ public class GrassPlace : MonoBehaviour
 			GameObject gameObject = Object.Instantiate(grass, position + (onUnitSphere * localScale.x), new Quaternion(0f, 0f, 0f, 0f));
 			gameObject.transform.SetParent(base.transform);
 			gameObject.transform.LookAt(base.transform.position);
-			gameObject.transform.Rotate(180f, 0f, 0f);
+			gameObject.transform.Rotate(180f, 0f, Random.Range(0, 360));
 			float num = Random.Range(Min, Max);
 			Transform transform = gameObject.transform;
 			float num2 = num;
