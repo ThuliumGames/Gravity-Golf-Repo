@@ -285,6 +285,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67cdf969cbb1b2947a61faef6d13a1f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DisableIfClose: 0
   isDirectional: 0
   Direction: {x: 0, y: 0, z: 0}
   Range: 7.5

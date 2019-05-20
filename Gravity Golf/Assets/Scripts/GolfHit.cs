@@ -6,8 +6,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class GolfHit : MonoBehaviour
-{
+public class GolfHit : MonoBehaviour {
 	public Transform Direction;
 
 	public GameObject Arrow;
@@ -47,6 +46,8 @@ public class GolfHit : MonoBehaviour
 	private float T2;
 
 	public AudioClip[] HitSounds;
+	
+	public GameObject HoleIOConfetti;
 
 	private void Update() {
 		
@@ -66,7 +67,7 @@ public class GolfHit : MonoBehaviour
 				Hits.text = string.Empty + Object.FindObjectOfType<Boss1_AI>().PlayerHealth;
 				Strokes = 10;
 			}
-			Pow.fillAmount = Power / 25f;
+			Pow.fillAmount = Power / 100f;
 			if (Input.GetKeyDown(KeyCode.T)) {
 				if (GameObject.Find(ControlsPage.name) != null) {
 					ControlsPage.SetActive(value: false);
@@ -100,7 +101,7 @@ public class GolfHit : MonoBehaviour
 				if (RB.velocity.magnitude < 1f) {
 					RB.velocity = Vector3.zero;
 					Power -= Input.GetAxis("Mouse Y")*((Power/25)+0.1f);
-					Power = Mathf.Clamp(Power, 0f, 25f);
+					Power = Mathf.Clamp(Power, 0f, 100f);
 					T2 += Time.deltaTime;
 				} else {
 					Power = 0f;
@@ -110,16 +111,19 @@ public class GolfHit : MonoBehaviour
 					if (T2 < 0.3f) {
 						Power = 25f;
 					}
+					RB.isKinematic = false;
 					Strokes++;
 					GameObject.Find(base.name + "Hit").GetComponent<AudioSource>().Play();
 					LastPlace = base.transform.position;
 					RB.velocity = Direction.forward * Power * PowerMultiplier / 60f;
 					ShakeCamera(0.15f, 0.25f);
+					GameObject.FindObjectOfType<CameraControl>().HitAngle = 0;
 				}
 				Power = 0f;
 				T2 = 0f;
 			}
 			if (Power > 0.1f) {
+				RB.isKinematic = true;
 				if (GameObject.Find("GBC(Clone)") == null) {
 					GameObject gameObject5 = Object.Instantiate(Arrow, base.transform.position, base.transform.rotation);
 					gameObject5.GetComponent<Rigidbody>().velocity = Direction.forward * Power * PowerMultiplier / 60f;
@@ -148,9 +152,10 @@ public class GolfHit : MonoBehaviour
 				if (!inWater) {
 					RB.drag = 4f;
 				} else {
-					RB.drag = 10f;
+					RB.drag = 6f;
 				}
 			}
+			
 		} else {
 			if (((GameObject.Find("BossPlanet") == null || !Input.GetKey(KeyCode.D)) && (!OnGround || GameObject.Find("Golf Ball").GetComponent<GolfHit>().Direction.GetComponentInParent<CameraControl>().LookObj.name != "Desert")) && !inWater) {
 				if (!OnGround) {
@@ -165,7 +170,7 @@ public class GolfHit : MonoBehaviour
 				if (!inWater) {
 					RB.drag = 4f;
 				} else {
-					RB.drag = 10f;
+					RB.drag = 6f;
 				}
 			}
 		}
@@ -256,6 +261,6 @@ public class GolfHit : MonoBehaviour
 			LastPlace = new Vector3(0f, 25.5f, 0f);
 		}
 		base.transform.position = LastPlace;
-		GameObject.Find("Cam").GetComponent<CameraControl>().VertAng = 10f;
+		GameObject.FindObjectOfType<CameraControl>().VertAng = 10f;
 	}
 }

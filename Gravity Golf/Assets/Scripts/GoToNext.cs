@@ -6,22 +6,14 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class GoToNext : MonoBehaviour
-{
-	private float T;
+public class GoToNext : MonoBehaviour {
 
-	public float length;
+	public Animator Anim;
+	public string AName;
 
-	public string LevelName;
-
-	public bool Buttonable;
-
-	private void Update()
-	{
-		T += Time.deltaTime;
-		if (T >= length || (Buttonable && Input.GetButtonDown("Fire1")))
-		{
-			SceneManager.LoadScene(LevelName);
+	private void Update() {
+		if (Input.GetKeyDown(KeyCode.Return)) {
+			Anim.Play (AName);
 		}
 	}
 }

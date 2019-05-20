@@ -71,8 +71,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1477947901148866}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 100}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 4, y: 4, z: 4}
   m_Children:
   - {fileID: 4520702469909796}
@@ -235,10 +235,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67cdf969cbb1b2947a61faef6d13a1f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DisableIfClose: 0
   isDirectional: 0
   Direction: {x: 0, y: 0, z: 0}
   Range: 80
-  pullForce: 500
+  pullForce: 1500
 --- !u!135 &135296175026336620
 SphereCollider:
   m_ObjectHideFlags: 1

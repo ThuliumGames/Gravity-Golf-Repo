@@ -69,6 +69,7 @@ public class Win : MonoBehaviour {
 		if (Ball.GetComponent<GolfHit>().Strokes <= 1) {
 			WinText.text = "Hole In One!\n-" + (Par - Ball.GetComponent<GolfHit>().Strokes);
 			GameObject.Find("HIOWin").GetComponent<AudioSource>().Play();
+			Ball.GetComponent<GolfHit>().HoleIOConfetti.SetActive(true);
 		} else if (Ball.GetComponent<GolfHit>().Strokes == Par) {
 			WinText.text = "Par\n-0";
 		} else if (Ball.GetComponent<GolfHit>().Strokes > Par) {

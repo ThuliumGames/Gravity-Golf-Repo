@@ -28,7 +28,7 @@ public class CameraControl : MonoBehaviour {
 
 	public float VertAng = 10f;
 
-	private float HitAngle;
+	public float HitAngle;
 
 	public float CamDist = 2f;
 
@@ -63,7 +63,7 @@ public class CameraControl : MonoBehaviour {
 			HitAngle += Input.GetAxis ("Mouse ScrollWheel")*10;
 		}
 		CamDist = Mathf.Clamp (CamDist, 3, 25);
-		HitAngle = Mathf.Clamp (HitAngle, -80, 0);
+		HitAngle = Mathf.Clamp (HitAngle, -90, 10);
 		//Find Planet
 		float num = Mathf.Infinity;
 		Planet[] array = Object.FindObjectsOfType<Planet>();

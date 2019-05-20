@@ -26,61 +26,66 @@ public class Buttons : MonoBehaviour
 
 	private bool ButtonPressed;
 	
+	public bool AlwaysDisable;
+	public static bool SomethingPressed;
+	public static int FramePressed;
+	
 	void Start () {
 		Cam = Camera.main;
 	}
 	
-	private void Update()
-	{
+	private void Update() {
+		if (Time.frameCount != FramePressed) {
+			SomethingPressed = false;
+		}
 		Camera cam = Cam;
 		Vector3 mousePosition = Input.mousePosition;
 		float x = mousePosition.x;
 		Vector3 mousePosition2 = Input.mousePosition;
 		RaycastHit hitInfo;
-		if (Physics.Raycast(cam.ScreenPointToRay(new Vector3(x, mousePosition2.y, 0f)), out hitInfo, float.PositiveInfinity) || ButtonPressed || KeyToPress != null)
-		{
-			if (hitInfo.collider.gameObject == base.gameObject || ButtonPressed || KeyToPress != null)
-			{
-				if (ColorChanger)
-				{
-					Text[] componentsInChildren = GetComponentsInChildren<Text>();
-					foreach (Text text in componentsInChildren)
-					{
-						GetComponent<Text>().color = HighColor;
-						text.color = HighColor;
-					}
-					Shadow[] ss = Ss;
-					foreach (Shadow shadow in ss)
-					{
-						GetComponent<Shadow>().enabled = true;
-						shadow.enabled = true;
+		bool TurnOff1 = true;
+		bool TurnOff2 = true;
+		bool TurnOff3 = true;
+		if (Physics.Raycast(cam.ScreenPointToRay(new Vector3(x, mousePosition2.y, 0f)), out hitInfo, float.PositiveInfinity) || ButtonPressed || KeyToPress != null) {
+			TurnOff1 = false;
+			if (KeyToPress != null || hitInfo.collider.gameObject == base.gameObject || ButtonPressed) {
+				if (hitInfo.collider != null) {
+					TurnOff2 = false;
+					if (hitInfo.collider.gameObject == base.gameObject) {
+						TurnOff3 = false;
+						if (Input.GetMouseButtonDown(0)) {
+							SomethingPressed = true;
+							FramePressed = Time.frameCount;
+						}
+						if (ColorChanger) {
+							Text[] componentsInChildren = GetComponentsInChildren<Text>();
+							foreach (Text text in componentsInChildren) {
+								GetComponent<Text>().color = HighColor;
+								text.color = HighColor;
+							}
+							Shadow[] ss = Ss;
+							foreach (Shadow shadow in ss) {
+								GetComponent<Shadow>().enabled = true;
+								shadow.enabled = true;
+							}
+						}
 					}
 				}
-				if (Input.GetButtonDown("Fire1") || ButtonPressed || Input.GetKeyDown(KeyToPress))
-				{
-					if (LevelName == "Quit")
-					{
+				if (Input.GetKeyDown(KeyToPress) || ButtonPressed || (Input.GetButtonDown("Fire1") && hitInfo.collider.gameObject == base.gameObject)) {
+					ButtonPressed = true;
+					if (LevelName == "Quit") {
 						Application.Quit();
-					}
-					else if (LevelName == "Ena")
-					{
-						if (GameObject.Find(ObjToEnable.name) == null)
-						{
+					} else if (LevelName == "Ena") {
+						if (GameObject.Find(ObjToEnable.name) == null) {
 							ObjToEnable.SetActive(value: true);
-						}
-						else
-						{
+						} else {
 							ObjToEnable.SetActive(value: false);
 						}
-					}
-					else
-					{
+					} else {
 						SceneManager.LoadScene(LevelName);
 					}
 				}
-			}
-			else if (ColorChanger)
-			{
+			} else if (ColorChanger) {
 				Text[] componentsInChildren2 = GetComponentsInChildren<Text>();
 				foreach (Text text2 in componentsInChildren2)
 				{
@@ -95,26 +100,28 @@ public class Buttons : MonoBehaviour
 				}
 			}
 		}
-		else if (ColorChanger)
-		{
+		if (ColorChanger && (TurnOff1 || TurnOff2 || TurnOff3)) {
 			Text[] componentsInChildren3 = GetComponentsInChildren<Text>();
-			foreach (Text text3 in componentsInChildren3)
-			{
+			foreach (Text text3 in componentsInChildren3) {
 				GetComponent<Text>().color = DefColor;
 				text3.color = DefColor;
 			}
 			Shadow[] ss3 = Ss;
-			foreach (Shadow shadow3 in ss3)
-			{
+			foreach (Shadow shadow3 in ss3) {
 				GetComponent<Shadow>().enabled = false;
 				shadow3.enabled = false;
 			}
 		}
-		ButtonPressed = false;
 	}
-
-	private void MEnter()
-	{
-		ButtonPressed = true;
+	
+	void LateUpdate () {
+		if (ObjToEnable != null) {
+			if ((!SomethingPressed || AlwaysDisable) && !ButtonPressed) {
+				if (Input.GetMouseButtonDown(0)) {
+					ObjToEnable.SetActive(false);
+				}
+			}
+		}
+		ButtonPressed = false;
 	}
 }
