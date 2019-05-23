@@ -221,7 +221,7 @@ MonoBehaviour:
   Grass: {fileID: 1997998171847496, guid: 52a88589a698d56488ba58ff3f3ea86f, type: 2}
   NoPlace: []
   NoPlDis: 0
-  Density: 12
+  Density: 24
   Min: 10.1
   Max: 11.5
 --- !u!114 &114707796686561908
@@ -238,7 +238,7 @@ MonoBehaviour:
   Grass: {fileID: 1997998171847496, guid: 3a4f0b37d1de096428a4102278a5bf59, type: 2}
   NoPlace: []
   NoPlDis: 0
-  Density: 12
+  Density: 24
   Min: 10.1
   Max: 11.5
 --- !u!114 &114929415336641040
