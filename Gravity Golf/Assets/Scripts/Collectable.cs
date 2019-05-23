@@ -34,7 +34,7 @@ public class Collectable : MonoBehaviour
 			return;
 		}
 		Keys.SetActive(value: true);
-		text.text = (MaxItems - ItemsCollected).ToString();
+		text.text = ItemsCollected + " of " + MaxItems;
 		if (ItemsCollected >= MaxItems)
 		{
 			if (AcDest)
@@ -55,7 +55,7 @@ public class Collectable : MonoBehaviour
 
 	private void OnTriggerEnter(Collider C)
 	{
-		if (!isDestructable && C.gameObject.name != "GBC(Clone)")
+		if (!isDestructable && C.gameObject.name == "Golf Ball")
 		{
 			ItemsCollected++;
 			GameObject.Find("Cage").GetComponent<AudioSource>().Play();

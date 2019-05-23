@@ -75,6 +75,7 @@ GameObject:
   - component: {fileID: 23165812430039572}
   - component: {fileID: 205361248067299006}
   - component: {fileID: 135200083351022796}
+  - component: {fileID: 114000128852367092}
   m_Layer: 0
   m_Name: SmallPlanet (1)
   m_TagString: Untagged
@@ -317,7 +318,7 @@ MeshFilter:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1690689910602758}
-  m_Mesh: {fileID: 4300000, guid: 15cbf0c81fa11394cb6bfb4b80237790, type: 3}
+  m_Mesh: {fileID: 4300002, guid: b22f0b4088e65dc43a461c193254835f, type: 3}
 --- !u!33 &33214412200417978
 MeshFilter:
   m_ObjectHideFlags: 1
@@ -331,7 +332,7 @@ MeshFilter:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1037250918069816}
-  m_Mesh: {fileID: 4300000, guid: b5bde69efef36924b8c44f53f54f6c8a, type: 3}
+  m_Mesh: {fileID: 4300002, guid: b22f0b4088e65dc43a461c193254835f, type: 3}
 --- !u!33 &33760526580228216
 MeshFilter:
   m_ObjectHideFlags: 1
@@ -339,6 +340,22 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1274490074799196}
   m_Mesh: {fileID: 4300000, guid: b5bde69efef36924b8c44f53f54f6c8a, type: 3}
+--- !u!114 &114000128852367092
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1499292291109452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67cdf969cbb1b2947a61faef6d13a1f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DisableIfClose: 0
+  isDirectional: 0
+  Direction: {x: 0, y: 0, z: 0}
+  Range: 2.5
+  pullForce: -3000
 --- !u!114 &114327843398358746
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -21,7 +21,7 @@ public class Orbs : MonoBehaviour
 
 	private void OnTriggerEnter(Collider Other)
 	{
-		if (Other.tag == "Player" && !BeenHit)
+		if (Other.gameObject.layer == LayerMask.NameToLayer("Ball") && !BeenHit)
 		{
 			AI.BossHealth--;
 			if (AttackHit)

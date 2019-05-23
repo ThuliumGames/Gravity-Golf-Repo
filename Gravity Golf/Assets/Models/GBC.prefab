@@ -264,21 +264,30 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 5
+  m_Time: 3
   m_Parameters:
     serializedVersion: 2
-    widthMultiplier: 0.1
+    widthMultiplier: 0.2
     widthCurve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
+        value: 0
+        inSlope: 13.056276
+        outSlope: 13.056276
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
+        outWeight: 0.27073354
+      - serializedVersion: 3
+        time: 0.09552592
+        value: 0.9743678
+        inSlope: 0.1599832
+        outSlope: 0.1599832
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 1
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 1
@@ -355,10 +364,12 @@ MonoBehaviour:
   Power: 0
   OnGround: 1
   PublicOnGround: 0
+  inWater: 0
   HitSounds:
   - {fileID: 8300000, guid: 08863f57367402c4b8466429319e3442, type: 3}
   - {fileID: 8300000, guid: 85a9818b1206a8945b091e162ae85dd4, type: 3}
   - {fileID: 8300000, guid: 0ad60b1b70b300144af7b2c4149a9a46, type: 3}
+  HoleIOConfetti: {fileID: 0}
 --- !u!114 &114493041978489356
 MonoBehaviour:
   m_ObjectHideFlags: 1

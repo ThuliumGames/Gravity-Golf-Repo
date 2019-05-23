@@ -57,11 +57,19 @@ public class Boss1_AI : MonoBehaviour
 	private void Start()
 	{
 		RB = GetComponent<Rigidbody>();
-		Ball = GameObject.Find("AllLevels/GolfBall").transform;
+		Ball = GameObject.Find("All Level Objects/Golf Ball").transform;
 	}
 
 	private void Update()
 	{
+		RaycastHit RCF;
+		RaycastHit RCB;
+		Physics.Raycast (transform.position + transform.forward, -transform.up, out RCF, 100);
+		Physics.Raycast (transform.position - transform.forward, -transform.up, out RCB, 100);
+		RB.AddRelativeTorque ((RCF.distance-RCB.distance) * -1800000000 * Time.deltaTime, 0, 0);
+		Physics.Raycast (transform.position + transform.right, -transform.up, out RCF, 100);
+		Physics.Raycast (transform.position - transform.right, -transform.up, out RCB, 100);
+		RB.AddRelativeTorque (0, 0, (RCF.distance-RCB.distance) * -1800000000 * Time.deltaTime);
 		if (PlayerHealth <= -1)
 		{
 			SceneManager.LoadScene("Golf 1-Boss");
@@ -325,7 +333,7 @@ public class Boss1_AI : MonoBehaviour
 
 	private void PickNewSpot()
 	{
-		PlaceToGo = new Vector3(0f, -10f, 0f) + Random.onUnitSphere * 10f;
+		PlaceToGo = new Vector3(0f, 0f, 0f) + Random.onUnitSphere * 20f;
 	}
 
 	private void TooLong()

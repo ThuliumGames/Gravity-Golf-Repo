@@ -26,6 +26,10 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - Texture2D_2F1A9519:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _AmbientOcclusionMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -343,12 +347,12 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - Vector1_4427E23D: 1
+    - Vector1_4427E23D: 0
     - Vector1_5B622172: 10.65
-    - Vector1_767FFD4E: 0.675
-    - Vector1_7F8FDF32: 100
-    - Vector1_8801E2B3: 1
-    - Vector1_9ED5749B: 12.75
+    - Vector1_767FFD4E: 0.7
+    - Vector1_7F8FDF32: 0
+    - Vector1_8801E2B3: 0
+    - Vector1_9ED5749B: 25
     - Vector1_E09AEB3: 7.74
     - _AORemapMax: 1
     - _AORemapMax0: 1
@@ -735,6 +739,7 @@ Material:
     m_Colors:
     - Color_119F02C4: {r: 0, g: 0.67214394, b: 1, a: 1}
     - Color_7955068D: {r: 0, g: 0.78534025, b: 0.9999999, a: 1}
+    - Vector2_E0D6E2C5: {r: 1, g: 1, b: 1, a: 1}
     - _AmbientOcclusionMapChannelMask: {r: 1, g: 0, b: 0, a: 0}
     - _AmbientOcclusionMapRange: {r: 0, g: 1, b: 0, a: 0}
     - _AmbientOcclusionMapRemap: {r: 0, g: 1, b: 0, a: 0}

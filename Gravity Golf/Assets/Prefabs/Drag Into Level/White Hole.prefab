@@ -71,7 +71,6 @@ GameObject:
   - component: {fileID: 4005241703303978}
   - component: {fileID: 33665284563446054}
   - component: {fileID: 23056574237965410}
-  - component: {fileID: 135041629518061144}
   - component: {fileID: 114025515848204218}
   - component: {fileID: 114064174995954490}
   - component: {fileID: 114809428415590598}
@@ -289,7 +288,7 @@ MonoBehaviour:
   isDirectional: 0
   Direction: {x: 0, y: 0, z: 0}
   Range: 7.5
-  pullForce: -5000
+  pullForce: -10000
 --- !u!114 &114064174995954490
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -312,18 +311,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40ac1061cddb4af448a4e4a018be765e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!135 &135041629518061144
-SphereCollider:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1609293921399390}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!198 &198228123579256588
 ParticleSystem:
   m_ObjectHideFlags: 1

@@ -48,16 +48,56 @@ public class GolfHit : MonoBehaviour {
 	public AudioClip[] HitSounds;
 	
 	public GameObject HoleIOConfetti;
+	
+	bool PuttingMode;
+	
+	float CanFF;
+	
+	public Image PMGlow;
 
 	private void Update() {
 		
-		if (Input.GetKey (KeyCode.Tab)) {
-			Time.timeScale = 10;
-		} else {
-			Time.timeScale = 1;
-		}
-		
 		if (base.name != "GBC(Clone)") {
+			
+			if (RB.velocity.magnitude < 1f) {
+				CanFF = 0;
+				if (Input.GetKeyDown(KeyCode.P)) {
+					PuttingMode = !PuttingMode;
+				}
+			} else {
+				CanFF += Time.deltaTime;
+			}
+			
+			if (PuttingMode) {
+				PMGlow.enabled = true;
+			} else {
+				PMGlow.enabled = false;
+			}
+			
+			if (!Direction.GetComponentInParent<CameraControl>().isDying) {
+				bool CanKill = true;
+				if (Vector3.Distance (transform.position, Direction.GetComponentInParent<CameraControl>().LookObj.transform.position) > (Direction.GetComponentInParent<CameraControl>().LookObj.GetComponent<Planet>().Range+Direction.GetComponentInParent<CameraControl>().LookObj.GetComponent<Planet>().transform.localScale.x)*4) {
+					foreach (Planet P in GameObject.FindObjectsOfType<Planet>()) {
+						if (Vector3.Distance (transform.position, P.transform.position) > Vector3.Distance (transform.position+RB.velocity, P.transform.position) || Vector3.Distance (transform.position, P.transform.position) <= (P.Range+P.transform.localScale.x)*4) {
+							CanKill = false;
+						}
+					}
+				} else {
+					CanKill = false;
+				}
+				
+				if (CanKill) {
+					Invoke ("Die", 2);
+					Direction.GetComponentInParent<CameraControl>().IsDying();
+				}
+			}
+				
+			if (Input.GetKey (KeyCode.Tab) && CanFF >= 8) {
+				Time.timeScale = Mathf.Lerp(Time.timeScale, 10, 5*Time.deltaTime);
+			} else {
+				Time.timeScale = 1;
+			}
+			
 			if (Vector3.Distance(base.transform.position, LastPlace) <= 1f) {
 				CanDamage = true;
 			}
@@ -67,7 +107,11 @@ public class GolfHit : MonoBehaviour {
 				Hits.text = string.Empty + Object.FindObjectOfType<Boss1_AI>().PlayerHealth;
 				Strokes = 10;
 			}
-			Pow.fillAmount = Power / 100f;
+			if (PuttingMode) {
+				Pow.fillAmount = Power / 21.375f;
+			} else {
+				Pow.fillAmount = Power / 100f;
+			}
 			if (Input.GetKeyDown(KeyCode.T)) {
 				if (GameObject.Find(ControlsPage.name) != null) {
 					ControlsPage.SetActive(value: false);
@@ -101,7 +145,11 @@ public class GolfHit : MonoBehaviour {
 				if (RB.velocity.magnitude < 1f) {
 					RB.velocity = Vector3.zero;
 					Power -= Input.GetAxis("Mouse Y")*((Power/25)+0.1f);
-					Power = Mathf.Clamp(Power, 0f, 100f);
+					if (PuttingMode) {
+						Power = Mathf.Clamp(Power, 0f, 21.375f);
+					} else {
+						Power = Mathf.Clamp(Power, 0f, 100f);
+					}
 					T2 += Time.deltaTime;
 				} else {
 					Power = 0f;
