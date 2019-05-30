@@ -6,33 +6,26 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class Orbs : MonoBehaviour
-{
+public class Orbs : MonoBehaviour {
 	private Boss1_AI AI;
 
 	public bool AttackHit;
 
 	public bool BeenHit;
 
-	private void Start()
-	{
-		AI = GetComponentInParent<Boss1_AI>();
+	void Start() {
+		AI = GameObject.FindObjectOfType<Boss1_AI>();
 	}
 
-	private void OnTriggerEnter(Collider Other)
-	{
-		if (Other.gameObject.layer == LayerMask.NameToLayer("Ball") && !BeenHit)
-		{
+	void OnTriggerEnter(Collider Other) {
+		if (Other.gameObject.layer == LayerMask.NameToLayer("Ball") && !BeenHit) {
 			AI.BossHealth--;
-			if (AttackHit)
-			{
+			if (AttackHit) {
 				AI.Hit = true;
-			}
-			else
-			{
+			} else {
 				AI.AngryMode = true;
 			}
-			Other.GetComponent<Rigidbody>().AddExplosionForce(1000f, base.transform.position, 1000f);
+			Other.GetComponent<Rigidbody>().AddExplosionForce(5000f, base.transform.position, 5000f);
 			BeenHit = true;
 		}
 	}

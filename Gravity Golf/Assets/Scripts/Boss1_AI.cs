@@ -62,6 +62,16 @@ public class Boss1_AI : MonoBehaviour
 
 	private void Update()
 	{
+		
+		if (Input.GetKeyDown(KeyCode.Escape)) {
+			SceneManager.LoadScene("Intro");
+		}
+		if (Time.frameCount % (BossHealth*60) == 0) {
+			GameObject gameObject = Object.Instantiate(ObjToInst, transform.position, Quaternion.identity);
+			gameObject.transform.LookAt(Ball.position);
+			gameObject.transform.Translate(0f, 0f, 5);
+		}
+		
 		RaycastHit RCF;
 		RaycastHit RCB;
 		Physics.Raycast (transform.position + transform.forward, -transform.up, out RCF, 100);
@@ -72,7 +82,7 @@ public class Boss1_AI : MonoBehaviour
 		RB.AddRelativeTorque (0, 0, (RCF.distance-RCB.distance) * -1800000000 * Time.deltaTime);
 		if (PlayerHealth <= -1)
 		{
-			SceneManager.LoadScene("Golf 1-Boss");
+			SceneManager.LoadScene("Boss");
 		}
 		if (BossHealth == 1 && KeepGoing2)
 		{
@@ -152,7 +162,7 @@ public class Boss1_AI : MonoBehaviour
 							return;
 						}
 						Anim.enabled = false;
-						if (Vector3.Distance(base.transform.position, PlaceToGo) < 1f)
+						if (Vector3.Distance(base.transform.position, PlaceToGo) < 3f)
 						{
 							Renderer[] rend2 = Rend;
 							foreach (Renderer renderer2 in rend2)
@@ -162,10 +172,10 @@ public class Boss1_AI : MonoBehaviour
 							BlastHitBox2.enabled = true;
 							if (RotSpeed != 25f)
 							{
-								DirtPart.Play();
-								Invoke("PickNewSpot", 10f);
+								Invoke("PickNewSpot", 20f);
 							}
 							Orbs[4].SetActive(value: true);
+							DirtPart.Play();
 							Speed = 0f;
 							RotSpeed = 25f;
 							Vector3 vector3 = base.transform.InverseTransformPoint(Ball.position);
@@ -179,6 +189,9 @@ public class Boss1_AI : MonoBehaviour
 							{
 								base.transform.Rotate(0f, (0f - RotSpeed) * Time.deltaTime, 0f);
 							}
+							
+							RB.velocity = Vector3.zero;
+							RB.angularVelocity = Vector3.zero;
 							return;
 						}
 						BlastHitBox.enabled = true;
@@ -264,7 +277,7 @@ public class Boss1_AI : MonoBehaviour
 			}
 			else
 			{
-				Invoke("Back", 1f);
+				Invoke("Back", 2f);
 				Anim.enabled = true;
 				Anim.Play("Return");
 			}
@@ -272,7 +285,7 @@ public class Boss1_AI : MonoBehaviour
 		else
 		{
 			Anim.enabled = true;
-			SceneManager.LoadScene("Boss_1 End");
+			SceneManager.LoadScene("Credits");
 		}
 	}
 
@@ -284,14 +297,14 @@ public class Boss1_AI : MonoBehaviour
 	private void Asteroid()
 	{
 		GameObject gameObject = Object.Instantiate(ObjToInst, Ball.position, Quaternion.identity);
-		gameObject.transform.LookAt(new Vector3(0f, -10f, 0f));
+		gameObject.transform.LookAt(new Vector3(0f, 0f, 0f));
 		gameObject.transform.Translate(0f, 0f, -20f);
 	}
 
 	private void AsteroidEnd()
 	{
 		GameObject gameObject = Object.Instantiate(ObjToInst, Ball.position, Quaternion.identity);
-		gameObject.transform.LookAt(new Vector3(0f, -10f, 0f));
+		gameObject.transform.LookAt(new Vector3(0f, 0f, 0f));
 		gameObject.transform.Translate(0f, 0f, -20f);
 		KeepGoing2 = true;
 	}

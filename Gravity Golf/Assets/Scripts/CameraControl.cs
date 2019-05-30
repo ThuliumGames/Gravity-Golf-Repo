@@ -42,7 +42,9 @@ public class CameraControl : MonoBehaviour {
 	public bool isDying;
 	
 	private void Start() {
-		VertAng = 10f;
+		if (VertAng != 70) {
+			VertAng = 10f;
+		}
 		Cursor.visible = false;
 		Cursor.lockState = CursorLockMode.Locked;
 		
@@ -64,7 +66,7 @@ public class CameraControl : MonoBehaviour {
 			if (!Input.GetMouseButton(0)) {
 				CamDist -= Input.GetAxis ("Mouse ScrollWheel")*10;
 			} else {
-				HitAngle += Input.GetAxis ("Mouse ScrollWheel")*10;
+				HitAngle += Input.GetAxis ("Mouse ScrollWheel")*30;
 			}
 			CamDist = Mathf.Clamp (CamDist, 3, 25);
 			HitAngle = Mathf.Clamp (HitAngle, -90, 10);

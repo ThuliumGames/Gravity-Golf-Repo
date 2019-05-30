@@ -20,6 +20,7 @@ public class GolfHit : MonoBehaviour {
 	public Text Hits;
 
 	public Image Pow;
+	public Image AngGraph;
 
 	public GameObject ControlsPage;
 
@@ -76,14 +77,15 @@ public class GolfHit : MonoBehaviour {
 			
 			if (!Direction.GetComponentInParent<CameraControl>().isDying) {
 				bool CanKill = true;
-				if (Vector3.Distance (transform.position, Direction.GetComponentInParent<CameraControl>().LookObj.transform.position) > (Direction.GetComponentInParent<CameraControl>().LookObj.GetComponent<Planet>().Range+Direction.GetComponentInParent<CameraControl>().LookObj.GetComponent<Planet>().transform.localScale.x)*4) {
-					foreach (Planet P in GameObject.FindObjectsOfType<Planet>()) {
-						if (Vector3.Distance (transform.position, P.transform.position) > Vector3.Distance (transform.position+RB.velocity, P.transform.position) || Vector3.Distance (transform.position, P.transform.position) <= (P.Range+P.transform.localScale.x)*4) {
-							CanKill = false;
-						}
+				foreach (Portal P in GameObject.FindObjectsOfType<Portal>()) {
+					if (Vector3.Distance (transform.position+RB.velocity, P.transform.position) <= Vector3.Distance (transform.position, P.transform.position)) {
+						CanKill = false;
 					}
-				} else {
-					CanKill = false;
+				}
+				foreach (Planet P in GameObject.FindObjectsOfType<Planet>()) {
+					if (Vector3.Distance (transform.position+RB.velocity, P.transform.position) <= Vector3.Distance (transform.position, P.transform.position) || Vector3.Distance (transform.position, P.transform.position) <= (P.Range+P.transform.localScale.x)*4) {
+						CanKill = false;
+					}
 				}
 				
 				if (CanKill) {
@@ -145,6 +147,7 @@ public class GolfHit : MonoBehaviour {
 				if (RB.velocity.magnitude < 1f) {
 					RB.velocity = Vector3.zero;
 					Power -= Input.GetAxis("Mouse Y")*((Power/25)+0.1f);
+					AngGraph.transform.localPosition = new Vector3 (0, GameObject.FindObjectOfType<CameraControl>().HitAngle, 0);
 					if (PuttingMode) {
 						Power = Mathf.Clamp(Power, 0f, 21.375f);
 					} else {
@@ -306,7 +309,7 @@ public class GolfHit : MonoBehaviour {
 			} else {
 				CanDamage = true;
 			}
-			LastPlace = new Vector3(0f, 25.5f, 0f);
+			LastPlace = new Vector3(0f, 100.75f, 0f);
 		}
 		base.transform.position = LastPlace;
 		GameObject.FindObjectOfType<CameraControl>().VertAng = 10f;

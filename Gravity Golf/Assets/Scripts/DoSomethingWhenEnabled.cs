@@ -1,15 +1,10 @@
-﻿using System.Collections;
-using System.Diagnostics;
-using System.Reflection;
-using System.Runtime.CompilerServices;
-using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
+﻿using UnityEngine;
 
-public class DoSomethingWhenEnabled : MonoBehaviour
-{
-	private void OnEnabled()
-	{
-		GetComponent<Animator>().Play("ModeSelect");
+public class DoSomethingWhenEnabled : MonoBehaviour {
+	
+	public string animName;
+	
+	private void OnEnabled() {
+		GetComponent<Animator>().Play(animName);
 	}
 }

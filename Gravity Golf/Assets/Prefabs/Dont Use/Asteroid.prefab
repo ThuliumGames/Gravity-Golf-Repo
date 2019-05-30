@@ -248,7 +248,7 @@ MonoBehaviour:
   Spawner: 0
   SpawnTime: 0
   Range: 0
-  InitialSpeed: 0
+  InitialSpeed: 25
   Disable: {fileID: 1730737292739812}
   ChangeSize: {fileID: 135596841087898678}
 --- !u!114 &114316900304153862
