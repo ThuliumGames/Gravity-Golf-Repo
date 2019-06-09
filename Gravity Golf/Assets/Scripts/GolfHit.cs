@@ -54,9 +54,15 @@ public class GolfHit : MonoBehaviour {
 	
 	float CanFF;
 	
+	public static bool hideControls;
+	
 	public Image PMGlow;
+	
+	bool SlowDown;
 
 	private void Update() {
+		
+		ControlsPage.SetActive(!hideControls);
 		
 		if (base.name != "GBC(Clone)") {
 			
@@ -115,11 +121,7 @@ public class GolfHit : MonoBehaviour {
 				Pow.fillAmount = Power / 100f;
 			}
 			if (Input.GetKeyDown(KeyCode.T)) {
-				if (GameObject.Find(ControlsPage.name) != null) {
-					ControlsPage.SetActive(value: false);
-				} else {
-					ControlsPage.SetActive(value: true);
-				}
+				hideControls = !hideControls;
 			}
 			if (Input.GetKeyDown(KeyCode.Backspace)) {
 				Application.LoadLevel(Application.loadedLevel);
@@ -190,38 +192,46 @@ public class GolfHit : MonoBehaviour {
 			} else {
 				Camera.main.GetComponentInParent<Collider>().transform.localEulerAngles = new Vector3(0f, 0f, 0f);
 			}
-			if (((GameObject.Find("BossPlanet") == null || !Input.GetKey(KeyCode.D)) && (!OnGround || Direction.GetComponentInParent<CameraControl>().LookObj.name != "Desert")) && !inWater) {
-				if (!OnGround) {
-					RB.drag = 0.025f;
-				} else {
-					RB.drag = 0.05f;
-				}
-				if (RB.velocity.magnitude < 2f) {
-					RB.drag = 1f;
-				}
+			if (SlowDown) {
+				RB.drag = 4;
 			} else {
-				if (!inWater) {
-					RB.drag = 4f;
+				if (((GameObject.Find("BossPlanet") == null || !Input.GetKey(KeyCode.D)) && (!OnGround || Direction.GetComponentInParent<CameraControl>().LookObj.name != "Desert")) && !inWater) {
+					if (!OnGround) {
+						RB.drag = 0.025f;
+					} else {
+						RB.drag = 0.05f;
+					}
+					if (RB.velocity.magnitude < 2f) {
+						RB.drag = 1f;
+					}
 				} else {
-					RB.drag = 6f;
+					if (!inWater) {
+						RB.drag = 4f;
+					} else {
+						RB.drag = 6f;
+					}
 				}
 			}
 			
 		} else {
-			if (((GameObject.Find("BossPlanet") == null || !Input.GetKey(KeyCode.D)) && (!OnGround || GameObject.Find("Golf Ball").GetComponent<GolfHit>().Direction.GetComponentInParent<CameraControl>().LookObj.name != "Desert")) && !inWater) {
-				if (!OnGround) {
-					RB.drag = 0.025f;
-				} else {
-					RB.drag = 0.05f;
-				}
-				if (RB.velocity.magnitude < 2f) {
-					RB.drag = 1f;
-				}
+			if (SlowDown) {
+				RB.drag = 4;
 			} else {
-				if (!inWater) {
-					RB.drag = 4f;
+				if (((GameObject.Find("BossPlanet") == null || !Input.GetKey(KeyCode.D)) && (!OnGround || GameObject.Find("Golf Ball").GetComponent<GolfHit>().Direction.GetComponentInParent<CameraControl>().LookObj.name != "Desert")) && !inWater) {
+					if (!OnGround) {
+						RB.drag = 0.025f;
+					} else {
+						RB.drag = 0.05f;
+					}
+					if (RB.velocity.magnitude < 2f) {
+						RB.drag = 1f;
+					}
 				} else {
-					RB.drag = 6f;
+					if (!inWater) {
+						RB.drag = 4f;
+					} else {
+						RB.drag = 6f;
+					}
 				}
 			}
 		}
@@ -245,8 +255,7 @@ public class GolfHit : MonoBehaviour {
 					GetComponentInChildren<AudioSource>().clip = HitSounds[0];
 					T = 0f;
 				}
-			}
-			else if (Hit.gameObject.GetComponentInChildren<Renderer>().materials[0].name == "Rock (Instance)") {
+			} else if (Hit.gameObject.GetComponentInChildren<Renderer>().materials[0].name == "Metal (Instance)" || Hit.gameObject.GetComponentInChildren<Renderer>().materials[0].name == "Rock (Instance)") {
 				if (GetComponentInChildren<AudioSource>().clip != HitSounds[1]) {
 					GetComponentInChildren<AudioSource>().clip = HitSounds[1];
 					T = 0f;
@@ -269,6 +278,15 @@ public class GolfHit : MonoBehaviour {
 	private void OnCollisionEnter(Collision Hit) {
 		ShakeCamera(0.2f, RB.velocity.magnitude / 20f);
 		T = 0f;
+	}
+	
+	public void Slow () {
+		SlowDown = true;
+		Invoke ("UnSlow", 0.25f);
+	}
+	
+	void UnSlow () {
+		SlowDown = false;
 	}
 
 	private void OnCollisionExit(Collision Hit) {

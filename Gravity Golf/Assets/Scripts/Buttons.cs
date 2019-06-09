@@ -72,17 +72,30 @@ public class Buttons : MonoBehaviour
 					}
 				}
 				if (Input.GetKeyDown(KeyToPress) || ButtonPressed || (Input.GetButtonDown("Fire1") && hitInfo.collider.gameObject == base.gameObject)) {
+					
 					ButtonPressed = true;
+					
 					if (LevelName == "Quit") {
+						
 						Application.Quit();
+						
 					} else if (LevelName == "Ena") {
+						
 						if (GameObject.Find(ObjToEnable.name) == null) {
 							ObjToEnable.SetActive(value: true);
 						} else {
 							ObjToEnable.SetActive(value: false);
 						}
+						
+					} else if (GetComponent<Text>()) {
+						if (GetComponent<Text>().text == "Check For Updates") {
+							Application.OpenURL ("https://gamejolt.com/games/GravityGolfBeta/416803");
+						} else {
+							SceneManager.LoadScene(LevelName);
+						}
 					} else {
 						SceneManager.LoadScene(LevelName);
+						
 					}
 				}
 			} else if (ColorChanger) {

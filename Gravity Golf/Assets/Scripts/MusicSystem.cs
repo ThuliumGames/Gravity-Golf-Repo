@@ -27,7 +27,7 @@ public class MusicSystem : MonoBehaviour {
 	bool Stay = false;
 
 	private void Start() {
-		if (SceneManager.GetActiveScene.name == "Intro") {
+		if (SceneManager.GetActiveScene().name == "Intro") {
 			Stay = true;
 		} else {
 			if (GameObject.Find("GlubGloGabGalab") == null) {
