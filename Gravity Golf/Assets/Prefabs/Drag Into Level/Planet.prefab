@@ -58,6 +58,7 @@ GameObject:
   - component: {fileID: 4983487854408986}
   - component: {fileID: 114514244580102652}
   - component: {fileID: 114869357006744808}
+  - component: {fileID: 114207949200989464}
   m_Layer: 0
   m_Name: Grass Object
   m_TagString: Untagged
@@ -190,6 +191,23 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1494136895415772}
   m_Mesh: {fileID: 4300000, guid: 15cbf0c81fa11394cb6bfb4b80237790, type: 3}
+--- !u!114 &114207949200989464
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1960214188102602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc699fc4ab039ae4589471131c54aca6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Grass: {fileID: 1856144046511688, guid: df29f7d5b07ce6840bf34da1261e78c5, type: 2}
+  NoPlace: []
+  NoPlDis: 0
+  Density: 1000
+  Min: 0.25
+  Max: 0.5
 --- !u!114 &114514244580102652
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -223,6 +241,8 @@ MonoBehaviour:
   Direction: {x: 0, y: 0, z: 0}
   Range: 20
   pullForce: 1500
+  RigLis: []
+  RigLisPrev: []
 --- !u!114 &114869357006744808
 MonoBehaviour:
   m_ObjectHideFlags: 1

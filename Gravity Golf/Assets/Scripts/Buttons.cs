@@ -13,8 +13,10 @@ public class Buttons : MonoBehaviour
 	public string LevelName;
 	
 	public KeyCode KeyToPress;
+	public KeyCode KeyNotToPress;
 
 	public GameObject ObjToEnable;
+	public GameObject ObjToDisable;
 
 	public Shadow[] Ss;
 
@@ -26,6 +28,16 @@ public class Buttons : MonoBehaviour
 
 	private bool ButtonPressed;
 	
+	public bool isAc;
+	public static bool CanMove;
+	public static float ReMove;
+	public Buttons U;
+	public Buttons D;
+	public Buttons L;
+	public Buttons R;
+	public Buttons A;
+	public Buttons DA;
+	public Image I;
 	public bool AlwaysDisable;
 	public static bool SomethingPressed;
 	public static int FramePressed;
@@ -38,21 +50,76 @@ public class Buttons : MonoBehaviour
 		if (Time.frameCount != FramePressed) {
 			SomethingPressed = false;
 		}
+		
+		if (new Vector2 (Input.GetAxisRaw("Vertical"), Input.GetAxisRaw("Horizontal")).magnitude <= 0.25f || ReMove > 0.375f) {
+			if (ReMove <= 0.25f) {
+				ReMove = 0f;
+			} else {
+				ReMove = 0.125f;
+			}
+			CanMove = true;
+		}
+		
+		if (new Vector2 (Input.GetAxisRaw("Vertical"), Input.GetAxisRaw("Horizontal")).magnitude > 0.25f) {
+			ReMove += Time.deltaTime/GameObject.FindObjectsOfType<Buttons>().Length;
+		}
+		
+		if (isAc) {
+			if (CanMove) {
+				if (Input.GetAxisRaw("Vertical") > 0.5f) {
+					if (U != null) {
+						U.isAc = true;
+						isAc = false;
+					}
+					CanMove = false;
+				}
+				if (Input.GetAxisRaw("Vertical") < -0.5f) {
+					if (D != null) {
+						D.isAc = true;
+						isAc = false;
+					}
+					CanMove = false;
+				}
+				
+				if (Input.GetAxisRaw("Horizontal") > 0.5f) {
+					if (R != null) {
+						R.isAc = true;
+						isAc = false;
+					}
+					CanMove = false;
+				}
+				if (Input.GetAxisRaw("Horizontal") < -0.5f) {
+					if (L != null) {
+						L.isAc = true;
+						isAc = false;
+					}
+					CanMove = false;
+				}
+			}
+			I.transform.position = Vector3.Lerp (I.transform.position, transform.position + new Vector3 (-2+(Mathf.Sin(Time.frameCount/8)/2), 0, 0), 5*Time.deltaTime);
+		}
+		
+		if (KeyNotToPress != null) {
+			if (Input.GetKeyDown(KeyNotToPress) && isAc) {
+				DA.isAc = true;
+				isAc = false;
+				if (ObjToDisable != null) {
+					ObjToDisable.SetActive (false);
+				}
+			}
+		}
+		
 		Camera cam = Cam;
 		Vector3 mousePosition = Input.mousePosition;
 		float x = mousePosition.x;
 		Vector3 mousePosition2 = Input.mousePosition;
 		RaycastHit hitInfo;
-		bool TurnOff1 = true;
-		bool TurnOff2 = true;
-		bool TurnOff3 = true;
-		if (Physics.Raycast(cam.ScreenPointToRay(new Vector3(x, mousePosition2.y, 0f)), out hitInfo, float.PositiveInfinity) || ButtonPressed || KeyToPress != null) {
-			TurnOff1 = false;
+		bool TurnOff = true;
+		if (Physics.Raycast(cam.ScreenPointToRay(new Vector3(x, mousePosition2.y, 0f)), out hitInfo, float.PositiveInfinity) || ButtonPressed || (KeyToPress != null && isAc)) {
 			if (KeyToPress != null || hitInfo.collider.gameObject == base.gameObject || ButtonPressed) {
 				if (hitInfo.collider != null) {
-					TurnOff2 = false;
 					if (hitInfo.collider.gameObject == base.gameObject) {
-						TurnOff3 = false;
+						TurnOff = false;
 						if (Input.GetMouseButtonDown(0)) {
 							SomethingPressed = true;
 							FramePressed = Time.frameCount;
@@ -71,7 +138,7 @@ public class Buttons : MonoBehaviour
 						}
 					}
 				}
-				if (Input.GetKeyDown(KeyToPress) || ButtonPressed || (Input.GetButtonDown("Fire1") && hitInfo.collider.gameObject == base.gameObject)) {
+				if ((Input.GetKeyDown(KeyToPress) && isAc) || ButtonPressed || (Input.GetButtonDown("Fire1") && hitInfo.collider.gameObject == base.gameObject)) {
 					
 					ButtonPressed = true;
 					
@@ -91,12 +158,37 @@ public class Buttons : MonoBehaviour
 						if (GetComponent<Text>().text == "Check For Updates") {
 							Application.OpenURL ("https://gamejolt.com/games/GravityGolfBeta/416803");
 						} else {
-							SceneManager.LoadScene(LevelName);
+							if (LevelName.Contains("Level")) {
+								if (LevelName.Contains("1") && !LevelName.Contains("2-1") && !LevelName.Contains("3-1")) {
+									SceneManager.LoadScene("Scenes/World 1/" + LevelName);
+								} else if (LevelName.Contains("2") && !LevelName.Contains("1-2") && !LevelName.Contains("3-2")) {
+									SceneManager.LoadScene("Scenes/World 2/" + LevelName);
+								} else if (LevelName.Contains("1") && !LevelName.Contains("1-3") && !LevelName.Contains("2-3")) {
+									SceneManager.LoadScene("Scenes/World 3/" + LevelName);
+								}
+							} else {
+								SceneManager.LoadScene(LevelName);
+							}
 						}
 					} else {
-						SceneManager.LoadScene(LevelName);
-						
+						if (LevelName.Contains("Level")) {
+							if (LevelName.Contains("1") && !LevelName.Contains("2-1") && !LevelName.Contains("3-1")) {
+								SceneManager.LoadScene("Scenes/World 1/" + LevelName);
+							} else if (LevelName.Contains("2") && !LevelName.Contains("1-2") && !LevelName.Contains("3-2")) {
+								SceneManager.LoadScene("Scenes/World 2/" + LevelName);
+							} else if (LevelName.Contains("1") && !LevelName.Contains("1-3") && !LevelName.Contains("2-3")) {
+								SceneManager.LoadScene("Scenes/World 3/" + LevelName);
+							}
+						} else {
+							SceneManager.LoadScene(LevelName);
+						}
 					}
+					
+					if (A != null) {
+						A.isAc = true;
+						isAc = false;
+					}
+					
 				}
 			} else if (ColorChanger) {
 				Text[] componentsInChildren2 = GetComponentsInChildren<Text>();
@@ -113,7 +205,7 @@ public class Buttons : MonoBehaviour
 				}
 			}
 		}
-		if (ColorChanger && (TurnOff1 || TurnOff2 || TurnOff3)) {
+		if (ColorChanger && TurnOff) {
 			Text[] componentsInChildren3 = GetComponentsInChildren<Text>();
 			foreach (Text text3 in componentsInChildren3) {
 				GetComponent<Text>().color = DefColor;

@@ -235,9 +235,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Wow! This wall is really big and it dosn't look like you'll be able to get
-    over the normal way. Use this <Color=Orange>Worm Hole</Color> to <Color=blue>Teleport</Color>
-    you above the wall and to the goal.
+  m_Text: Wow! That wall behind you looks really big and it dosn't look like you'll
+    be able to get over the normal way. Use this <Color=Orange>Worm Hole</Color> to
+    <Color=blue>Teleport</Color> above the wall and to the goal.
 --- !u!222 &604172848
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -370,7 +370,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4595674506130050, guid: 71d1d4cd3b8b6c0449ea62acb0930b11, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 25
+      value: -6
       objectReference: {fileID: 0}
     - target: {fileID: 4595674506130050, guid: 71d1d4cd3b8b6c0449ea62acb0930b11, type: 2}
       propertyPath: m_LocalRotation.x
@@ -391,10 +391,6 @@ Prefab:
     - target: {fileID: 4595674506130050, guid: 71d1d4cd3b8b6c0449ea62acb0930b11, type: 2}
       propertyPath: m_RootOrder
       value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 4595674506130050, guid: 71d1d4cd3b8b6c0449ea62acb0930b11, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: -90
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 71d1d4cd3b8b6c0449ea62acb0930b11, type: 2}
@@ -440,11 +436,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4606380115635858, guid: b34121dd892adad4e8dc94d5fd6d94f3, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 16.8
+      value: -2
       objectReference: {fileID: 0}
     - target: {fileID: 4606380115635858, guid: b34121dd892adad4e8dc94d5fd6d94f3, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 76.4
+      value: 74
       objectReference: {fileID: 0}
     - target: {fileID: 4169217496496098, guid: b34121dd892adad4e8dc94d5fd6d94f3, type: 2}
       propertyPath: m_LocalPosition.z
@@ -456,19 +452,27 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4606380115635858, guid: b34121dd892adad4e8dc94d5fd6d94f3, type: 2}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: 0.17364825
       objectReference: {fileID: 0}
     - target: {fileID: 4606380115635858, guid: b34121dd892adad4e8dc94d5fd6d94f3, type: 2}
       propertyPath: m_LocalRotation.y
-      value: 0.97127986
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4606380115635858, guid: b34121dd892adad4e8dc94d5fd6d94f3, type: 2}
       propertyPath: m_LocalRotation.z
-      value: 0.23794016
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4606380115635858, guid: b34121dd892adad4e8dc94d5fd6d94f3, type: 2}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: -27.53
+      value: -20
+      objectReference: {fileID: 0}
+    - target: {fileID: 4606380115635858, guid: b34121dd892adad4e8dc94d5fd6d94f3, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: -0.9848078
+      objectReference: {fileID: 0}
+    - target: {fileID: 4606380115635858, guid: b34121dd892adad4e8dc94d5fd6d94f3, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 360
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b34121dd892adad4e8dc94d5fd6d94f3, type: 2}
@@ -486,11 +490,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4433708416503584, guid: ae24326af5a3bec40938d0f3e7d8e6a7, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4433708416503584, guid: ae24326af5a3bec40938d0f3e7d8e6a7, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 100
+      value: -100
       objectReference: {fileID: 0}
     - target: {fileID: 4433708416503584, guid: ae24326af5a3bec40938d0f3e7d8e6a7, type: 2}
       propertyPath: m_LocalRotation.x
@@ -502,7 +506,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4433708416503584, guid: ae24326af5a3bec40938d0f3e7d8e6a7, type: 2}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4433708416503584, guid: ae24326af5a3bec40938d0f3e7d8e6a7, type: 2}
       propertyPath: m_LocalRotation.w
@@ -516,6 +520,10 @@ Prefab:
         type: 2}
       propertyPath: Par
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4433708416503584, guid: ae24326af5a3bec40938d0f3e7d8e6a7, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ae24326af5a3bec40938d0f3e7d8e6a7, type: 2}

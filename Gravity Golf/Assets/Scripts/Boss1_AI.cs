@@ -110,7 +110,7 @@ public class Boss1_AI : MonoBehaviour
 		Renderer[] rend = Rend;
 		foreach (Renderer renderer in rend)
 		{
-			renderer.materials[0].color = Color.white;
+			renderer.materials[0].SetColor ("_BaseColor", Color.white);
 		}
 		if (BossHealth > 0)
 		{
@@ -167,7 +167,7 @@ public class Boss1_AI : MonoBehaviour
 							Renderer[] rend2 = Rend;
 							foreach (Renderer renderer2 in rend2)
 							{
-								renderer2.materials[0].color = Color.red;
+								renderer2.materials[0].SetColor ("_BaseColor", Color.red);
 							}
 							BlastHitBox2.enabled = true;
 							if (RotSpeed != 25f)
@@ -221,7 +221,7 @@ public class Boss1_AI : MonoBehaviour
 				Renderer[] rend3 = Rend;
 				foreach (Renderer renderer3 in rend3)
 				{
-					renderer3.materials[0].color = Color.red;
+					renderer3.materials[0].SetColor ("_BaseColor", Color.red);
 				}
 				AngryHitBox.enabled = true;
 				Anim.enabled = false;

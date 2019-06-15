@@ -59,12 +59,25 @@ public class GolfHit : MonoBehaviour {
 	public Image PMGlow;
 	
 	bool SlowDown;
+	
+	public AudioSource PowerSource;
 
 	private void Update() {
 		
-		ControlsPage.SetActive(!hideControls);
+		if (PowerSource != null) {
+			PowerSource.pitch = Mathf.Lerp (PowerSource.pitch, 10000/Mathf.Pow(-Power+200, 2), 10*Time.deltaTime);
+			PowerSource.volume = Mathf.Lerp (PowerSource.volume, ((-(Power/100)+3f)/10)-0.075f, 10*Time.deltaTime);
+		}
 		
 		if (base.name != "GBC(Clone)") {
+			
+			ControlsPage.SetActive(!hideControls);
+			
+			if (inWater) {
+				GameObject.Find("WaterSound").GetComponent<AudioSource>().volume = RB.velocity.magnitude;
+			} else {
+				GameObject.Find("WaterSound").GetComponent<AudioSource>().volume = 0;
+			}
 			
 			if (RB.velocity.magnitude < 1f) {
 				CanFF = 0;
@@ -208,6 +221,9 @@ public class GolfHit : MonoBehaviour {
 					if (!inWater) {
 						RB.drag = 4f;
 					} else {
+						if (RB.drag != 6) {
+							GameObject.Find("WaterHit").GetComponent<AudioSource>().Play();
+						}
 						RB.drag = 6f;
 					}
 				}

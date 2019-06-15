@@ -88,7 +88,7 @@ public class CameraControl : MonoBehaviour {
 				if (!MovingCam) {
 					CamFixer.position = Cam.position;
 					CamFixer.rotation = Cam.rotation;
-					Invoke ("StopCam", 1.5f);
+					Invoke ("StopCam", 1f);
 				}
 				MovingCam = true;
 			}
@@ -122,8 +122,8 @@ public class CameraControl : MonoBehaviour {
 					FixSpeed += Time.deltaTime*1;
 					CamFixer.GetComponent<Camera>().depth = 1;
 					if (Vector3.Distance (CamFixer.position, Cam.position) > 1f || NewPlanet) {
-						CamFixer.position = Vector3.Lerp (CamFixer.position, Cam.position, FixSpeed*0.5f*Vector3.Distance (CamFixer.position, Cam.position)*Time.deltaTime);
-						CamFixer.rotation = Quaternion.RotateTowards (CamFixer.rotation, Cam.rotation, FixSpeed*360f*Time.deltaTime);
+						CamFixer.position = Vector3.Lerp (CamFixer.position, Cam.position, FixSpeed*5f*Vector3.Distance (CamFixer.position, Cam.position)*Time.deltaTime);
+						CamFixer.rotation = Quaternion.RotateTowards (CamFixer.rotation, Cam.rotation, FixSpeed*3600f*Time.deltaTime);
 					} else {
 						MovingCam = false;
 					}
@@ -141,7 +141,7 @@ public class CameraControl : MonoBehaviour {
 					}
 					VertAng = Mathf.Clamp (VertAng, -90, 90);
 					transform.eulerAngles = ParentControl.eulerAngles;
-					transform.position = Vector3.Lerp (transform.position, ParentControl.position, 25*Time.deltaTime);
+					transform.position = Vector3.Lerp (transform.position, ParentControl.position, 250*Time.deltaTime);
 				} else {
 					ParentControl.position = Ball.position;
 					ParentControl.LookAt(LookPos.position);
@@ -154,53 +154,6 @@ public class CameraControl : MonoBehaviour {
 				Cam.localEulerAngles = Vector3.zero;
 				Cam.Rotate (VertAng, Ang, 0);
 				BallRot.localEulerAngles = new Vector3 (HitAngle, Cam.localEulerAngles.y, 0);
-				
-				//Ball Rendering
-				BallParent.GetComponentInChildren<TrailRenderer>().enabled = true;
-				RaycastHit hitInfo;
-				if (Physics.Raycast(Ball.transform.position, -Cam.transform.forward, out hitInfo, CamDist, LM)) {
-					Cam.Translate(0f, 0f, -hitInfo.distance + 0.1f);
-					if (hitInfo.distance < 0.5f) {
-						if (hitInfo.distance < 0.375f) {
-							BallParent.GetComponentInChildren<TrailRenderer>().enabled = false;
-						}
-						if (hitInfo.distance < 0.19f) {
-							BallParent.GetComponent<MeshRenderer>().materials[0].color = new Color(1f, 1f, 1f, 0f);
-						} else {
-							BallParent.GetComponent<MeshRenderer>().materials[0].color = new Color(1f, 1f, 1f, Mathf.Clamp01(hitInfo.distance * 2f) - 0.375f);
-						}
-						BallParent.GetComponent<MeshRenderer>().material.SetFloat("_Mode", 2f);
-						BallParent.GetComponent<MeshRenderer>().material.SetInt("_SrcBlend", 5);
-						BallParent.GetComponent<MeshRenderer>().material.SetInt("_DstBlend", 10);
-						BallParent.GetComponent<MeshRenderer>().material.SetInt("_ZWrite", 0);
-						BallParent.GetComponent<MeshRenderer>().material.DisableKeyword("_ALPHATEST_ON");
-						BallParent.GetComponent<MeshRenderer>().material.EnableKeyword("_ALPHABLEND_ON");
-						BallParent.GetComponent<MeshRenderer>().material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
-						BallParent.GetComponent<MeshRenderer>().material.renderQueue = 3000;
-					} else {
-						BallParent.GetComponent<MeshRenderer>().material.SetFloat("_Mode", 0f);
-						BallParent.GetComponent<MeshRenderer>().material.SetInt("_SrcBlend", 5);
-						BallParent.GetComponent<MeshRenderer>().material.SetInt("_DstBlend", 10);
-						BallParent.GetComponent<MeshRenderer>().material.SetInt("_ZWrite", 1);
-						BallParent.GetComponent<MeshRenderer>().material.DisableKeyword("_ALPHATEST_ON");
-						BallParent.GetComponent<MeshRenderer>().material.DisableKeyword("_ALPHABLEND_ON");
-						BallParent.GetComponent<MeshRenderer>().material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
-						BallParent.GetComponent<MeshRenderer>().material.renderQueue = 2000;
-					}
-				} else {
-					
-					Cam.Translate(0f, 0f, 0f - CamDist + 0.1f);
-					
-					BallParent.GetComponent<MeshRenderer>().material.SetFloat("_Mode", 0f);
-					BallParent.GetComponent<MeshRenderer>().material.SetInt("_SrcBlend", 5);
-					BallParent.GetComponent<MeshRenderer>().material.SetInt("_DstBlend", 10);
-					BallParent.GetComponent<MeshRenderer>().material.SetInt("_ZWrite", 1);
-					BallParent.GetComponent<MeshRenderer>().material.DisableKeyword("_ALPHATEST_ON");
-					BallParent.GetComponent<MeshRenderer>().material.DisableKeyword("_ALPHABLEND_ON");
-					BallParent.GetComponent<MeshRenderer>().material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
-					BallParent.GetComponent<MeshRenderer>().material.renderQueue = 2000;
-				}
-				
 			} else {
 				Cursor.visible = true;
 				Cursor.lockState = CursorLockMode.None;
@@ -219,7 +172,66 @@ public class CameraControl : MonoBehaviour {
 		} else {
 			Cam.transform.LookAt (Ball.position);
 			if (Ball != null) {
-				BallParent.position = Vector3.Lerp (BallParent.position, Ball.position, 15*Time.deltaTime);
+				BallParent.position = Vector3.Lerp (BallParent.position, Ball.position, 150*Time.deltaTime);
+			}
+		}
+	}
+	
+	void LateUpdate () {
+		if (!isDying && !Object.FindObjectOfType<Win>().EndThing) {
+			//Ball Rendering
+			BallParent.GetComponentInChildren<TrailRenderer>().enabled = true;
+			RaycastHit hitInfo;
+			
+			if (Physics.Raycast(Ball.transform.position, -Cam.transform.forward, out hitInfo, CamDist, LayerMask.NameToLayer("Everything"))) {
+				
+				if (hitInfo.collider.gameObject.layer == LayerMask.NameToLayer ("Tree") || hitInfo.collider.gameObject.layer == LayerMask.NameToLayer ("Branch")) {
+					foreach (FixColor G in GameObject.FindObjectsOfType<FixColor>()) {
+						if (G.gameObject.layer == LayerMask.NameToLayer ("Tree")) {
+							MeshRenderer MR = G.GetComponent<MeshRenderer>();
+							Color c = MR.materials[0].GetColor ("_BaseColor");
+							MR.material.SetFloat("_Mode", 2f);
+							MR.material.SetInt("_SrcBlend", 5);
+							MR.material.SetInt("_DstBlend", 10);
+							MR.material.SetInt("_ZWrite", 0);
+							MR.material.DisableKeyword("_ALPHATEST_ON");
+							MR.material.EnableKeyword("_ALPHABLEND_ON");
+							MR.material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
+							MR.material.renderQueue = 3000;
+							MR.materials[0].SetColor ("_BaseColor", new Color(c.r, c.g, c.b, 0.5f));
+						}
+					}
+				}
+			}
+			
+			
+			if (Physics.Raycast(Ball.transform.position, -Cam.transform.forward, out hitInfo, CamDist, LM)) {
+				Cam.Translate(0f, 0f, -hitInfo.distance + 0.1f);
+				if (hitInfo.distance < 0.5f) {
+					if (hitInfo.distance < 0.375f) {
+						BallParent.GetComponentInChildren<TrailRenderer>().enabled = false;
+					}
+					
+					BallParent.GetComponent<MeshRenderer>().material.SetFloat("_Mode", 2f);
+					BallParent.GetComponent<MeshRenderer>().material.SetInt("_SrcBlend", 5);
+					BallParent.GetComponent<MeshRenderer>().material.SetInt("_DstBlend", 10);
+					BallParent.GetComponent<MeshRenderer>().material.SetInt("_ZWrite", 0);
+					BallParent.GetComponent<MeshRenderer>().material.DisableKeyword("_ALPHATEST_ON");
+					BallParent.GetComponent<MeshRenderer>().material.EnableKeyword("_ALPHABLEND_ON");
+					BallParent.GetComponent<MeshRenderer>().material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
+					BallParent.GetComponent<MeshRenderer>().material.renderQueue = 3000;
+					
+					if (hitInfo.distance < 0.19f) {
+						BallParent.GetComponent<MeshRenderer>().materials[0].SetColor ("_BaseColor", new Color(1f, 1f, 1f, 0f));
+					} else {
+						BallParent.GetComponent<MeshRenderer>().materials[0].SetColor ("_BaseColor", new Color(1f, 1f, 1f, Mathf.Clamp01(hitInfo.distance * 2f) - 0.375f));
+					}
+				} else {
+					BallParent.GetComponent<MeshRenderer>().materials[0].SetColor ("_BaseColor", new Color(1f, 1f, 1f, 1f));
+				}
+			} else {
+				Cam.Translate(0f, 0f, 0f - CamDist + 0.1f);
+				BallParent.GetComponent<MeshRenderer>().materials[0].SetColor ("_BaseColor", new Color(1f, 1f, 1f, 1f));
 			}
 		}
 	}

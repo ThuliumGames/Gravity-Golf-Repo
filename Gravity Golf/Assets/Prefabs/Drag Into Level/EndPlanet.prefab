@@ -89,6 +89,7 @@ GameObject:
   - component: {fileID: 4578933047780382}
   - component: {fileID: 114943466251201142}
   - component: {fileID: 114792306660512258}
+  - component: {fileID: 114319781963360820}
   m_Layer: 0
   m_Name: Grass Object
   m_TagString: Untagged
@@ -910,6 +911,26 @@ MonoBehaviour:
   Direction: {x: 0, y: 0, z: 0}
   Range: 20
   pullForce: 1500
+  RigLis: []
+  RigLisPrev: []
+--- !u!114 &114319781963360820
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1651966072322294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc699fc4ab039ae4589471131c54aca6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Grass: {fileID: 1856144046511688, guid: df29f7d5b07ce6840bf34da1261e78c5, type: 2}
+  NoPlace:
+  - {fileID: 4690837094228398}
+  NoPlDis: 7
+  Density: 1000
+  Min: 0.25
+  Max: 0.5
 --- !u!114 &114777472230581142
 MonoBehaviour:
   m_ObjectHideFlags: 1
