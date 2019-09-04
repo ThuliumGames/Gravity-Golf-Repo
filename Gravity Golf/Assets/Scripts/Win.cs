@@ -29,11 +29,20 @@ public class Win : MonoBehaviour {
 		canvas = GameObject.Find("All Level Objects/Win");
 		WinText = GameObject.Find("All Level Objects/Win/Text").GetComponent<ExtendedTextMeshProUGUI>();
 		ParText = GameObject.Find("ParText").GetComponent<Text>();
-		ParText.text = Par.ToString();
+		if (GameObject.Find ("BossPlanet")) {
+			ParText.text = "5";
+		} else {
+			ParText.text = Par.ToString();
+		}
 		canvas.SetActive(value: false);
 	}
 
 	private void LateUpdate() {
+		
+		if (Input.GetKey (KeyCode.J)) {
+			PlayerPrefs.DeleteAll();
+		}
+		
 		if (Ball != null && EndThing) {
 			if (EndThing2) {
 				Ball.GetComponent<Rigidbody>().velocity = -base.transform.up * 2f;
@@ -71,7 +80,7 @@ public class Win : MonoBehaviour {
 			GameObject.Find("HIOWin").GetComponent<AudioSource>().Play();
 			Ball.GetComponent<GolfHit>().HoleIOConfetti.SetActive(true);
 		} else if (Ball.GetComponent<GolfHit>().Strokes == Par) {
-			WinText.text = "Par\n-0";
+			WinText.text = "Par\n0";
 		} else if (Ball.GetComponent<GolfHit>().Strokes > Par) {
 			if (Ball.GetComponent<GolfHit>().Strokes == Par + 1) {
 				WinText.text = "Bogey\n+" + (Ball.GetComponent<GolfHit>().Strokes - Par);
@@ -92,7 +101,24 @@ public class Win : MonoBehaviour {
 			}
 		}
 		WinText.lineSpacing = Mathf.Clamp(((WinText.text.ToCharArray().Length-7)*4), 1, 250);
-		WinText.transform.localPosition = new Vector3 (0, Mathf.Clamp(-((WinText.text.ToCharArray().Length)*6), -100, -30), 0);
+		WinText.transform.localPosition = new Vector3 (0, Mathf.Clamp(-((WinText.text.ToCharArray().Length)*6)+50, -100+50, -30+50), 0);
+		
+		PlayerPrefs.SetInt("ScoreTemp", PlayerPrefs.GetInt("ScoreTemp", 0)+(Ball.GetComponent<GolfHit>().Strokes - Par));
+		print (PlayerPrefs.GetInt("ScoreTemp", 0));
+		
+		print (SceneManager.GetActiveScene().path);
+		if (SceneManager.GetActiveScene().name == "Boss" || SceneManager.GetActiveScene().path == "Assets/Scenes/World 1/Mini-Boss.unity") {
+			char[] cTemp = SceneManager.GetActiveScene().path.ToCharArray();
+			if (PlayerPrefs.GetInt("ScoreTemp", 0) < PlayerPrefs.GetInt("Score" + cTemp[20], 0)) {
+				PlayerPrefs.SetInt("Score" + cTemp[20], PlayerPrefs.GetInt("ScoreTemp", 0));
+				PlayerPrefs.SetInt("NumOB" + cTemp[20], PlayerPrefs.GetInt("NumOBTemp", 0));
+				PlayerPrefs.SetInt("NumReset" + cTemp[20], PlayerPrefs.GetInt("NumResetTemp", 0));
+			}
+			PlayerPrefs.SetInt("ScoreTemp", 0);
+			PlayerPrefs.SetInt("NumOBTemp", 0);
+			PlayerPrefs.SetInt("NumResetTemp", 0);
+			PlayerPrefs.SetString("SaveLevel", "");
+		}
 		Object.Destroy(Ball);
 	}
 }

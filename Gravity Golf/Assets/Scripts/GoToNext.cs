@@ -18,7 +18,7 @@ public class GoToNext : MonoBehaviour {
 	private void Update() {
 		T += Time.deltaTime;
 		
-		if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Escape) || (MaxTime != 0 && T >= MaxTime)) {
+		if (Input.GetButtonDown("Fire2") || Input.GetButtonDown("Fire1") || Input.GetButtonDown("Submit") || Input.GetButtonDown("Cancel") || (MaxTime != 0 && T >= MaxTime)) {
 			if (isSceneSwitcher) {
 				SceneManager.LoadScene(AName);
 			} else {

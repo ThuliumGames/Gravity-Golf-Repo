@@ -287,8 +287,10 @@ MonoBehaviour:
   DisableIfClose: 0
   isDirectional: 0
   Direction: {x: 0, y: 0, z: 0}
-  Range: 7.5
+  Range: -30
   pullForce: -10000
+  RigLis: []
+  RigLisPrev: []
 --- !u!114 &114064174995954490
 MonoBehaviour:
   m_ObjectHideFlags: 1

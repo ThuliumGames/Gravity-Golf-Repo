@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4068951406737016}
   - component: {fileID: 114690887355971032}
   - component: {fileID: 114143852074090278}
-  - component: {fileID: 114451546194289492}
+  - component: {fileID: 114320479984239494}
   m_Layer: 0
   m_Name: Grass Object
   m_TagString: Untagged
@@ -208,7 +208,7 @@ MonoBehaviour:
   Density: 3
   Min: 2
   Max: 4
---- !u!114 &114451546194289492
+--- !u!114 &114320479984239494
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -222,7 +222,7 @@ MonoBehaviour:
   Grass: {fileID: 1856144046511688, guid: df29f7d5b07ce6840bf34da1261e78c5, type: 2}
   NoPlace: []
   NoPlDis: 0
-  Density: 500
+  Density: 50
   Min: 0.5
   Max: 1
 --- !u!114 &114481119135634856

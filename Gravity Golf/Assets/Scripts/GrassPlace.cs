@@ -6,8 +6,10 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class GrassPlace : MonoBehaviour
-{
+public class GrassPlace : MonoBehaviour {
+	
+	public bool Flat;
+	
 	public GameObject Grass;
 
 	public Transform[] NoPlace;
@@ -22,30 +24,36 @@ public class GrassPlace : MonoBehaviour
 
 	private void Start() {
 		for (int i = 0; i < Density; i++) {
-			GameObject grass = Grass;
-			Vector3 position = base.transform.position;
-			Vector3 onUnitSphere = Random.onUnitSphere;
-			Vector3 localScale = base.transform.localScale;
-			GameObject gameObject = Object.Instantiate(grass, position + (onUnitSphere * localScale.x), new Quaternion(0f, 0f, 0f, 0f));
-			gameObject.transform.SetParent(base.transform);
-			gameObject.transform.LookAt(base.transform.position);
-			gameObject.transform.Rotate(180f, 0f, Random.Range(0, 360));
+			GameObject Go;
+			Vector3 localScale = transform.localScale;
+			if (!Flat) {
+				Go = Object.Instantiate(Grass, transform.position + (Random.onUnitSphere * localScale.x), new Quaternion(0f, 0f, 0f, 0f));
+				Go.transform.SetParent(transform);
+				Go.transform.LookAt(transform.position);
+				Go.transform.Rotate(180f, 0f, Random.Range(0, 360));
+			} else {
+				Go = Object.Instantiate(Grass, transform.position + new Vector3 (Random.Range (-localScale.x/2, localScale.x/2), Random.Range (-localScale.y/2, localScale.y/2), Random.Range (-localScale.z/2, localScale.z/2)), new Quaternion(0f, 0f, 0f, 0f));
+				Go.transform.Rotate(0f, Random.Range(0, 360), 0f);
+			}
 			float num = Random.Range(Min, Max);
-			Transform transform = gameObject.transform;
-			float num2 = num;
-			Vector3 localScale2 = base.transform.localScale;
-			float x = num2 / localScale2.x;
-			float num3 = num;
-			Vector3 localScale3 = base.transform.localScale;
-			float y = num3 / localScale3.x;
-			float num4 = num;
-			Vector3 localScale4 = base.transform.localScale;
-			transform.localScale = new Vector3(x, y, num4 / localScale4.x);
+			if (!Flat) {
+				float num2 = num;
+				Vector3 localScale2 = base.transform.localScale;
+				float x = num2 / localScale2.x;
+				float num3 = num;
+				Vector3 localScale3 = base.transform.localScale;
+				float y = num3 / localScale3.x;
+				float num4 = num;
+				Vector3 localScale4 = base.transform.localScale;
+				Go.transform.localScale = new Vector3(x, y, num4 / localScale4.x);
+			} else {
+				Go.transform.localScale = new Vector3(num, num, num);
+			}
 			if (NoPlace.Length > 0) {
 				Transform[] noPlace = NoPlace;
 				foreach (Transform transform2 in noPlace) {
-					if (Vector3.Distance(gameObject.transform.position, transform2.position) < NoPlDis) {
-						Object.Destroy(gameObject);
+					if (Vector3.Distance(Go.transform.position, transform2.position) < NoPlDis) {
+						Object.Destroy(Go);
 						i--;
 					}
 				}

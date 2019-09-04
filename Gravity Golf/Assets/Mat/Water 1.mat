@@ -11,7 +11,7 @@ Material:
   m_ShaderKeywords: _BLENDMODE_ALPHA _BLENDMODE_PRESERVE_SPECULAR_LIGHTING _ENABLE_FOG_ON_TRANSPARENT
     _NORMALMAP_TANGENT_SPACE _REFRACTION_PLANE _REFRACTION_SSRAY_HIZ _SURFACE_TYPE_TRANSPARENT
   m_LightmapFlags: 2
-  m_EnableInstancingVariants: 0
+  m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: 3000
   stringTagMap:

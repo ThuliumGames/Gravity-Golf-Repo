@@ -29,6 +29,7 @@ public class MusicSystem : MonoBehaviour {
 	private void Start() {
 		if (SceneManager.GetActiveScene().name == "Intro") {
 			Stay = true;
+			Time.timeScale = 1;
 		} else {
 			if (GameObject.Find("GlubGloGabGalab") == null) {
 				base.name = "GlubGloGabGalab";
@@ -43,11 +44,8 @@ public class MusicSystem : MonoBehaviour {
 	private void Update() {
 		
 		if (!Stay) {
-			if (SceneManager.GetActiveScene().name == "Intro" || SceneManager.GetActiveScene().name == "Boss") {
+			if (SceneManager.GetActiveScene().name == "Intro" || SceneManager.GetActiveScene().name == "Boss" || SceneManager.GetActiveScene().name == "Mini-Boss Intro") {
 				Object.Destroy(base.gameObject);
-			}
-			if (Input.GetKeyDown(KeyCode.Escape)) {
-				SceneManager.LoadScene("Intro");
 			}
 		}
 		
@@ -78,6 +76,14 @@ public class MusicSystem : MonoBehaviour {
 		} else {
 			Music.volume = Mathf.Lerp(Music.volume, 0f, 0.5f * Time.deltaTime);
 			BackgroundSound.volume = Mathf.Lerp(BackgroundSound.volume, 0.5f, 0.05f * Time.deltaTime);
+		}
+		
+		if (GameObject.Find("SongPlaying") != null) {
+			if (Music.isPlaying) {
+				GameObject.Find("SongPlaying").GetComponent<Text>().text = "♪ " + Music.clip.name + " ♪";
+			} else {
+				GameObject.Find("SongPlaying").GetComponent<Text>().text = "♪ " + BackgroundSound.clip.name + " ♪";
+			}
 		}
 	}
 }

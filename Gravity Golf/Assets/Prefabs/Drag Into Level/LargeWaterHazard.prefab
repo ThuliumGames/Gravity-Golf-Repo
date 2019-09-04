@@ -66,6 +66,39 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1443437616496638
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4492897802440074}
+  - component: {fileID: 114124116566611722}
+  - component: {fileID: 114405340554633920}
+  m_Layer: 0
+  m_Name: Grass Object
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1581261569896848
+GameObject:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4109875138092906}
+  - component: {fileID: 114031788854586924}
+  m_Layer: 0
+  m_Name: Grass Object
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1641102000437674
 GameObject:
   m_ObjectHideFlags: 0
@@ -116,6 +149,19 @@ Transform:
   m_Father: {fileID: 4434535897653130}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4109875138092906
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1581261569896848}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 20, y: 20, z: 20}
+  m_Children: []
+  m_Father: {fileID: 4450352982882436}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4292556949915870
 Transform:
   m_ObjectHideFlags: 1
@@ -136,12 +182,13 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1641102000437674}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 162.7, y: 0, z: 195.3}
   m_LocalScale: {x: 4, y: 4, z: 4}
   m_Children:
   - {fileID: 4064881592257342}
   - {fileID: 4450352982882436}
   - {fileID: 4548414895329388}
+  - {fileID: 4492897802440074}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -156,8 +203,22 @@ Transform:
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 4292556949915870}
+  - {fileID: 4109875138092906}
   m_Father: {fileID: 4434535897653130}
   m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4492897802440074
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1443437616496638}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 40, y: 40, z: 40}
+  m_Children: []
+  m_Father: {fileID: 4434535897653130}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4548414895329388
 Transform:
@@ -340,6 +401,40 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1068061503209380}
   m_Mesh: {fileID: 4300000, guid: 15cbf0c81fa11394cb6bfb4b80237790, type: 3}
+--- !u!114 &114031788854586924
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1581261569896848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc699fc4ab039ae4589471131c54aca6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Grass: {fileID: 1856144046511688, guid: e95d469c8b4201d43856afe88274ebd0, type: 2}
+  NoPlace: []
+  NoPlDis: 0
+  Density: 800
+  Min: 0.0625
+  Max: 0.125
+--- !u!114 &114124116566611722
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1443437616496638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc699fc4ab039ae4589471131c54aca6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Grass: {fileID: 1596567437327844, guid: e91278c8698078344a5a7cb2f5e18dd0, type: 2}
+  NoPlace: []
+  NoPlDis: 0
+  Density: 200
+  Min: 0.0625
+  Max: 0.125
 --- !u!114 &114144163048482164
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -354,8 +449,10 @@ MonoBehaviour:
   DisableIfClose: 0
   isDirectional: 0
   Direction: {x: 0, y: 0, z: 0}
-  Range: 45
+  Range: 10
   pullForce: 1500
+  RigLis: []
+  RigLisPrev: []
 --- !u!114 &114370419139354496
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -372,6 +469,23 @@ MonoBehaviour:
   blendDistance: 1
   weight: 1
   sharedProfile: {fileID: 11400000, guid: 12b4cb041e216a74182baa629590078b, type: 2}
+--- !u!114 &114405340554633920
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1443437616496638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc699fc4ab039ae4589471131c54aca6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Grass: {fileID: 1596567437327844, guid: e91278c8698078344a5a7cb2f5e18dd0, type: 2}
+  NoPlace: []
+  NoPlDis: 0
+  Density: 5
+  Min: 0.375
+  Max: 0.635
 --- !u!114 &114507719627741434
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -399,8 +513,10 @@ MonoBehaviour:
   DisableIfClose: 0
   isDirectional: 0
   Direction: {x: 0, y: 0, z: 0}
-  Range: 10
+  Range: 15
   pullForce: -3000
+  RigLis: []
+  RigLisPrev: []
 --- !u!135 &135009040181049212
 SphereCollider:
   m_ObjectHideFlags: 1

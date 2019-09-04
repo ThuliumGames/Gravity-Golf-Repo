@@ -24,7 +24,7 @@ public class Boss1_AI : MonoBehaviour
 
 	public bool AngryMode;
 
-	public bool Hit;
+	public bool GotHit;
 
 	public GameObject ObjToInst;
 
@@ -53,6 +53,8 @@ public class Boss1_AI : MonoBehaviour
 	private bool KeepGoing2 = true;
 
 	private bool isAnimating;
+	
+	public GameObject WinObj;
 
 	private void Start()
 	{
@@ -63,13 +65,15 @@ public class Boss1_AI : MonoBehaviour
 	private void Update()
 	{
 		
-		if (Input.GetKeyDown(KeyCode.Escape)) {
+		if (Input.GetButton("Cancel") && Input.GetButton("Submit")) {
 			SceneManager.LoadScene("Intro");
 		}
-		if (Time.frameCount % (BossHealth*60) == 0) {
-			GameObject gameObject = Object.Instantiate(ObjToInst, transform.position, Quaternion.identity);
-			gameObject.transform.LookAt(Ball.position);
-			gameObject.transform.Translate(0f, 0f, 5);
+		if (BossHealth > 1) {
+			if (Time.frameCount % (BossHealth*60) == 0) {
+				GameObject gameObject = Object.Instantiate(ObjToInst, BlastHitBox.transform.position, Quaternion.identity);
+				gameObject.transform.LookAt(Ball.position);
+				gameObject.transform.Translate(0f, 0f, 5);
+			}
 		}
 		
 		RaycastHit RCF;
@@ -87,7 +91,7 @@ public class Boss1_AI : MonoBehaviour
 		if (BossHealth == 1 && KeepGoing2)
 		{
 			KeepGoing2 = false;
-			Invoke("AsteroidEnd", 0.75f);
+			Invoke("AsteroidEnd", 3f);
 		}
 		if (!Anim.enabled)
 		{
@@ -114,7 +118,7 @@ public class Boss1_AI : MonoBehaviour
 		}
 		if (BossHealth > 0)
 		{
-			if (!Hit)
+			if (!GotHit)
 			{
 				if (!AngryMode)
 				{
@@ -164,6 +168,7 @@ public class Boss1_AI : MonoBehaviour
 						Anim.enabled = false;
 						if (Vector3.Distance(base.transform.position, PlaceToGo) < 3f)
 						{
+							transform.position = PlaceToGo;
 							Renderer[] rend2 = Rend;
 							foreach (Renderer renderer2 in rend2)
 							{
@@ -193,28 +198,29 @@ public class Boss1_AI : MonoBehaviour
 							RB.velocity = Vector3.zero;
 							RB.angularVelocity = Vector3.zero;
 							return;
-						}
-						BlastHitBox.enabled = true;
-						if (RotSpeed != 101f)
-						{
-							Invoke("TooLong", 5f);
-						}
-						Speed = 25f;
-						RotSpeed = 101f;
-						Vector3 vector5 = base.transform.InverseTransformPoint(PlaceToGo);
-						if (vector5.x > 0.1f)
-						{
-							base.transform.Rotate(0f, RotSpeed * Time.deltaTime, 0f);
-						}
-						else
-						{
-							Vector3 vector6 = base.transform.InverseTransformPoint(PlaceToGo);
-							if (vector6.x < -0.1f)
+						} else {
+							BlastHitBox.enabled = true;
+							if (RotSpeed != 101f)
 							{
-								base.transform.Rotate(0f, (0f - RotSpeed) * Time.deltaTime, 0f);
+								Invoke("TooLong", 5f);
 							}
+							Speed = 25f;
+							RotSpeed = 101f;
+							Vector3 vector5 = base.transform.InverseTransformPoint(PlaceToGo);
+							if (vector5.x > 0.1f)
+							{
+								base.transform.Rotate(0f, RotSpeed * Time.deltaTime, 0f);
+							}
+							else
+							{
+								Vector3 vector6 = base.transform.InverseTransformPoint(PlaceToGo);
+								if (vector6.x < -0.1f)
+								{
+									base.transform.Rotate(0f, (0f - RotSpeed) * Time.deltaTime, 0f);
+								}
+							}
+							RB.velocity = base.transform.forward * Speed;
 						}
-						RB.velocity = base.transform.forward * Speed;
 					}
 					return;
 				}
@@ -284,8 +290,9 @@ public class Boss1_AI : MonoBehaviour
 		}
 		else
 		{
-			Anim.enabled = true;
-			SceneManager.LoadScene("Credits");
+			Destroy (this.gameObject);
+			WinObj.transform.position = new Vector3 (0, 20.5f, 0);
+			
 		}
 	}
 
@@ -296,16 +303,18 @@ public class Boss1_AI : MonoBehaviour
 
 	private void Asteroid()
 	{
-		GameObject gameObject = Object.Instantiate(ObjToInst, Ball.position, Quaternion.identity);
-		gameObject.transform.LookAt(new Vector3(0f, 0f, 0f));
-		gameObject.transform.Translate(0f, 0f, -20f);
+		GameObject gameObject = Object.Instantiate(ObjToInst, Vector3.zero, Quaternion.identity);
+		gameObject.transform.LookAt(Ball.position);
+		gameObject.transform.Rotate (0, 180, 0);
+		gameObject.transform.Translate(0f, 0f, -75f);
 	}
 
 	private void AsteroidEnd()
 	{
-		GameObject gameObject = Object.Instantiate(ObjToInst, Ball.position, Quaternion.identity);
-		gameObject.transform.LookAt(new Vector3(0f, 0f, 0f));
-		gameObject.transform.Translate(0f, 0f, -20f);
+		GameObject gameObject = Object.Instantiate(ObjToInst, Vector3.zero, Quaternion.identity);
+		gameObject.transform.LookAt(Ball.position);
+		gameObject.transform.Rotate (0, 180, 0);
+		gameObject.transform.Translate(0f, 0f, -75f);
 		KeepGoing2 = true;
 	}
 
@@ -340,8 +349,18 @@ public class Boss1_AI : MonoBehaviour
 		Anim.Play("StayStill");
 		Orbs[5].GetComponent<Orbs>().BeenHit = false;
 		Orbs[4].GetComponent<Orbs>().BeenHit = false;
-		Hit = false;
+		GotHit = false;
 		Phase = 2;
+	}
+	
+	public void Hit () {
+		if (!Orbs[4].GetComponent<Orbs>().BeenHit) {
+			AngryMode = true;
+			--BossHealth;
+		} else {
+			GotHit = true;
+			--BossHealth;
+		}
 	}
 
 	private void PickNewSpot()
@@ -349,8 +368,9 @@ public class Boss1_AI : MonoBehaviour
 		PlaceToGo = new Vector3(0f, 0f, 0f) + Random.onUnitSphere * 20f;
 	}
 
-	private void TooLong()
-	{
-		PlaceToGo = base.transform.position;
+	private void TooLong() {
+		if (RotSpeed != 25f) {
+			PlaceToGo = base.transform.position;
+		}
 	}
 }

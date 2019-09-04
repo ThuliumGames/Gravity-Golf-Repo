@@ -41,7 +41,7 @@ public class Asteroid : MonoBehaviour
 				T = 0f;
 				GameObject G = Object.Instantiate(Disable, Random.insideUnitSphere * Range + base.transform.position, Quaternion.identity);
 				G.transform.LookAt(transform.position);
-				
+				G.transform.SetParent(transform);
 			}
 		} else if (!GetComponent<Rigidbody>().isKinematic) {
 			transform.LookAt(transform.position + GetComponent<Rigidbody>().velocity);

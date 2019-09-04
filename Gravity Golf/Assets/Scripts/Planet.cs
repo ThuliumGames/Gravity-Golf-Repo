@@ -55,13 +55,13 @@ public class Planet : MonoBehaviour {
 				
 				Vector3 localScale = base.transform.localScale;
 				
-				if (!(num < range + localScale.x / 2f)) {
+				if (!(num < range + (localScale.x * 10))) {
 				
 					float num4 = Vector3.Distance(ObjToPull.gameObject.transform.position, base.transform.position);
-					float num5 = Range * 4f;
+					float num5 = Range;
 					Vector3 localScale3 = base.transform.localScale;
 					
-					if (num4 < num5 + localScale3.x / 2f && !isDirectional) {
+					if (num4 < ((num5 + (localScale3.x * 10)) * 2) && !isDirectional) {
 						
 						GameObject gameObject = new GameObject();
 						gameObject.transform.position = base.transform.position;
@@ -116,8 +116,7 @@ public class Planet : MonoBehaviour {
 					ObjToPull.AddForce(-gameObject2.transform.forward * (pullForce * 1E+07f) * Time.deltaTime);
 				
 				} else {
-					
-					ObjToPull.AddForce(-gameObject2.transform.forward * pullForce * Time.deltaTime);
+					ObjToPull.AddForce(-gameObject2.transform.forward * (pullForce) * Time.deltaTime);
 					
 					if (DisableIfClose) {
 						
@@ -157,12 +156,11 @@ public class Planet : MonoBehaviour {
 			Vector3 position = base.transform.position;
 			float range = Range;
 			Vector3 localScale = base.transform.localScale;
-			Gizmos.DrawWireSphere(position, range + localScale.x / 2f);
+			Gizmos.DrawWireSphere(position, range + (localScale.x * 10));
 			Gizmos.color = new Color(0.5f, 0.5f, 0f);
 			Vector3 position2 = base.transform.position;
-			float num = Range * 4f;
 			Vector3 localScale2 = base.transform.localScale;
-			Gizmos.DrawWireSphere(position2, num + localScale2.x / 2f);
+			Gizmos.DrawWireSphere(position2, (range + (localScale2.x * 10)) * 2);
 			
 		}
 	}
@@ -175,12 +173,11 @@ public class Planet : MonoBehaviour {
 			Vector3 position = base.transform.position;
 			float range = Range;
 			Vector3 localScale = base.transform.localScale;
-			Gizmos.DrawWireSphere(position, range + localScale.x / 2f);
+			Gizmos.DrawWireSphere(position, range + (localScale.x * 10));
 			Gizmos.color = new Color(0.5f, 0.5f, 0f);
 			Vector3 position2 = base.transform.position;
-			float num = Range * 4f;
 			Vector3 localScale2 = base.transform.localScale;
-			Gizmos.DrawWireSphere(position2, num + localScale2.x / 2f);
+			Gizmos.DrawWireSphere(position2, (range + (localScale2.x * 10)) * 2);
 			
 		}
 	}

@@ -11,6 +11,22 @@ Prefab:
   m_SourcePrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1690689910602758}
   m_IsPrefabAsset: 1
+--- !u!1 &1014417046585528
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4835747145735502}
+  - component: {fileID: 114272287098005832}
+  m_Layer: 0
+  m_Name: Grass Object
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1037250918069816
 GameObject:
   m_ObjectHideFlags: 0
@@ -23,6 +39,22 @@ GameObject:
   - component: {fileID: 23143927457323716}
   m_Layer: 0
   m_Name: FarPlanet
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1065977181906158
+GameObject:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4958947503511236}
+  - component: {fileID: 114113058633814590}
+  m_Layer: 0
+  m_Name: Grass Object
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -142,8 +174,22 @@ Transform:
   - {fileID: 4029947656428482}
   - {fileID: 4869317928293794}
   - {fileID: 4123573890957598}
+  - {fileID: 4835747145735502}
   m_Father: {fileID: 0}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4835747145735502
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1014417046585528}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 10, y: 10, z: 10}
+  m_Children: []
+  m_Father: {fileID: 4422173596651038}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4869317928293794
 Transform:
@@ -156,6 +202,7 @@ Transform:
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 4957904266843548}
+  - {fileID: 4958947503511236}
   m_Father: {fileID: 4422173596651038}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -171,6 +218,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4869317928293794}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4958947503511236
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1065977181906158}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_Children: []
+  m_Father: {fileID: 4869317928293794}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &23024887567360466
 MeshRenderer:
@@ -354,8 +414,44 @@ MonoBehaviour:
   DisableIfClose: 0
   isDirectional: 0
   Direction: {x: 0, y: 0, z: 0}
-  Range: 2.5
+  Range: 0
   pullForce: -3000
+  RigLis: []
+  RigLisPrev: []
+--- !u!114 &114113058633814590
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1065977181906158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc699fc4ab039ae4589471131c54aca6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Grass: {fileID: 1856144046511688, guid: e95d469c8b4201d43856afe88274ebd0, type: 2}
+  NoPlace: []
+  NoPlDis: 0
+  Density: 200
+  Min: 0.25
+  Max: 0.5
+--- !u!114 &114272287098005832
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1014417046585528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc699fc4ab039ae4589471131c54aca6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Grass: {fileID: 1596567437327844, guid: e91278c8698078344a5a7cb2f5e18dd0, type: 2}
+  NoPlace: []
+  NoPlDis: 0
+  Density: 25
+  Min: 0.25
+  Max: 0.5
 --- !u!114 &114327843398358746
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -399,8 +495,10 @@ MonoBehaviour:
   DisableIfClose: 0
   isDirectional: 0
   Direction: {x: 0, y: 0, z: 0}
-  Range: 12
+  Range: 20
   pullForce: 1500
+  RigLis: []
+  RigLisPrev: []
 --- !u!135 &135200083351022796
 SphereCollider:
   m_ObjectHideFlags: 1
