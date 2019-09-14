@@ -9,6 +9,8 @@ using UnityEngine.UI;
 public class Asteroid : MonoBehaviour
 {
 	public bool Spawner;
+	
+	public bool isDirectionial;
 
 	public float SpawnTime;
 
@@ -39,9 +41,15 @@ public class Asteroid : MonoBehaviour
 			if (T >= RandomSpawn) {
 				RandomSpawn = SpawnTime + (float)Random.Range(-2, 2);
 				T = 0f;
-				GameObject G = Object.Instantiate(Disable, Random.insideUnitSphere * Range + base.transform.position, Quaternion.identity);
-				G.transform.LookAt(transform.position);
-				G.transform.SetParent(transform);
+				if (!isDirectionial) {
+					GameObject G = Object.Instantiate(Disable, Random.insideUnitSphere * Range + transform.position, Quaternion.identity);
+					G.transform.LookAt(transform.position);
+					G.transform.SetParent(transform);
+				} else {
+					GameObject G = Object.Instantiate(Disable, transform.position + (transform.right*Random.Range(-Range, Range)), Quaternion.identity);
+					G.transform.eulerAngles = transform.eulerAngles;
+					G.transform.SetParent(transform);
+				}
 			}
 		} else if (!GetComponent<Rigidbody>().isKinematic) {
 			transform.LookAt(transform.position + GetComponent<Rigidbody>().velocity);
