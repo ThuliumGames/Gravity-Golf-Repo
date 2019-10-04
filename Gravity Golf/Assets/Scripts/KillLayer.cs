@@ -11,6 +11,8 @@ public class KillLayer : MonoBehaviour {
 	public float MaxLiveTime;
 	float t;
 	
+	public GameObject Ex;
+	
 	void Update () {
 		if (MaxLiveTime > 0) {
 			t += Time.deltaTime;
@@ -20,8 +22,15 @@ public class KillLayer : MonoBehaviour {
 		}
 	}
 	private void OnTriggerEnter(Collider Hit) {
-		if (Hit.gameObject.name == ("Golf Ball")) {
-			Hit.gameObject.GetComponent<GolfHit>().Die();
+		if (name != "Ball(Clone)") {
+			if (Hit.gameObject.name == ("Golf Ball")) {
+				Hit.gameObject.GetComponent<GolfHit>().Die();
+			} else if (Hit.gameObject.name == ("Ball(Clone)")) {
+				++GameObject.FindObjectOfType<BallShooter>().Score;
+				Instantiate (Ex, transform.position, transform.rotation);
+				Destroy (Hit.gameObject);
+				Destroy (this.gameObject);
+			}
 		}
 	}
 }

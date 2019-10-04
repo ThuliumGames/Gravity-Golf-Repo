@@ -31,6 +31,7 @@ public class CameraControl : MonoBehaviour {
 	public float VertAng = 10f;
 
 	public float HitAngle;
+	public static float PrevHitAngle;
 
 	public float CamDist = 2f;
 
@@ -80,6 +81,8 @@ public class CameraControl : MonoBehaviour {
 			}
 		}
 		LookObjPrev = LookObj;
+		
+		lostBall.gameObject.SetActive(false);
 	}
 
 	private void Update() {
@@ -131,10 +134,9 @@ public class CameraControl : MonoBehaviour {
 				T3 = 0;
 			}*/
 			
-			if (Input.GetButtonDown("Fire1")) {
+			if (Input.GetButton("Fire1")) {
 				isShooting = true;
-			}
-			if (Input.GetButtonUp("Fire1")) {
+			} else {
 				isShooting = false;
 			}
 			
@@ -183,10 +185,10 @@ public class CameraControl : MonoBehaviour {
 					BallParent.position = Vector3.Lerp (BallParent.position, Ball.position, 15*Time.deltaTime);
 					BallParent.rotation = Ball.rotation;
 					if (!BallParent.GetComponent<MeshRenderer>().isVisible) {
-						lostBall.gameObject.SetActive(true);
-						lostBall.localPosition = new Vector3 (Mathf.Clamp (Cam.InverseTransformPoint(BallParent.position).x/Cam.InverseTransformPoint(BallParent.position).z*(1920/2), -1820/2, 1820/2), Mathf.Clamp (Cam.InverseTransformPoint(BallParent.position).y/Cam.InverseTransformPoint(BallParent.position).z*(1920/2), -980/2, 980/2), 0);
+						//lostBall.gameObject.SetActive(true);
+						//lostBall.localPosition = new Vector3 (Mathf.Clamp (Cam.InverseTransformPoint(BallParent.position).x/Cam.InverseTransformPoint(BallParent.position).z*(1920/2), -1820/2, 1820/2), Mathf.Clamp (Cam.InverseTransformPoint(BallParent.position).y/Cam.InverseTransformPoint(BallParent.position).z*(1920/2), -980/2, 980/2), 0);
 					} else {
-						lostBall.gameObject.SetActive(false);
+						//lostBall.gameObject.SetActive(false);
 					}
 				}
 				
@@ -218,7 +220,7 @@ public class CameraControl : MonoBehaviour {
 					if (!NewPlanet) {
 						if (!LookObj.GetComponent<Planet>().isDirectional) {
 							ParentControl.position = LookPos.position;
-							ParentControl.Rotate (transform.InverseTransformPoint (Ball.position).z/Vector3.Distance(Ball.position, LookPos.position), 0, -transform.InverseTransformPoint (Ball.position).x/Vector3.Distance(Ball.position, LookPos.position));
+							ParentControl.Rotate ((transform.InverseTransformPoint (Ball.position).z/Vector3.Distance(Ball.position, LookPos.position))*Mathf.PI, 0, (-transform.InverseTransformPoint (Ball.position).x/Vector3.Distance(Ball.position, LookPos.position))*Mathf.PI);
 							ParentControl.position += (transform.up*Vector3.Distance(Ball.position, LookPos.position));
 						} else {
 							ParentControl.position = Ball.position;

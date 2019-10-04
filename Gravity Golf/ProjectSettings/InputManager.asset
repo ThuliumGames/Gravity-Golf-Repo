@@ -41,10 +41,10 @@ InputManager:
     m_Name: Vertical1
     descriptiveName: 
     descriptiveNegativeName: 
-    negativeButton: left
-    positiveButton: right
-    altNegativeButton: a
-    altPositiveButton: d
+    negativeButton: down
+    positiveButton: up
+    altNegativeButton: s
+    altPositiveButton: w
     gravity: 0
     dead: 0
     sensitivity: 1
@@ -265,10 +265,10 @@ InputManager:
     m_Name: Fire7
     descriptiveName: 
     descriptiveNegativeName: 
-    negativeButton: down
-    positiveButton: up
-    altNegativeButton: s
-    altPositiveButton: w
+    negativeButton: t
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
     gravity: 1000
     dead: 0
     sensitivity: 10

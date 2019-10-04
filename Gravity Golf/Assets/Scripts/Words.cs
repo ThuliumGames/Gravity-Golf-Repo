@@ -6,16 +6,14 @@ using UnityEngine.UI;
 
 public class Words : MonoBehaviour {
 	
+	public Animator AnimObject;
+	
 	public GameObject Next;
 	char[] Word;
 	
 	public string SceneName;
 	
-	public AudioSource AS;
-	
 	int i = 0;
-	
-	float T = 0;
 	
 	void Start () {
 		Word = GetComponent<Text>().text.ToCharArray();
@@ -25,21 +23,35 @@ public class Words : MonoBehaviour {
 	void Update () {
 		
 		if (Word[i] != '$') {
-			if (Word[i] != '@') {
-				Next.SetActive(false);
-				T += Time.deltaTime;
-				if ((T >= 0.016f && (Word[(int)Mathf.Clamp (i-1, 0, Mathf.Infinity)] != '.' && Word[(int)Mathf.Clamp (i-1, 0, Mathf.Infinity)] != '\n')) || T >= 0.5f) {
-					T = 0;
+			if (Word[i] != '&') {
+				if (Word[i] != '@') {
+					Next.SetActive(false);
 					GetComponent<Text>().text += Word[i];
 					i++;
-					AS.Play();
+				} else {
+					Next.SetActive(true);
+					if (Input.GetButtonDown("Fire1")) {
+						GetComponent<Text>().text = "";
+						i++;
+					}
 				}
 			} else {
-				Next.SetActive(true);
-				if (Input.GetButtonDown("Fire1")) {
-					GetComponent<Text>().text = "";
-					i++;
+				
+				int length = 0;
+				string AnimName = "";
+				bool isDone = false;
+				for (int a = 1; a < Word.Length-i; a++) {
+					if (Word[i+a] != '&' && !isDone) {
+						length++;
+						AnimName += Word[i+a];
+					} else {
+						isDone = true;
+					}
 				}
+				
+				print (AnimName);
+				AnimObject.Play(AnimName);
+				i += length+2;
 			}
 		} else {
 			Next.SetActive(true);

@@ -33,7 +33,7 @@ public class CreateBall : MonoBehaviour
 			Physics.Raycast(cam.ScreenPointToRay(new Vector3(x, mousePosition2.y, 0f)), out hitInfo, float.PositiveInfinity);
 			if (hitInfo.collider.gameObject.GetComponent<Buttons>() == null)
 			{
-				Object.Instantiate(OTI, hitInfo.point, new Quaternion(0f, 0f, 0f, 0f));
+				Object.Instantiate(OTI, hitInfo.point, cam.transform.rotation);
 			}
 		}
 	}

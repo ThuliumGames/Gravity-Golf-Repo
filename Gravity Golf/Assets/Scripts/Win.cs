@@ -79,8 +79,10 @@ public class Win : MonoBehaviour {
 			WinText.text = "Hole In One!\n-" + (Par - Ball.GetComponent<GolfHit>().Strokes);
 			GameObject.Find("HIOWin").GetComponent<AudioSource>().Play();
 			Ball.GetComponent<GolfHit>().HoleIOConfetti.SetActive(true);
+			GolfHit.GoodInARow++;
 		} else if (Ball.GetComponent<GolfHit>().Strokes == Par) {
 			WinText.text = "Par\n0";
+			GolfHit.GoodInARow = 0;
 		} else if (Ball.GetComponent<GolfHit>().Strokes > Par) {
 			if (Ball.GetComponent<GolfHit>().Strokes == Par + 1) {
 				WinText.text = "Bogey\n+" + (Ball.GetComponent<GolfHit>().Strokes - Par);
@@ -89,6 +91,7 @@ public class Win : MonoBehaviour {
 			} else {
 				WinText.text = WinTexts[Ball.GetComponent<GolfHit>().Strokes - Par - 2] + "-Bogey\n+" + (Ball.GetComponent<GolfHit>().Strokes - Par);
 			}
+			GolfHit.GoodInARow = 0;
 		} else if (Ball.GetComponent<GolfHit>().Strokes < Par) {
 			if (Ball.GetComponent<GolfHit>().Strokes == Par - 1) {
 				WinText.text = "Birdie\n-" + (Par - Ball.GetComponent<GolfHit>().Strokes);
@@ -99,6 +102,7 @@ public class Win : MonoBehaviour {
 			} else {
 				WinText.text = WinTexts[Par - Ball.GetComponent<GolfHit>().Strokes - 2] + "-Albatross\n-" + (Par - Ball.GetComponent<GolfHit>().Strokes);
 			}
+			GolfHit.GoodInARow++;
 		}
 		WinText.lineSpacing = Mathf.Clamp(((WinText.text.ToCharArray().Length-7)*4), 1, 250);
 		WinText.transform.localPosition = new Vector3 (0, Mathf.Clamp(-((WinText.text.ToCharArray().Length)*6)+50, -100+50, -30+50), 0);

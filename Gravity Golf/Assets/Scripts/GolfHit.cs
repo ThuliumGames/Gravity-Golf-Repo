@@ -21,6 +21,7 @@ public class GolfHit : MonoBehaviour {
 
 	public Image Pow;
 	public Image AngGraph;
+	public Image PrevAngGraph;
 
 	public GameObject ControlsPage;
 
@@ -35,9 +36,7 @@ public class GolfHit : MonoBehaviour {
 	public bool OnGround = true;
 	public bool PublicOnGround;
 	public bool inWater;
-
-	private float T;
-
+	
 	private bool Shake;
 
 	private float Magni;
@@ -45,6 +44,7 @@ public class GolfHit : MonoBehaviour {
 	private bool CanDamage;
 
 	public AudioClip[] HitSounds;
+	public AudioClip[] LandSounds;
 	
 	public GameObject HoleIOConfetti;
 	
@@ -60,6 +60,7 @@ public class GolfHit : MonoBehaviour {
 	bool SlowDown;
 	
 	public AudioSource PowerSource;
+	public AudioSource LandSource;
 	
 	bool Swi;
 	
@@ -69,8 +70,21 @@ public class GolfHit : MonoBehaviour {
 	bool DragMode;
 	
 	int fs;
+	
+	public ParticleSystem Fire;
+	
+	public static int GoodInARow;
+	public static int GoodKeepTrack;
 
 	private void Update() {
+		
+		if (GoodInARow != 0) {
+			GoodKeepTrack = GoodInARow;
+		} else {
+			if (GoodKeepTrack >= 3) {
+				SceneManager.LoadScene("Bonus Game");
+			}
+		}
 		
 		if (Input.GetButtonDown("Fire3")) {
 			DragMode = !DragMode;
@@ -146,12 +160,12 @@ public class GolfHit : MonoBehaviour {
 				if (!Direction.GetComponentInParent<CameraControl>().isDying) {
 					bool CanKill = true;
 					foreach (Portal P in GameObject.FindObjectsOfType<Portal>()) {
-						if (Vector3.Distance (transform.position+RB.velocity, P.transform.position) <= Vector3.Distance (transform.position, P.transform.position)) {
+						if (Vector3.Distance (transform.position+RB.velocity.normalized, P.transform.position) <= Vector3.Distance (transform.position, P.transform.position)) {
 							CanKill = false;
 						}
 					}
 					foreach (Planet P in GameObject.FindObjectsOfType<Planet>()) {
-						if (Vector3.Distance (transform.position+RB.velocity, P.transform.position) <= Vector3.Distance (transform.position, P.transform.position) || Vector3.Distance (transform.position, P.transform.position) <= ((P.Range + (P.transform.localScale.x * 10)) * 2)) {
+						if (Vector3.Distance (transform.position+RB.velocity.normalized, P.transform.position) <= Vector3.Distance (transform.position, P.transform.position) || Vector3.Distance (transform.position, P.transform.position) <= ((P.Range + (P.transform.localScale.x * 10)) * 2)) {
 							CanKill = false;
 						}
 					}
@@ -217,6 +231,7 @@ public class GolfHit : MonoBehaviour {
 						RB.velocity = Vector3.zero;
 						Power -= (Input.GetAxis("Vertical2")*2);
 						AngGraph.transform.localPosition = new Vector3 (0, GameObject.FindObjectOfType<CameraControl>().HitAngle, 0);
+						PrevAngGraph.transform.localPosition = new Vector3 (0, CameraControl.PrevHitAngle, 0);
 						if (PuttingMode) {
 							Power = Mathf.Clamp(Power, 0f, 21.375f);
 						} else {
@@ -230,10 +245,12 @@ public class GolfHit : MonoBehaviour {
 					if (Power > 0f) {
 						RB.isKinematic = false;
 						Strokes++;
+						GameObject.Find(base.name + "Hit").GetComponent<AudioSource>().clip = HitSounds[3];
 						GameObject.Find(base.name + "Hit").GetComponent<AudioSource>().Play();
 						LastPlace = base.transform.position;
 						RB.velocity = Direction.forward * Power * PowerMultiplier / 60f;
 						ShakeCamera(0.15f, 0.25f);
+						CameraControl.PrevHitAngle = GameObject.FindObjectOfType<CameraControl>().HitAngle;
 						GameObject.FindObjectOfType<CameraControl>().HitAngle = 0;
 					}
 					Power = 0f;
@@ -260,6 +277,7 @@ public class GolfHit : MonoBehaviour {
 				} else {
 					if (((GameObject.Find("BossPlanet") == null || !DragMode) && (!OnGround || Direction.GetComponentInParent<CameraControl>().LookObj.name != "Desert")) && !inWater) {
 						if (!OnGround) {
+							GetComponentInChildren<AudioSource>().volume = Mathf.Lerp (GetComponentInChildren<AudioSource>().volume, 0, 10*Time.deltaTime);
 							RB.drag = 0.025f;
 						} else {
 							RB.drag = 0.05f;
@@ -310,7 +328,6 @@ public class GolfHit : MonoBehaviour {
 						Die();
 					}
 				}
-				T -= Time.deltaTime;
 			}
 			OnGround = false;
 		} else {
@@ -323,22 +340,20 @@ public class GolfHit : MonoBehaviour {
 			if (Hit.gameObject.GetComponentInChildren<Renderer>().materials[0].name == "Planet (Instance)" || Hit.gameObject.GetComponentInChildren<Renderer>().materials[0].name == "Tree (Instance)") {
 				if (GetComponentInChildren<AudioSource>().clip != HitSounds[0]) {
 					GetComponentInChildren<AudioSource>().clip = HitSounds[0];
-					T = 0f;
 				}
 			} else if (Hit.gameObject.GetComponentInChildren<Renderer>().materials[0].name == "Metal (Instance)" || Hit.gameObject.GetComponentInChildren<Renderer>().materials[0].name == "Rock (Instance)") {
 				if (GetComponentInChildren<AudioSource>().clip != HitSounds[1]) {
 					GetComponentInChildren<AudioSource>().clip = HitSounds[1];
-					T = 0f;
 				}
 			} else if (GetComponentInChildren<AudioSource>().clip != HitSounds[2]) {
 				GetComponentInChildren<AudioSource>().clip = HitSounds[2];
-				T = 0f;
 			}
 		}
-		if (base.name != "GBC(Clone)" && RB.velocity.magnitude > 0.1f && T <= 0f) {
-			T = 0.25f;
+		if (base.name != "GBC(Clone)" && RB.velocity.magnitude > 0.1f) {
 			GetComponentInChildren<AudioSource>().volume = Mathf.Clamp01(RB.velocity.magnitude / 20f);
-			GetComponentInChildren<AudioSource>().Play();
+			if (!GetComponentInChildren<AudioSource>().isPlaying) {
+				GetComponentInChildren<AudioSource>().Play();
+			}
 			GetComponentInChildren<ParticleSystem>().Play();
 		}
 		OnGround = true;
@@ -346,8 +361,21 @@ public class GolfHit : MonoBehaviour {
 	}
 
 	private void OnCollisionEnter(Collision Hit) {
+		if ((bool)Hit.gameObject.GetComponentInChildren<Renderer>()) {
+			if (Hit.gameObject.GetComponentInChildren<Renderer>().materials[0].name == "Planet (Instance)" || Hit.gameObject.GetComponentInChildren<Renderer>().materials[0].name == "Tree (Instance)") {
+				if (LandSource.clip != LandSounds[0]) {
+					LandSource.clip = LandSounds[0];
+				}
+			} else if (Hit.gameObject.GetComponentInChildren<Renderer>().materials[0].name == "Metal (Instance)" || Hit.gameObject.GetComponentInChildren<Renderer>().materials[0].name == "Rock (Instance)") {
+				if (LandSource.clip != LandSounds[1]) {
+					LandSource.clip = LandSounds[1];
+				}
+			} else if (LandSource.clip != LandSounds[2]) {
+				LandSource.clip = LandSounds[2];
+			}
+		}
+		LandSource.Play();
 		ShakeCamera(0.2f, RB.velocity.magnitude / 20f);
-		T = 0f;
 	}
 	
 	public void Slow () {
@@ -375,7 +403,7 @@ public class GolfHit : MonoBehaviour {
 	private void StopShake() {
 		Shake = false;
 	}
-
+	
 	public void Die() {
 		PlayerPrefs.SetInt("NumOBTemp", PlayerPrefs.GetInt("NumOBTemp", 0)+1);
 		RB.velocity = Vector3.zero;
@@ -398,7 +426,7 @@ public class GolfHit : MonoBehaviour {
 			} else {
 				CanDamage = true;
 			}
-			LastPlace = new Vector3(0f, 100.75f, 0f);
+			LastPlace = new Vector3(0f, 0.75f, 0f);
 		}
 		base.transform.position = LastPlace;
 		GameObject.FindObjectOfType<CameraControl>().VertAng = 10f;

@@ -25,8 +25,14 @@ public class RemoveText : MonoBehaviour {
 				}
 			}
 		}
-		if (((GameObject.Find("Golf Ball").GetComponent<GolfHit>().Strokes > 0 && KeyToPress == "") || (Input.GetButtonDown(KeyToPress))) && ObjectsToDisable[0].activeSelf == true) {
-			Fade = true;
+		if (GameObject.Find("Golf Ball").GetComponent<GolfHit>()) {
+			if (((GameObject.Find("Golf Ball").GetComponent<GolfHit>().Strokes > 0 && KeyToPress == "") || (Input.GetButtonDown(KeyToPress))) && ObjectsToDisable[0].activeSelf == true) {
+				Fade = true;
+			}
+		} else {
+			if (Input.GetButtonDown(KeyToPress) && ObjectsToDisable[0].activeSelf == true) {
+				Fade = true;
+			}
 		}
 		
 		if (Fade) {

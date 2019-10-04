@@ -44,7 +44,7 @@ public class MusicSystem : MonoBehaviour {
 	private void Update() {
 		
 		if (!Stay) {
-			if (SceneManager.GetActiveScene().name == "Intro" || SceneManager.GetActiveScene().name == "Boss" || SceneManager.GetActiveScene().name == "Mini-Boss Intro") {
+			if (SceneManager.GetActiveScene().name == "Intro" || SceneManager.GetActiveScene().name == "Boss" || SceneManager.GetActiveScene().name == "Mini-Boss Intro" || SceneManager.GetActiveScene().name == "Bonus Game") {
 				Object.Destroy(base.gameObject);
 			}
 		}
@@ -57,7 +57,7 @@ public class MusicSystem : MonoBehaviour {
 			T += Time.deltaTime;
 		}
 		
-		if (T >= TimeToWait) {
+		if (T >= TimeToWait && Songs.Length > 0) {
 			int num = Random.Range(0, Songs.Length);
 			if (num == PrevSong || num == PrevPrevSong)
 			{

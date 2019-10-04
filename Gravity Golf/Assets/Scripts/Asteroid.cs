@@ -31,7 +31,7 @@ public class Asteroid : MonoBehaviour
 			GetComponent<Rigidbody>().velocity = transform.forward * InitialSpeed;
 		}
 		else {
-			RandomSpawn = SpawnTime + (float)Random.Range(-2, 2);
+			RandomSpawn = Mathf.Clamp (SpawnTime + (float)Random.Range(-2, 2), 0, Mathf.Infinity);
 		}
 	}
 
@@ -39,7 +39,7 @@ public class Asteroid : MonoBehaviour
 		if (Spawner) {
 			T += Time.deltaTime;
 			if (T >= RandomSpawn) {
-				RandomSpawn = SpawnTime + (float)Random.Range(-2, 2);
+				RandomSpawn = Mathf.Clamp (SpawnTime + (float)Random.Range(-2, 2), 0, Mathf.Infinity);
 				T = 0f;
 				if (!isDirectionial) {
 					GameObject G = Object.Instantiate(Disable, Random.insideUnitSphere * Range + transform.position, Quaternion.identity);
@@ -48,7 +48,6 @@ public class Asteroid : MonoBehaviour
 				} else {
 					GameObject G = Object.Instantiate(Disable, transform.position + (transform.right*Random.Range(-Range, Range)), Quaternion.identity);
 					G.transform.eulerAngles = transform.eulerAngles;
-					G.transform.SetParent(transform);
 				}
 			}
 		} else if (!GetComponent<Rigidbody>().isKinematic) {

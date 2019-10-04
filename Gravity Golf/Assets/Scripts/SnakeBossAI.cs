@@ -29,7 +29,9 @@ public class SnakeBossAI : MonoBehaviour {
 	
 	void Start () {
 		
-		PlayerHealth = 10;
+		if (name == "Segment (6)") {
+			PlayerHealth = 10;
+		}
 		
 		if (name == "Head") {
 			Go = GameObject.Find("Golf Ball").transform;

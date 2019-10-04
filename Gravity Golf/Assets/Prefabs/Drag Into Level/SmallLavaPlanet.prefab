@@ -73,7 +73,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1056969124481826}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 100}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 4210421309312990}
@@ -221,6 +221,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxLiveTime: 0
+  Ex: {fileID: 0}
 --- !u!114 &114412895113138296
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -254,7 +255,10 @@ MonoBehaviour:
   isDirectional: 0
   Direction: {x: 0, y: 0, z: 0}
   Range: -2.5
-  pullForce: -75000
+  Rangez: 0
+  Rangey: 0
+  AddRandomDir: 1
+  pullForce: -15000
   RigLis: []
   RigLisPrev: []
 --- !u!114 &114996630468914836
@@ -272,6 +276,9 @@ MonoBehaviour:
   isDirectional: 0
   Direction: {x: 0, y: 0, z: 0}
   Range: 10
+  Rangez: 0
+  Rangey: 0
+  AddRandomDir: 0
   pullForce: 1500
   RigLis: []
   RigLisPrev: []
