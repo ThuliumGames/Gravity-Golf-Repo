@@ -18,6 +18,9 @@ EditorBuildSettings:
     path: Assets/Scenes/L Select.unity
     guid: 893c6b02b7605a544b123fc1e277f2fe
   - enabled: 1
+    path: Assets/Scenes/Credits.unity
+    guid: 6c81adb83f3b6554b841005d07ff6eae
+  - enabled: 1
     path: Assets/Scenes/Music.unity
     guid: 95292660e4310994389daf09654434ae
   - enabled: 1
@@ -36,32 +39,23 @@ EditorBuildSettings:
     path: Assets/Scenes/World 1/Level 1-4.unity
     guid: 5d278df7a4d2dd44c9fcb39fb3b8906c
   - enabled: 1
-    path: Assets/Scenes/World 1/Level 1-6.unity
-    guid: 06557b53ee83dab439ac0e898bcac1bd
-  - enabled: 1
     path: Assets/Scenes/World 1/Level 1-5.unity
     guid: 57289e1a91d97c94b82019d61a9b5472
+  - enabled: 1
+    path: Assets/Scenes/World 1/Level 1-6.unity
+    guid: 06557b53ee83dab439ac0e898bcac1bd
   - enabled: 1
     path: Assets/Scenes/World 1/Level 1-7.unity
     guid: 73a851313bbaf6e4f9ec42eb0229f01c
   - enabled: 1
-    path: Assets/Scenes/World 1/Mini-Boss Intro.unity
-    guid: 8533da68a04893b41acb01196d619a0c
-  - enabled: 1
-    path: Assets/Scenes/World 1/Mini-Boss.unity
-    guid: a96ca13484b8a6147a84aa4618333470
+    path: Assets/Scenes/World 1/Level 1-8.unity
+    guid: b488e4f94ce0746469221fd84d5d55f4
   - enabled: 1
     path: Assets/Scenes/World 1/Level 1-10.unity
     guid: 21def0bf61d0c294689f4023a4d4d9e7
   - enabled: 1
     path: Assets/Scenes/World 1/Level 1-11.unity
     guid: b35f03594dd17c543aee9635e6432d38
-  - enabled: 1
-    path: Assets/Scenes/World 2/Level 2-10.unity
-    guid: a223ee90f24eb7e4ea2fea0fa8c5b89a
-  - enabled: 1
-    path: Assets/Scenes/World 1/Level 1-8.unity
-    guid: b488e4f94ce0746469221fd84d5d55f4
   - enabled: 1
     path: Assets/Scenes/World 1/Level 1-15.unity
     guid: 94b486e88aa0eec49b0417de4030a63a
@@ -71,6 +65,15 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/World 1/Level 1-17.unity
     guid: d2090d25001c872408774ac77c612c3e
+  - enabled: 1
+    path: Assets/Scenes/World 1/Mini-Boss.unity
+    guid: a96ca13484b8a6147a84aa4618333470
+  - enabled: 1
+    path: Assets/Scenes/World 1/Mini-Boss Intro.unity
+    guid: 8533da68a04893b41acb01196d619a0c
+  - enabled: 1
+    path: Assets/Scenes/World 2/2-Boss.unity
+    guid: 881b5aa58b6e304408bc2182cd0c4455
   - enabled: 1
     path: Assets/Scenes/World 2/Level 2-1.unity
     guid: 3153b075ecfea6a43b1c5602c52ad6c7
@@ -84,15 +87,51 @@ EditorBuildSettings:
     path: Assets/Scenes/World 2/Level 2-4.unity
     guid: 3be4537f5fa9c7a48b406b63ecd95095
   - enabled: 1
-    path: Assets/Scenes/World 2/Level 2-8.unity
-    guid: 9706ff32ad5395941b699ab5989e32f9
+    path: Assets/Scenes/World 2/Level 2-5.unity
+    guid: b06d9e3e0cd21264c81a5b1f39d9251e
   - enabled: 1
     path: Assets/Scenes/World 2/Level 2-6.unity
     guid: 7786ab614dfc45e4387ec157126cafb3
   - enabled: 1
-    path: 
-    guid: 37e4654041db88d4e9307dcea73a9e16
+    path: Assets/Scenes/World 2/Level 2-7.unity
+    guid: a058ebee95edbfd4d8769f24bed74b02
   - enabled: 1
-    path: Assets/Scenes/Credits.unity
-    guid: 6c81adb83f3b6554b841005d07ff6eae
+    path: Assets/Scenes/World 2/Level 2-8.unity
+    guid: 9706ff32ad5395941b699ab5989e32f9
+  - enabled: 1
+    path: Assets/Scenes/World 2/Level 2-10.unity
+    guid: a223ee90f24eb7e4ea2fea0fa8c5b89a
+  - enabled: 1
+    path: Assets/Scenes/World 2/Level 2-11.unity
+    guid: c74fd89d53dbe1742860a907dea8e20f
+  - enabled: 1
+    path: Assets/Scenes/World 2/Level 2-12.unity
+    guid: 8892a024bd123b2449a30e799043918d
+  - enabled: 1
+    path: Assets/Scenes/World 2/Level 2-13.unity
+    guid: 6858a0a257bd93441a1e160528102883
+  - enabled: 1
+    path: Assets/Scenes/World 2/Level 2-14.unity
+    guid: b7a2cd91fb3af054f94306d8892f3e52
+  - enabled: 1
+    path: Assets/Scenes/World 2/Level 2-15.unity
+    guid: 40f2f520569f082489910063492f5621
+  - enabled: 1
+    path: Assets/Scenes/World 2/Level 2-16.unity
+    guid: f17527f9045508646aff13e5fc591705
+  - enabled: 1
+    path: Assets/Scenes/World 2/Level 2-17.unity
+    guid: 486f1fa8af6c23345a2409b730b9e9a8
+  - enabled: 1
+    path: Assets/Scenes/World 2/Mini-Boss 1.unity
+    guid: 106947e07715b3649a58a63e17bd492e
+  - enabled: 1
+    path: Assets/Scenes/World 2/Mini-Boss Intro 1.unity
+    guid: c58797004e47d5f48963d95a485013d8
+  - enabled: 1
+    path: Assets/Scenes/World 3/Level 3-1.unity
+    guid: e2867217fc7cd3f4ebe518bf419f8801
+  - enabled: 1
+    path: Assets/Scenes/World 3/Level 3-2.unity
+    guid: 201e824605c97164396e99e37fbfb7a4
   m_configObjects: {}

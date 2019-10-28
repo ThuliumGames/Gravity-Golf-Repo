@@ -76,7 +76,7 @@ GameObject:
   - component: {fileID: 114809428415590598}
   m_Layer: 0
   m_Name: White Hole
-  m_TagString: BlackHole
+  m_TagString: WhiteHole
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -288,6 +288,9 @@ MonoBehaviour:
   isDirectional: 0
   Direction: {x: 0, y: 0, z: 0}
   Range: -30
+  Rangez: 0
+  Rangey: 0
+  AddRandomDir: 0
   pullForce: -10000
   RigLis: []
   RigLisPrev: []
@@ -302,6 +305,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b93db7068d0bd346bd595ce10063ee4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MaxLiveTime: 0
+  Ex: {fileID: 0}
 --- !u!114 &114809428415590598
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -146,6 +146,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4487129902945158}
   - component: {fileID: 114046662269764016}
+  - component: {fileID: 114013304017295032}
   m_Layer: 0
   m_Name: Island
   m_TagString: Untagged
@@ -661,6 +662,25 @@ MeshCollider:
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300002, guid: c4e68863bcdc5b0429e11310ef870876, type: 3}
+--- !u!114 &114013304017295032
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1933751309122808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc699fc4ab039ae4589471131c54aca6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Flat: 0
+  Grass: {fileID: 1156128213443540, guid: fcb594989d263f94aac540dc624ac9f2, type: 2}
+  NoPlace: []
+  NoPlDis: 0
+  Density: 100
+  Min: 90
+  Max: 110
+  DistAway: 10000
 --- !u!114 &114046662269764016
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -678,9 +698,13 @@ MonoBehaviour:
   Range: 1
   Rangez: 1
   Rangey: 1
+  AddRandomDir: 0
   pullForce: 100
+  isSelec: 0
   RigLis: []
   RigLisPrev: []
+  array: []
+  isGlob: 1
 --- !u!205 &205184041255092218
 LODGroup:
   m_ObjectHideFlags: 1

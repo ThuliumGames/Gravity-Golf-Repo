@@ -57,13 +57,15 @@ public class Win : MonoBehaviour {
 		}
 	}
 
-	private void OnTriggerEnter() {
-		if (!EndThing) {
-			Ball.GetComponent<GolfHit>().enabled = false;
-			GetComponent<AudioSource>().Play();
-			EndThing = true;
-			Invoke("T2", 1.5f);
-			Invoke("Wn", 2f);
+	private void OnTriggerEnter (Collider Hit) {
+		if (Hit.gameObject == Ball.gameObject) {
+			if (!EndThing) {
+				Ball.GetComponent<GolfHit>().enabled = false;
+				GetComponent<AudioSource>().Play();
+				EndThing = true;
+				Invoke("T2", 1.5f);
+				Invoke("Wn", 2f);
+			}
 		}
 	}
 

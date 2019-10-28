@@ -10,7 +10,6 @@ using UnityEngine.UI;
 public class CameraControl : MonoBehaviour {
 	
 	public Transform ParentControl;
-	public Transform BallParent;
 	
 	public Transform Ball;
 
@@ -75,7 +74,7 @@ public class CameraControl : MonoBehaviour {
 		float num = Mathf.Infinity;
 		Planet[] array = Object.FindObjectsOfType<Planet>();
 		foreach (Planet planet in array) {
-			if (Vector3.Distance(base.transform.position, planet.gameObject.transform.position) < num && planet.tag != "BlackHole") {
+			if (Vector3.Distance(base.transform.position, planet.gameObject.transform.position) < num && planet.tag != "BlackHole" && planet.tag != "WhiteHole") {
 				num = Vector3.Distance(base.transform.position, planet.gameObject.transform.position);
 				LookObj = planet.gameObject.transform;
 			}
@@ -98,7 +97,7 @@ public class CameraControl : MonoBehaviour {
 		
 		if (!Ball.GetComponent<GolfHit>().Paused) {
 			
-			DOF.enabled.value = false;
+			DOF.focusDistance.value = 10;
 			
 			if (isShooting) {
 				T1 = 0;
@@ -155,7 +154,7 @@ public class CameraControl : MonoBehaviour {
 				float num = Mathf.Infinity;
 				Planet[] array = Object.FindObjectsOfType<Planet>();
 				foreach (Planet planet in array) {
-					if (Vector3.Distance(Ball.transform.position, planet.gameObject.transform.position) < num && planet.tag != "BlackHole" && (Vector3.Distance(Ball.transform.position, planet.gameObject.transform.position) >= Vector3.Distance(Ball.transform.position+Ball.GetComponent<Rigidbody>().velocity, planet.gameObject.transform.position) || planet.gameObject.transform == LookObjPrev)) {
+					if (Vector3.Distance(Ball.transform.position, planet.gameObject.transform.position) < num && planet.tag != "BlackHole" && planet.tag != "WhiteHole" && (Vector3.Distance(Ball.transform.position, planet.gameObject.transform.position) >= Vector3.Distance(Ball.transform.position+Ball.GetComponent<Rigidbody>().velocity, planet.gameObject.transform.position) || planet.gameObject.transform == LookObjPrev)) {
 						if (planet.gameObject.transform == LookObjPrev) {
 							num = Vector3.Distance(Ball.transform.position, planet.gameObject.transform.position)/2;
 						} else {
@@ -179,17 +178,6 @@ public class CameraControl : MonoBehaviour {
 				
 				if (Input.GetKeyDown(KeyCode.Escape)) {
 					Cursor.lockState = CursorLockMode.None;
-				}
-				
-				if (Ball != null) {
-					BallParent.position = Vector3.Lerp (BallParent.position, Ball.position, 15*Time.deltaTime);
-					BallParent.rotation = Ball.rotation;
-					if (!BallParent.GetComponent<MeshRenderer>().isVisible) {
-						//lostBall.gameObject.SetActive(true);
-						//lostBall.localPosition = new Vector3 (Mathf.Clamp (Cam.InverseTransformPoint(BallParent.position).x/Cam.InverseTransformPoint(BallParent.position).z*(1920/2), -1820/2, 1820/2), Mathf.Clamp (Cam.InverseTransformPoint(BallParent.position).y/Cam.InverseTransformPoint(BallParent.position).z*(1920/2), -980/2, 980/2), 0);
-					} else {
-						//lostBall.gameObject.SetActive(false);
-					}
 				}
 				
 				if (!Object.FindObjectOfType<Win>().EndThing) {
@@ -247,7 +235,7 @@ public class CameraControl : MonoBehaviour {
 					Cursor.lockState = CursorLockMode.None;
 					if (!Object.FindObjectOfType<Win>().EndThing2) {
 						Cam.position = Vector3.Lerp(Cam.position, GameObject.Find("EndGamePos").transform.position, 3f * Time.deltaTime);
-						Cam.LookAt(BallParent.transform.position);
+						Cam.LookAt(Ball.transform.position);
 					} else {
 						Cam.position = Vector3.Lerp(Cam.position, GameObject.Find("EndGamePos2").transform.position, 5f * Time.deltaTime);
 						Cam.LookAt(GameObject.Find("EndGamePos2").GetComponentInParent<Planet>().transform.position);
@@ -259,13 +247,10 @@ public class CameraControl : MonoBehaviour {
 			
 			} else {
 				OB.SetActive(true);
-				Cam.transform.LookAt (BallParent.position);
-				if (Ball != null) {
-					BallParent.position = Vector3.Lerp (BallParent.position, Ball.position, 150*Time.deltaTime);
-				}
+				Cam.transform.LookAt (Ball.position);
 			}
 		} else {
-			DOF.enabled.value = true;
+			DOF.focusDistance.value = 0;
 		}
 	}
 	
@@ -273,10 +258,10 @@ public class CameraControl : MonoBehaviour {
 		if (!Ball.GetComponent<GolfHit>().Paused) {
 			if (!isDying && !Object.FindObjectOfType<Win>().EndThing) {
 				//Ball Rendering
-				BallParent.GetComponentInChildren<TrailRenderer>().enabled = true;
+				Ball.GetComponentInChildren<TrailRenderer>().enabled = true;
 				RaycastHit hitInfo;
 				
-				if (Physics.Raycast(Ball.transform.position, -Cam.transform.forward, out hitInfo, CamDist, LayerMask.NameToLayer("Everything"))) {
+				/*if (Physics.Raycast(Ball.transform.position, -Cam.transform.forward, out hitInfo, CamDist, LayerMask.NameToLayer("Everything"))) {
 					
 					if (hitInfo.collider.gameObject.layer == LayerMask.NameToLayer ("Tree") || hitInfo.collider.gameObject.layer == LayerMask.NameToLayer ("Branch")) {
 						foreach (FixColor G in GameObject.FindObjectsOfType<FixColor>()) {
@@ -295,36 +280,36 @@ public class CameraControl : MonoBehaviour {
 							}
 						}
 					}
-				}
+				}*/
 				
 				
 				if (Physics.Raycast(Ball.transform.position, -Cam.transform.forward, out hitInfo, CamDist, LM)) {
 					Cam.Translate(0f, 0f, -hitInfo.distance + 0.1f);
 					if (hitInfo.distance < 0.5f) {
 						if (hitInfo.distance < 0.375f) {
-							BallParent.GetComponentInChildren<TrailRenderer>().enabled = false;
+							Ball.GetComponentInChildren<TrailRenderer>().enabled = false;
 						}
 						
-						BallParent.GetComponent<MeshRenderer>().material.SetFloat("_Mode", 2f);
-						BallParent.GetComponent<MeshRenderer>().material.SetInt("_SrcBlend", 5);
-						BallParent.GetComponent<MeshRenderer>().material.SetInt("_DstBlend", 10);
-						BallParent.GetComponent<MeshRenderer>().material.SetInt("_ZWrite", 0);
-						BallParent.GetComponent<MeshRenderer>().material.DisableKeyword("_ALPHATEST_ON");
-						BallParent.GetComponent<MeshRenderer>().material.EnableKeyword("_ALPHABLEND_ON");
-						BallParent.GetComponent<MeshRenderer>().material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
-						BallParent.GetComponent<MeshRenderer>().material.renderQueue = 3000;
+						Ball.GetComponent<MeshRenderer>().material.SetFloat("_Mode", 2f);
+						Ball.GetComponent<MeshRenderer>().material.SetInt("_SrcBlend", 5);
+						Ball.GetComponent<MeshRenderer>().material.SetInt("_DstBlend", 10);
+						Ball.GetComponent<MeshRenderer>().material.SetInt("_ZWrite", 0);
+						Ball.GetComponent<MeshRenderer>().material.DisableKeyword("_ALPHATEST_ON");
+						Ball.GetComponent<MeshRenderer>().material.EnableKeyword("_ALPHABLEND_ON");
+						Ball.GetComponent<MeshRenderer>().material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
+						Ball.GetComponent<MeshRenderer>().material.renderQueue = 3000;
 						
 						if (hitInfo.distance < 0.19f) {
-							BallParent.GetComponent<MeshRenderer>().materials[0].SetColor ("_BaseColor", new Color(1f, 1f, 1f, 0f));
+							Ball.GetComponent<MeshRenderer>().materials[0].SetColor ("_BaseColor", new Color(1f, 1f, 1f, 0f));
 						} else {
-							BallParent.GetComponent<MeshRenderer>().materials[0].SetColor ("_BaseColor", new Color(1f, 1f, 1f, Mathf.Clamp01(hitInfo.distance * 2f) - 0.375f));
+							Ball.GetComponent<MeshRenderer>().materials[0].SetColor ("_BaseColor", new Color(1f, 1f, 1f, Mathf.Clamp01(hitInfo.distance * 2f) - 0.375f));
 						}
 					} else {
-						BallParent.GetComponent<MeshRenderer>().materials[0].SetColor ("_BaseColor", new Color(1f, 1f, 1f, 1f));
+						Ball.GetComponent<MeshRenderer>().materials[0].SetColor ("_BaseColor", new Color(1f, 1f, 1f, 1f));
 					}
 				} else {
 					Cam.Translate(0f, 0f, 0f - CamDist + 0.1f);
-					BallParent.GetComponent<MeshRenderer>().materials[0].SetColor ("_BaseColor", new Color(1f, 1f, 1f, 1f));
+					Ball.GetComponent<MeshRenderer>().materials[0].SetColor ("_BaseColor", new Color(1f, 1f, 1f, 1f));
 				}
 			}
 		}

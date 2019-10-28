@@ -60,7 +60,7 @@ MonoBehaviour:
     increaseResolutionOfVolumetrics: 0
     supportRuntimeDebugDisplay: 1
     supportDitheringCrossFade: 1
-    supportDBuffer: 0
+    supportDBuffer: 1
     supportMSAA: 0
     msaaSampleCount: 1
     supportMotionVectors: 1

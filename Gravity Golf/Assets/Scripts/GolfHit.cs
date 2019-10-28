@@ -70,14 +70,12 @@ public class GolfHit : MonoBehaviour {
 	bool DragMode;
 	
 	int fs;
-	
-	public ParticleSystem Fire;
+	float SpawnDelay;
 	
 	public static int GoodInARow;
 	public static int GoodKeepTrack;
 
 	private void Update() {
-		
 		if (GoodInARow != 0) {
 			GoodKeepTrack = GoodInARow;
 		} else {
@@ -258,14 +256,22 @@ public class GolfHit : MonoBehaviour {
 				if (Power > 0.1f) {
 					RB.isKinematic = true;
 					if (GameObject.Find("GBC(Clone)") == null) {
-						GameObject gameObject5 = Object.Instantiate(Arrow, base.transform.position, base.transform.rotation);
-						gameObject5.GetComponent<Rigidbody>().velocity = (Direction.forward * Power * PowerMultiplier / 60f);
-						gameObject5.GetComponent<TimedKill>().Invoke("Kill", 0.5f);
-					} else if (GameObject.Find("GBC(Clone)").GetComponent<Rigidbody>().velocity.magnitude < 0.5f) {
-						GameObject.Find("GBC(Clone)").GetComponent<TimedKill>().Kill();
+						if (SpawnDelay > 0.25f) {
+						GameObject Go = Instantiate(Arrow);
+							Go.transform.position = transform.position;
+							Go.GetComponent<Rigidbody>().velocity = Direction.forward * Power * PowerMultiplier / 60f;
+							Go.GetComponent<TimedKill>().Invoke ("Kill", 1);
+						} else {
+							SpawnDelay += Time.deltaTime;
+						}
+					} else {
+						SpawnDelay = 0;
 					}
-				} else if (GameObject.Find("GBC(Clone)") != null) {
-					Object.Destroy(GameObject.Find("GBC(Clone)"));
+				} else {
+					SpawnDelay = 0;
+					if (GameObject.Find("GBC(Clone)") != null) {
+						Destroy (GameObject.Find("GBC(Clone)"));
+					}
 				}
 				if (Shake) {
 					Camera.main.GetComponentInParent<Collider>().transform.localEulerAngles = Random.insideUnitSphere * Magni * 2;

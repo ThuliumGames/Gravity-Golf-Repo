@@ -28,6 +28,23 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1186835968754234
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4102162881533176}
+  - component: {fileID: 114347925788754952}
+  - component: {fileID: 114413470858186724}
+  m_Layer: 0
+  m_Name: BoidObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1494136895415772
 GameObject:
   m_ObjectHideFlags: 0
@@ -56,8 +73,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4983487854408986}
-  - component: {fileID: 114514244580102652}
-  - component: {fileID: 114869357006744808}
   - component: {fileID: 114687780459709106}
   m_Layer: 0
   m_Name: Grass Object
@@ -66,18 +81,32 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!4 &4102162881533176
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1186835968754234}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 10, y: 10.000002, z: 10.000002}
+  m_Children: []
+  m_Father: {fileID: 4425400821913328}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4425400821913328
 Transform:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1494136895415772}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -0, y: -10, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4516534776289624}
   - {fileID: 4983487854408986}
+  - {fileID: 4102162881533176}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -191,23 +220,52 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1086724659380122}
   m_Mesh: {fileID: 4300000, guid: b5bde69efef36924b8c44f53f54f6c8a, type: 3}
---- !u!114 &114514244580102652
+--- !u!114 &114347925788754952
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1960214188102602}
+  m_GameObject: {fileID: 1186835968754234}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fc699fc4ab039ae4589471131c54aca6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Grass: {fileID: 1189233622738972, guid: 657d9e70a45d0624d93ea3c220ce37d3, type: 2}
+  Flat: 0
+  Grass: {fileID: 1226106088612596, guid: 3b7bf949b57a7124a94342cad5c04803, type: 2}
   NoPlace: []
   NoPlDis: 0
-  Density: 5
-  Min: 1
-  Max: 2
+  Density: 10
+  Min: 0.5
+  Max: 0.65
+  DistAway: 0
+  JustObject: 0
+  LM:
+    serializedVersion: 2
+    m_Bits: 0
+--- !u!114 &114413470858186724
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1186835968754234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc699fc4ab039ae4589471131c54aca6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Flat: 0
+  Grass: {fileID: 1597520303048674, guid: 32af5b9540f61824cb0fbbab5de7a411, type: 2}
+  NoPlace: []
+  NoPlDis: 0
+  Density: 10
+  Min: 0.75
+  Max: 1
+  DistAway: 0
+  JustObject: 0
+  LM:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &114687780459709106
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -219,12 +277,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc699fc4ab039ae4589471131c54aca6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Flat: 0
   Grass: {fileID: 1856144046511688, guid: df29f7d5b07ce6840bf34da1261e78c5, type: 2}
   NoPlace: []
   NoPlDis: 0
-  Density: 100
+  Density: 1000
   Min: 0.25
   Max: 0.5
+  DistAway: 0
+  JustObject: 0
+  LM:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &114793802778614330
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -240,26 +304,14 @@ MonoBehaviour:
   isDirectional: 0
   Direction: {x: 0, y: 0, z: 0}
   Range: 30
+  Rangez: 0
+  Rangey: 0
+  AddRandomDir: 0
   pullForce: 1500
+  isSelec: 0
   RigLis: []
   RigLisPrev: []
---- !u!114 &114869357006744808
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1960214188102602}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc699fc4ab039ae4589471131c54aca6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Grass: {fileID: 1633430589703634, guid: 1f929cc9c7e9fa04b8754ee89ba3bdd4, type: 2}
-  NoPlace: []
-  NoPlDis: 0
-  Density: 5
-  Min: 1
-  Max: 2
+  AllObjs: []
 --- !u!135 &135091912333743970
 SphereCollider:
   m_ObjectHideFlags: 1

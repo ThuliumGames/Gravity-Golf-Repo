@@ -11,6 +11,23 @@ Prefab:
   m_SourcePrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1477947901148866}
   m_IsPrefabAsset: 1
+--- !u!1 &1058751944355568
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4694292058483988}
+  - component: {fileID: 114529482718827996}
+  - component: {fileID: 114551555406883428}
+  m_Layer: 0
+  m_Name: BoidObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1477947901148866
 GameObject:
   m_ObjectHideFlags: 0
@@ -72,12 +89,13 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1477947901148866}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -130.5, y: 97.4, z: 380}
   m_LocalScale: {x: 4, y: 4, z: 4}
   m_Children:
   - {fileID: 4520702469909796}
   - {fileID: 4214415730208382}
+  - {fileID: 4694292058483988}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -106,6 +124,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4030847966099674}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4694292058483988
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1058751944355568}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 40, y: 40, z: 40}
+  m_Children: []
+  m_Father: {fileID: 4030847966099674}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &23282003131645568
 MeshRenderer:
@@ -202,12 +233,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc699fc4ab039ae4589471131c54aca6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Flat: 0
   Grass: {fileID: 1189233622738972, guid: 657d9e70a45d0624d93ea3c220ce37d3, type: 2}
   NoPlace: []
   NoPlDis: 0
   Density: 20
   Min: 0.25
   Max: 0.5
+  DistAway: 0
 --- !u!114 &114237565185215136
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -219,12 +252,52 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc699fc4ab039ae4589471131c54aca6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Flat: 0
   Grass: {fileID: 1633430589703634, guid: 1f929cc9c7e9fa04b8754ee89ba3bdd4, type: 2}
   NoPlace: []
   NoPlDis: 0
   Density: 20
   Min: 0.25
   Max: 0.5
+  DistAway: 0
+--- !u!114 &114529482718827996
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1058751944355568}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc699fc4ab039ae4589471131c54aca6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Flat: 0
+  Grass: {fileID: 1226106088612596, guid: 3b7bf949b57a7124a94342cad5c04803, type: 2}
+  NoPlace: []
+  NoPlDis: 0
+  Density: 40
+  Min: 0.125
+  Max: 0.1625
+  DistAway: 0
+--- !u!114 &114551555406883428
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1058751944355568}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc699fc4ab039ae4589471131c54aca6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Flat: 0
+  Grass: {fileID: 1597520303048674, guid: 32af5b9540f61824cb0fbbab5de7a411, type: 2}
+  NoPlace: []
+  NoPlDis: 0
+  Density: 40
+  Min: 0.1875
+  Max: 0.25
+  DistAway: 0
 --- !u!114 &114840882455528122
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -240,9 +313,13 @@ MonoBehaviour:
   isDirectional: 0
   Direction: {x: 0, y: 0, z: 0}
   Range: 50
+  Rangez: 0
+  Rangey: 0
+  AddRandomDir: 0
   pullForce: 1500
   RigLis: []
   RigLisPrev: []
+  isGlob: 0
 --- !u!114 &114944515105092496
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -254,12 +331,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc699fc4ab039ae4589471131c54aca6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Flat: 0
   Grass: {fileID: 1856144046511688, guid: df29f7d5b07ce6840bf34da1261e78c5, type: 2}
   NoPlace: []
   NoPlDis: 0
-  Density: 400
+  Density: 4000
   Min: 0.0625
   Max: 0.125
+  DistAway: 0
 --- !u!135 &135296175026336620
 SphereCollider:
   m_ObjectHideFlags: 1

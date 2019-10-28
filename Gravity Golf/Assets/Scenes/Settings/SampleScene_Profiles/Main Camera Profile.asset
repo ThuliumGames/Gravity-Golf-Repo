@@ -168,16 +168,16 @@ MonoBehaviour:
   active: 1
   enabled:
     overrideState: 1
-    value: 0
+    value: 1
   focusDistance:
     overrideState: 1
-    value: 0.1
+    value: 10
   aperture:
     overrideState: 1
-    value: 0.1
+    value: 10.9
   focalLength:
     overrideState: 1
-    value: 300
+    value: 120
   kernelSize:
     overrideState: 1
     value: 3
@@ -239,13 +239,13 @@ MonoBehaviour:
     value: 0
   colorFilter:
     overrideState: 1
-    value: {r: 1, g: 1, b: 1, a: 1}
+    value: {r: 1, g: 0.6084906, b: 0.6084906, a: 1}
   hueShift:
     overrideState: 1
     value: 0
   saturation:
     overrideState: 1
-    value: 0
+    value: 2.2
   brightness:
     overrideState: 0
     value: 0

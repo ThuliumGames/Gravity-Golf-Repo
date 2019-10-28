@@ -12,8 +12,10 @@ public class PlaySoundOnBallContact : MonoBehaviour {
 		}
 	}
 	
-	void OnTriggerEnter () {
-		GetComponent<AudioSource>().Play();
+	void OnTriggerEnter (Collider Hit) {
+		if (Hit.gameObject.name != "GBC(Clone)") {
+			GetComponent<AudioSource>().Play();
+		}
 	}
 	
 	void Go () {

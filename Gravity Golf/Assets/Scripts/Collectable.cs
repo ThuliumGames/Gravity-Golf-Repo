@@ -21,6 +21,8 @@ public class Collectable : MonoBehaviour
 	public GameObject Keys;
 
 	public Text text;
+	
+	public bool JustOne;
 
 	private void Start()
 	{
@@ -55,10 +57,11 @@ public class Collectable : MonoBehaviour
 
 	private void OnTriggerEnter(Collider C)
 	{
-		if (!isDestructable && C.gameObject.name == "Golf Ball")
-		{
-			ItemsCollected++;
-			GameObject.Find("Cage").GetComponent<AudioSource>().Play();
+		if (!isDestructable && C.gameObject.name == "Golf Ball") {
+			if (!JustOne) {
+				ItemsCollected++;
+				GameObject.Find("Cage").GetComponent<AudioSource>().Play();
+			}
 			Object.Destroy(base.gameObject);
 		}
 	}
