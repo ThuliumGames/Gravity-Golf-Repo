@@ -1426,9 +1426,10 @@ MonoBehaviour:
   Head: 0
   OTI: {fileID: 0}
   OOTI: {fileID: 0}
+  Ex: {fileID: 1073474033471706, guid: f1dff528000dfbd46b1a5be069782563, type: 2}
   Go: {fileID: 4784264325171504}
   LocalOffset: {x: 0, y: 0, z: 0}
-  Speed: 1500
+  Speed: 3000
   doAnger: 0
   doFakeAnger: 0
   Life: 5
@@ -1448,9 +1449,10 @@ MonoBehaviour:
   Head: 0
   OTI: {fileID: 0}
   OOTI: {fileID: 0}
+  Ex: {fileID: 1073474033471706, guid: f1dff528000dfbd46b1a5be069782563, type: 2}
   Go: {fileID: 4787715876835780}
   LocalOffset: {x: 0, y: 0, z: 0}
-  Speed: 1500
+  Speed: 3000
   doAnger: 0
   doFakeAnger: 0
   Life: 5
@@ -1470,9 +1472,10 @@ MonoBehaviour:
   Head: 0
   OTI: {fileID: 0}
   OOTI: {fileID: 0}
+  Ex: {fileID: 1073474033471706, guid: f1dff528000dfbd46b1a5be069782563, type: 2}
   Go: {fileID: 4499864696061658}
   LocalOffset: {x: 0, y: 0, z: 0}
-  Speed: 1500
+  Speed: 3000
   doAnger: 0
   doFakeAnger: 0
   Life: 5
@@ -1492,9 +1495,10 @@ MonoBehaviour:
   Head: 0
   OTI: {fileID: 0}
   OOTI: {fileID: 0}
+  Ex: {fileID: 1073474033471706, guid: f1dff528000dfbd46b1a5be069782563, type: 2}
   Go: {fileID: 4156865687886710}
   LocalOffset: {x: 0, y: 0, z: 0}
-  Speed: 1500
+  Speed: 3000
   doAnger: 0
   doFakeAnger: 0
   Life: 5
@@ -1514,9 +1518,10 @@ MonoBehaviour:
   Head: 0
   OTI: {fileID: 0}
   OOTI: {fileID: 0}
+  Ex: {fileID: 1073474033471706, guid: f1dff528000dfbd46b1a5be069782563, type: 2}
   Go: {fileID: 4303434232547768}
   LocalOffset: {x: 0, y: 0, z: 0}
-  Speed: 1500
+  Speed: 3000
   doAnger: 0
   doFakeAnger: 0
   Life: 5
@@ -1536,9 +1541,10 @@ MonoBehaviour:
   Head: 0
   OTI: {fileID: 1359015296533578, guid: c6353cd5f206eca40879c0f20ccfa2e4, type: 2}
   OOTI: {fileID: 0}
+  Ex: {fileID: 1073474033471706, guid: f1dff528000dfbd46b1a5be069782563, type: 2}
   Go: {fileID: 0}
   LocalOffset: {x: 0, y: 0, z: 0}
-  Speed: 50
+  Speed: 100
   doAnger: 0
   doFakeAnger: 0
   Life: 5

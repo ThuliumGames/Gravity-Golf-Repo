@@ -12,28 +12,27 @@ public class CreateBall : MonoBehaviour
 
 	public GameObject OTI;
 
-	private void Update()
-	{
+	private void Update() {
+		
+		Cursor.visible = true;
+		Cursor.lockState = CursorLockMode.None;
+		
 		int num = 0;
 		Transform[] array = Object.FindObjectsOfType<Transform>();
-		foreach (Transform transform in array)
-		{
-			if (transform.gameObject.name == "Ball(Clone)")
-			{
+		foreach (Transform transform in array) {
+			if (transform.gameObject.name == "Ball(Clone)") {
 				num++;
 			}
 		}
-		if (Input.GetButtonDown("Fire1"))
-		{
+		if (Input.GetButtonDown("Fire1")) {
 			Camera cam = Cam;
 			Vector3 mousePosition = Input.mousePosition;
 			float x = mousePosition.x;
 			Vector3 mousePosition2 = Input.mousePosition;
 			RaycastHit hitInfo;
 			Physics.Raycast(cam.ScreenPointToRay(new Vector3(x, mousePosition2.y, 0f)), out hitInfo, float.PositiveInfinity);
-			if (hitInfo.collider.gameObject.GetComponent<Buttons>() == null)
-			{
-				Object.Instantiate(OTI, hitInfo.point, cam.transform.rotation);
+			if (hitInfo.collider.gameObject.GetComponent<Buttons>() == null) {
+				Object.Instantiate(OTI, hitInfo.point+(hitInfo.normal*0.25f), cam.transform.rotation);
 			}
 		}
 	}

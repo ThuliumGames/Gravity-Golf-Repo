@@ -6965,7 +6965,7 @@ MonoBehaviour:
   SpawnTime: 1
   Range: 50
   InitialSpeed: 0
-  Disable: {fileID: 1008895466215784, guid: d473a5ca02716fb478bded83d5ab1613, type: 2}
+  Disable: {fileID: 1008895466215784, guid: 88b5102a7b6e3c145ba155a16909ad52, type: 2}
   ChangeSize: {fileID: 0}
 --- !u!4 &1300686069
 Transform:
@@ -7997,7 +7997,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DisableIfClose: 0
-  isDirectional: 0
+  Mode: 0
   Direction: {x: 0, y: 0, z: 0}
   Range: 30
   Rangez: 0
@@ -8007,8 +8007,7 @@ MonoBehaviour:
   isSelec: 1
   RigLis: []
   RigLisPrev: []
-  array: []
-  isGlob: 1
+  AllObjs: []
 --- !u!135 &1821986656
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -8114,7 +8113,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1838578198}
   - component: {fileID: 1838578201}
-  - component: {fileID: 1838578200}
   - component: {fileID: 1838578199}
   m_Layer: 0
   m_Name: Grass Object
@@ -8157,26 +8155,10 @@ MonoBehaviour:
   Min: 0.25
   Max: 0.5
   DistAway: 0
---- !u!114 &1838578200
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 114869357006744808, guid: 796830c31e1c3ad40b7a7d1352dd875f,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1838578197}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc699fc4ab039ae4589471131c54aca6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Flat: 0
-  Grass: {fileID: 1633430589703634, guid: 1f929cc9c7e9fa04b8754ee89ba3bdd4, type: 2}
-  NoPlace: []
-  NoPlDis: 0
-  Density: 5
-  Min: 1
-  Max: 2
-  DistAway: 0
+  JustObject: 0
+  LM:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &1838578201
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8190,13 +8172,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Flat: 0
-  Grass: {fileID: 1189233622738972, guid: 657d9e70a45d0624d93ea3c220ce37d3, type: 2}
+  Grass: {fileID: 1280805450712192, guid: 09d3953501ce6b64a9d715bee49dffbf, type: 2}
   NoPlace: []
   NoPlDis: 0
-  Density: 5
-  Min: 1
-  Max: 2
+  Density: 10
+  Min: 0.5
+  Max: 0.75
   DistAway: 0
+  JustObject: 0
+  LM:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &1883526958
 GameObject:
   m_ObjectHideFlags: 0

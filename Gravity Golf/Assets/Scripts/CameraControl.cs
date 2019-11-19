@@ -175,11 +175,6 @@ public class CameraControl : MonoBehaviour {
 				
 				LookPos.position = LookObj.position;
 				
-				
-				if (Input.GetKeyDown(KeyCode.Escape)) {
-					Cursor.lockState = CursorLockMode.None;
-				}
-				
 				if (!Object.FindObjectOfType<Win>().EndThing) {
 					if (Input.GetKeyDown(KeyCode.Mouse0)) {
 						Cursor.visible = false;
@@ -206,7 +201,8 @@ public class CameraControl : MonoBehaviour {
 					}
 					
 					if (!NewPlanet) {
-						if (!LookObj.GetComponent<Planet>().isDirectional) {
+						
+						if (LookObj.GetComponent<Planet>().Mode != Planet.Modes.Directional) {
 							ParentControl.position = LookPos.position;
 							ParentControl.Rotate ((transform.InverseTransformPoint (Ball.position).z/Vector3.Distance(Ball.position, LookPos.position))*Mathf.PI, 0, (-transform.InverseTransformPoint (Ball.position).x/Vector3.Distance(Ball.position, LookPos.position))*Mathf.PI);
 							ParentControl.position += (transform.up*Vector3.Distance(Ball.position, LookPos.position));
@@ -231,8 +227,6 @@ public class CameraControl : MonoBehaviour {
 					Cam.Rotate (VertAng, Ang, 0);
 					BallRot.localEulerAngles = new Vector3 (HitAngle, Cam.localEulerAngles.y, 0);
 				} else {
-					Cursor.visible = true;
-					Cursor.lockState = CursorLockMode.None;
 					if (!Object.FindObjectOfType<Win>().EndThing2) {
 						Cam.position = Vector3.Lerp(Cam.position, GameObject.Find("EndGamePos").transform.position, 3f * Time.deltaTime);
 						Cam.LookAt(Ball.transform.position);

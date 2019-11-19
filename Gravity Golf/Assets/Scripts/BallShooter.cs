@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class BallShooter : MonoBehaviour {
 	
@@ -29,6 +30,10 @@ public class BallShooter : MonoBehaviour {
 		ST.text = "Score: " + Score;
 		int TL = (int)TimeLeft;
 		TT.text = "Time Left: " + TL;
+		
+		if (TL <= 0) {
+			SceneManager.LoadScene("Intro");
+		}
 		
 		RaycastHit H;
 		Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out H);

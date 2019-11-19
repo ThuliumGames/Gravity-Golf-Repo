@@ -18,7 +18,7 @@ public class Orbs : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider Other) {
-		if (Other.gameObject.layer == LayerMask.NameToLayer("Ball") && !BeenHit) {
+		if (Other.gameObject.name == "Golf Ball" && !BeenHit) {
 			if (!onlyKnock) {
 				BeenHit = true;
 				SendMessageUpwards("Hit");

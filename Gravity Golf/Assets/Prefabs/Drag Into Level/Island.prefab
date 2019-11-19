@@ -681,6 +681,10 @@ MonoBehaviour:
   Min: 90
   Max: 110
   DistAway: 10000
+  JustObject: 0
+  LM:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &114046662269764016
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -693,18 +697,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DisableIfClose: 0
-  isDirectional: 1
+  Mode: 1
   Direction: {x: 0, y: -1, z: 0}
   Range: 1
   Rangez: 1
   Rangey: 1
   AddRandomDir: 0
   pullForce: 100
-  isSelec: 0
+  isSelec: 1
   RigLis: []
   RigLisPrev: []
-  array: []
-  isGlob: 1
+  AllObjs: []
 --- !u!205 &205184041255092218
 LODGroup:
   m_ObjectHideFlags: 1

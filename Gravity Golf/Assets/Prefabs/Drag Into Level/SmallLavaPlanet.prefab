@@ -212,8 +212,8 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
+  MinDistance: 15
+  MaxDistance: 30
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -248,7 +248,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -306,6 +306,11 @@ MonoBehaviour:
   Density: 12
   Min: 11.97037
   Max: 13.62963
+  DistAway: 0
+  JustObject: 0
+  LM:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &114336007506271532
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -337,6 +342,11 @@ MonoBehaviour:
   Density: 12
   Min: 11.970373
   Max: 13.629626
+  DistAway: 0
+  JustObject: 0
+  LM:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &114652374825085722
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -349,15 +359,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DisableIfClose: 0
-  isDirectional: 0
+  Mode: 0
   Direction: {x: 0, y: 0, z: 0}
   Range: -2.5
   Rangez: 0
   Rangey: 0
   AddRandomDir: 1
   pullForce: -15000
+  isSelec: 1
   RigLis: []
   RigLisPrev: []
+  AllObjs: []
 --- !u!114 &114996630468914836
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -370,15 +382,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DisableIfClose: 0
-  isDirectional: 0
+  Mode: 0
   Direction: {x: 0, y: 0, z: 0}
   Range: 10
   Rangez: 0
   Rangey: 0
   AddRandomDir: 0
   pullForce: 1500
+  isSelec: 1
   RigLis: []
   RigLisPrev: []
+  AllObjs: []
 --- !u!135 &135781221006374724
 SphereCollider:
   m_ObjectHideFlags: 1

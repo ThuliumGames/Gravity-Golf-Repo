@@ -337,6 +337,8 @@ public class GolfHit : MonoBehaviour {
 			}
 			OnGround = false;
 		} else {
+			Cursor.visible = true;
+			Cursor.lockState = CursorLockMode.None;
 			Time.timeScale = 0;
 		}
 	}

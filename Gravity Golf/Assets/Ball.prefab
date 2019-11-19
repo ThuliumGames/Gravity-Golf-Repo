@@ -55,7 +55,6 @@ GameObject:
   - component: {fileID: 135405066167332032}
   - component: {fileID: 54612299101629990}
   - component: {fileID: 114502017455499898}
-  - component: {fileID: 135154132593905250}
   - component: {fileID: 114127763962879190}
   m_Layer: 9
   m_Name: Ball
@@ -294,18 +293,6 @@ MonoBehaviour:
   InitialSpeed: 50
   Disable: {fileID: 0}
   ChangeSize: {fileID: 0}
---- !u!135 &135154132593905250
-SphereCollider:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1801460186858784}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!135 &135405066167332032
 SphereCollider:
   m_ObjectHideFlags: 1

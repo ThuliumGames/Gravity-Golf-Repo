@@ -144,6 +144,9 @@ public class Buttons : MonoBehaviour
 					GetComponent<Shadow>().enabled = true;
 					shadow.enabled = true;
 				}
+				if (GetComponent<Outline>()) {
+					GetComponent<Outline>().enabled = true;
+				}
 			}
 			
 			if (Input.GetButtonDown(KeyToPress)) {
@@ -161,7 +164,12 @@ public class Buttons : MonoBehaviour
 					
 				} else if (LevelName == "EndGame") {
 					
-					PlayerPrefs.SetString("SaveLevel", SceneManager.GetActiveScene().name);
+					PlayerPrefs.SetString("SaveLevel", SceneManager.GetActiveScene().path);
+					SceneManager.LoadScene("Intro");
+				
+				} else if (LevelName == "EndWorld") {
+					
+					PlayerPrefs.SetString("SaveLevel", "Scenes/World 1/Level 1-1");
 					SceneManager.LoadScene("Intro");
 				
 				} else if (LevelName == "PlayMusic") {
@@ -179,15 +187,36 @@ public class Buttons : MonoBehaviour
 							}
 							
 							if (LevelName.Contains("l 1")) {
-								SceneManager.LoadScene("Scenes/World 1/" + LevelName);
+								print (PlayerPrefs.GetString("SaveLevel", "Scenes/World 1/Level 1-1"));
+								if (PlayerPrefs.GetString("SaveLevel", "Scenes/World 1/Level 1-1").Contains("d 1")) {
+									SceneManager.LoadScene(PlayerPrefs.GetString("SaveLevel", "Scenes/World 1/Level 1-1"));
+								} else {
+									SceneManager.LoadScene("Scenes/World 1/" + LevelName);
+								}
 							} else if (LevelName.Contains("l 2")) {
-								SceneManager.LoadScene("Scenes/World 2/" + LevelName);
+								if (PlayerPrefs.GetString("SaveLevel", "Scenes/World 1/Level 1-1").Contains("d 2")) {
+									SceneManager.LoadScene(PlayerPrefs.GetString("SaveLevel", "Scenes/World 1/Level 1-1"));
+								} else {
+									SceneManager.LoadScene("Scenes/World 2/" + LevelName);
+								}
 							} else if (LevelName.Contains("l 3")) {
-								SceneManager.LoadScene("Scenes/World 3/" + LevelName);
+								if (PlayerPrefs.GetString("SaveLevel", "Scenes/World 1/Level 1-1").Contains("d 3")) {
+									SceneManager.LoadScene(PlayerPrefs.GetString("SaveLevel", "Scenes/World 1/Level 1-1"));
+								} else {
+									SceneManager.LoadScene("Scenes/World 3/" + LevelName);
+								}
 							} else if (LevelName.Contains("l 4")) {
-								SceneManager.LoadScene("Scenes/World 4/" + LevelName);
+								if (PlayerPrefs.GetString("SaveLevel", "Scenes/World 1/Level 1-1").Contains("d 4")) {
+									SceneManager.LoadScene(PlayerPrefs.GetString("SaveLevel", "Scenes/World 1/Level 1-1"));
+								} else {
+									SceneManager.LoadScene("Scenes/World 4/" + LevelName);
+								}
 							} else if (LevelName.Contains("l 5")) {
-								SceneManager.LoadScene("Scenes/World 5/" + LevelName);
+								if (PlayerPrefs.GetString("SaveLevel", "Scenes/World 1/Level 1-1").Contains("d 5")) {
+									SceneManager.LoadScene(PlayerPrefs.GetString("SaveLevel", "Scenes/World 1/Level 1-1"));
+								} else {
+									SceneManager.LoadScene("Scenes/World 51/" + LevelName);
+								}
 							}
 						} else {
 							SceneManager.LoadScene(LevelName);
@@ -195,12 +224,16 @@ public class Buttons : MonoBehaviour
 					}
 				} else {
 					if (LevelName.Contains("Level")) {
-						if (LevelName.Contains("1") && !LevelName.Contains("2-1") && !LevelName.Contains("3-1")) {
+						if (LevelName.Contains("l 1")) {
 							SceneManager.LoadScene("Scenes/World 1/" + LevelName);
-						} else if (LevelName.Contains("2") && !LevelName.Contains("1-2") && !LevelName.Contains("3-2")) {
+						} else if (LevelName.Contains("l 2")) {
 							SceneManager.LoadScene("Scenes/World 2/" + LevelName);
-						} else if (LevelName.Contains("1") && !LevelName.Contains("1-3") && !LevelName.Contains("2-3")) {
+						} else if (LevelName.Contains("l 3")) {
 							SceneManager.LoadScene("Scenes/World 3/" + LevelName);
+						} else if (LevelName.Contains("l 4")) {
+							SceneManager.LoadScene("Scenes/World 4/" + LevelName);
+						} else if (LevelName.Contains("l 5")) {
+							SceneManager.LoadScene("Scenes/World 51/" + LevelName);
 						}
 					} else {
 						SceneManager.LoadScene(LevelName);
@@ -225,6 +258,9 @@ public class Buttons : MonoBehaviour
 			{
 				GetComponent<Shadow>().enabled = false;
 				shadow2.enabled = false;
+			}
+			if (GetComponent<Outline>()) {
+				GetComponent<Outline>().enabled = false;
 			}
 		}
 	}

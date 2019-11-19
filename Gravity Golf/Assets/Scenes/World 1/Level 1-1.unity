@@ -13967,7 +13967,7 @@ MonoBehaviour:
   ObjectsToDisable:
   - {fileID: 587026622}
   - {fileID: 229385127}
-  EnableAtPlace: {x: 0, y: 0, z: 100}
+  EnableAtPlace: {x: 0, y: -80, z: 0}
   Range: 25
 --- !u!114 &229385130
 MonoBehaviour:

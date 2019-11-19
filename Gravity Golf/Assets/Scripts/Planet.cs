@@ -18,7 +18,8 @@ public class Planet : MonoBehaviour {
 	
 	float Origpf;
 	
-	public bool isDirectional;
+	public enum Modes {Spherical, Directional, Mesh};
+	public Modes Mode;
 
 	public Vector3 Direction;
 
@@ -61,7 +62,7 @@ public class Planet : MonoBehaviour {
 					
 					Vector3 localScale = base.transform.localScale;
 					
-					if (((num < range + (localScale.x * 10)) && !isDirectional) || (isDirectional && Mathf.Abs(transform.InverseTransformPoint(ObjToPull.transform.position).x) < Range && Mathf.Abs(transform.InverseTransformPoint(ObjToPull.transform.position).z) < Rangez && Mathf.Abs(transform.InverseTransformPoint(ObjToPull.transform.position).y) < Rangey)) {
+					if (((num < range + (localScale.x * 10)) && Mode != Modes.Directional) || (Mode == Modes.Directional && Mathf.Abs(transform.InverseTransformPoint(ObjToPull.transform.position).x) < Range && Mathf.Abs(transform.InverseTransformPoint(ObjToPull.transform.position).z) < Rangez && Mathf.Abs(transform.InverseTransformPoint(ObjToPull.transform.position).y) < Rangey)) {
 						
 						
 						RigLis.Add (ObjToPull);
@@ -82,14 +83,28 @@ public class Planet : MonoBehaviour {
 								
 						GameObject gameObject2 = new GameObject();
 						
-						if (isDirectional) {
-							
-							gameObject2.transform.position = ObjToPull.gameObject.transform.position + Direction;
-							
-						} else {
-							
-							gameObject2.transform.position = base.transform.position;
-							
+						switch (Mode) {
+							case Modes.Spherical:
+								gameObject2.transform.position = base.transform.position;
+								break;
+							case Modes.Directional:
+								gameObject2.transform.position = ObjToPull.gameObject.transform.position + Direction;
+								break;
+							case Modes.Mesh:
+								gameObject2.transform.position = ObjToPull.gameObject.transform.position;
+								gameObject2.transform.LookAt(base.transform.position);
+								
+								RaycastHit Normals;
+								
+								if (Physics.Raycast(gameObject2.transform.position, gameObject2.transform.forward, out Normals, (Range + (transform.localScale.x * 10)) * 2)) {
+									gameObject2.transform.LookAt (Normals.normal);
+								} else {
+									gameObject2.transform.position = base.transform.position;
+								}
+								break;
+							 default:
+								gameObject2.transform.position = base.transform.position;
+								break;
 						}
 						
 						gameObject2.transform.LookAt(ObjToPull.gameObject.transform.position);
@@ -120,10 +135,35 @@ public class Planet : MonoBehaviour {
 						float num5 = Range;
 						Vector3 localScale3 = base.transform.localScale;
 						
-						if (num4 < ((num5 + (localScale3.x * 10)) * 2) && !isDirectional) {
+						if (num4 < ((num5 + (localScale3.x * 10)) * 2) && Mode != Modes.Directional) {
 							
 							GameObject gameObject = new GameObject();
-							gameObject.transform.position = base.transform.position;
+						
+							switch (Mode) {
+								case Modes.Spherical:
+									gameObject.transform.position = base.transform.position;
+									break;
+								case Modes.Directional:
+									gameObject.transform.position = ObjToPull.gameObject.transform.position + Direction;
+									break;
+								case Modes.Mesh:
+									gameObject.transform.position = ObjToPull.gameObject.transform.position;
+									gameObject.transform.LookAt(base.transform.position);
+									
+									RaycastHit Normals;
+									
+									if (Physics.Raycast(gameObject.transform.position, gameObject.transform.forward, out Normals, (Range + (transform.localScale.x * 10)) * 2)) {
+										gameObject.transform.LookAt (Normals.point);
+										gameObject.transform.Translate (0, 0, 1);
+									}
+									
+									gameObject.transform.position = base.transform.position;
+									break;
+								 default:
+									gameObject.transform.position = base.transform.position;
+									break;
+							}
+						
 							gameObject.transform.LookAt(ObjToPull.gameObject.transform.position);
 						
 							if (AddRandomDir) {
@@ -166,7 +206,7 @@ public class Planet : MonoBehaviour {
 	
 	private void OnDrawGizmosSelected() {
 		
-		if (!isDirectional) {
+		if (Mode != Modes.Directional) {
 			Gizmos.color = Color.yellow;
 			Vector3 position = base.transform.position;
 			float range = Range;

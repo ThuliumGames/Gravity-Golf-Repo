@@ -21,11 +21,12 @@ public class KillLayer : MonoBehaviour {
 			}
 		}
 	}
-	private void OnTriggerEnter(Collider Hit) {
+	void OnTriggerEnter (Collider Hit) {
+		print (name +" : "+ Hit.gameObject.name);
 		if (name != "Ball(Clone)") {
-			if (Hit.gameObject.name == ("Golf Ball")) {
+			if (Hit.gameObject.name == "Golf Ball") {
 				Hit.gameObject.GetComponent<GolfHit>().Die();
-			} else if (Hit.gameObject.name == ("Ball(Clone)")) {
+			} else if (Hit.gameObject.name == "Ball(Clone)") {
 				++GameObject.FindObjectOfType<BallShooter>().Score;
 				Instantiate (Ex, transform.position, transform.rotation);
 				Destroy (Hit.gameObject);
