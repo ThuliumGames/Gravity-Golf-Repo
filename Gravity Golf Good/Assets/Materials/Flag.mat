@@ -9,7 +9,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: Flag
   m_Shader: {fileID: -6465566751694194690, guid: 2ed774bdb53e2e24b992d5fef5f5dc0d, type: 3}
-  m_ShaderKeywords: 
+  m_ShaderKeywords: _ALPHATEST_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 1
@@ -52,11 +52,15 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - Vector1_11938B1A: 1
+    - Boolean_2A61EBCA: 1
+    - Boolean_6F3E27B5: 0
+    - Vector1_11938B1A: 0
     - Vector1_38DB0C87: 1
     - Vector1_4D9DCA3: 0
-    - Vector1_541C51CA: 0.9
-    - Vector1_7279FB5D: 1
+    - Vector1_541C51CA: 0.95
+    - Vector1_5F4EFF20: 1
+    - Vector1_7279FB5D: 2.8
+    - Vector1_7C460845: 16.28
     - Vector1_90E7AA4C: 0
     - Vector1_A6760613: 0
     - Vector1_C89D8EF: 3
@@ -84,8 +88,8 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - Color_75684835: {r: 0, g: 0, b: 0, a: 0}
-    - Color_9FBF7BB4: {r: 1, g: 0, b: 0, a: 0}
-    - Vector2_521137F9: {r: 2, g: 2, b: 0, a: 0}
+    - Color_9FBF7BB4: {r: 0.7075472, g: 0, b: 0, a: 1}
+    - Vector2_521137F9: {r: 2, g: 1.5, b: 0, a: 0}
     - Vector2_FA3338B1: {r: 0, g: 0, b: 0, a: 0}
     - _BaseColor: {r: 0.8207547, g: 0, b: 0, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}

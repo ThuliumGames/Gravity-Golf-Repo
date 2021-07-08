@@ -258,12 +258,10 @@ MonoBehaviour:
   aS: {fileID: 6624194071934092881}
   aC:
   - {fileID: 8300000, guid: b1ccddd85348c1b4cb663b7e12119cb5, type: 3}
-  - {fileID: 8300000, guid: e2bb3c7df38f4e4499bde59e98cdd13a, type: 3}
-  - {fileID: 8300000, guid: b925f8221d0cc4444b2cb4dae1d2e52f, type: 3}
   - {fileID: 8300000, guid: 919a9f4578e553241b7daddcffa29abd, type: 3}
   lm:
     serializedVersion: 2
-    m_Bits: 55
+    m_Bits: 51
   mrs:
   - {fileID: 5939701339336505609}
   - {fileID: 4675160494220927696}
@@ -1490,7 +1488,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 0
   MinDistance: 0
-  MaxDistance: 75
+  MaxDistance: 100
   Pan2D: 0
   rolloffMode: 2
   BypassEffects: 0

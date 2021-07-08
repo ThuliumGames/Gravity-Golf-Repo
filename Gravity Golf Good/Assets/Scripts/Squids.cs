@@ -19,7 +19,7 @@ public class Squids : MonoBehaviour {
 	public Texture2D[] ShirtTex;
 	
 	void Start () {
-		transform.localScale = new Vector3 (Random.Range(0.0145f, 0.0175f), Random.Range(0.0145f, 0.0175f), Random.Range(0.0145f, 0.0175f));
+		transform.localScale = new Vector3 ((Random.Range(0.0145f, 0.0175f)*30.0f)/transform.parent.localScale.x, (Random.Range(0.0145f, 0.0175f)*30.0f)/transform.parent.localScale.z, (Random.Range(0.0145f, 0.0175f)*30.0f)/transform.parent.localScale.y);
 		
 		float randHue = Random.Range(350.0f, 360.0f);
 		int randCol = Random.Range(0, 3);
@@ -53,7 +53,7 @@ public class Squids : MonoBehaviour {
 	
 	void Update () {
 		
-		if (Global.didAGood) {
+		/*if (Global.didAGood) {
 			if (doClap == 1) {
 				Invoke("Clap", Mathf.Pow(Random.Range(0.0f, 1.0f), 2));
 				if (onFrame<Time.frameCount-1) {
@@ -63,7 +63,7 @@ public class Squids : MonoBehaviour {
 		} else {
 			onFrame = Time.frameCount;
 			doClap = Random.Range(0, 2);
-		}
+		}*/
 		
 		RaycastHit h;
 		if (Physics.Raycast (transform.position+(transform.forward), -transform.forward, out h, Mathf.Infinity, lm)) {
@@ -81,14 +81,14 @@ public class Squids : MonoBehaviour {
 		}
 	}
 	
-	void Clap () {
+	/*void Clap () {
 		anim.Play("Clap " + Random.Range(0, 4));
-	}
+	}*/
 	
 	void PlaySound () {
 		aS.clip = aC[Random.Range(0, aC.Length)];
-		aS.volume = Random.Range(0.25f, 0.75f);
-		aS.pitch = Random.Range(0.9f, 1.25f);
+		aS.volume = Random.Range(0.125f, 0.5f);
+		aS.pitch = Random.Range(0.9f, 1.1f);
 		aS.Play();
 	}
 }

@@ -130,6 +130,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ball: {fileID: 0}
   follow: {fileID: 0}
+  PH:
+  - {fileID: 13400000, guid: b7b57efe07a9cc440beb2f57bee59e76, type: 2}
+  - {fileID: 13400000, guid: 5f6673c89b67a0e4c986379d853fc528, type: 2}
 --- !u!114 &7202939656942421039
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -303,7 +306,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6927854751513582432
 Transform:
   m_ObjectHideFlags: 0
@@ -326,7 +329,7 @@ TrailRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8307672631990832982}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -359,7 +362,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 0.5
+  m_Time: 0.2
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 0.25

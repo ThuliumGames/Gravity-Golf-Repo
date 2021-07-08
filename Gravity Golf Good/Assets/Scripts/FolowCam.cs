@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class FolowCam : MonoBehaviour {
 	
@@ -11,7 +12,10 @@ public class FolowCam : MonoBehaviour {
 		switch (mode) {
 			case 0:
 				transform.LookAt(Camera.main.transform.position);
-				transform.localScale = transform.parent.parent.localScale;
+				if (SceneManager.GetActiveScene().name == "Title Screen") {
+					transform.localScale = transform.parent.parent.parent.localScale;
+					transform.GetChild(0).localScale = transform.parent.parent.parent.localScale;
+				}
 				break;
 			case 1:
 				if (GameObject.Find("Hole")) {

@@ -12,6 +12,8 @@ public class Trail : MonoBehaviour {
 	
 	public Trail follow;
 	
+	public PhysicMaterial[] PH;
+	
 	void Start () {
 		rb = GetComponent<Rigidbody>();
 		gt = GetComponent<Gravity>();
@@ -34,7 +36,7 @@ public class Trail : MonoBehaviour {
 	}
 	
 	void FixedUpdate () {
-		rb.AddForce(gt.gravVector*(Physics.gravity.magnitude*gt.gravMulti));
+		rb.AddForce(gt.gravVector*Physics.gravity.magnitude*gt.gravMulti);
 	}
 	
 	public void Dest () {

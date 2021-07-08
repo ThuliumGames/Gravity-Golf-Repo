@@ -15,6 +15,9 @@ public class Global : MonoBehaviour {
 	public static bool showControls = true;
 	public static bool didAGood;
 	
+	public static int strokes;
+	public int Par;
+	
 	public AudioSource holePlop;
 	public AudioSource winSound;
 	
@@ -26,10 +29,43 @@ public class Global : MonoBehaviour {
 	public GameObject PauseUI;
 	public GameObject WinUI;
 	
+	public Text strokesText;
+	public Text[] EndText;
+	
+	string[] terms = {
+		"hole in one !",
+		"albatross",
+		"eagle",
+		"birdie",
+		"par",
+		"bogey",
+		"double-",
+		"tripple-",
+		"quadruple-",
+		"quintuple-",
+		"sextuple-",
+		"septuple-",
+		"octuple-",
+		"nonuple-",
+		"decuple-",
+		"undecuple-",
+		"duodecuple-",
+		"tredecuple-",
+		"quattuordecuple-",
+		"quindecuple-",
+		"sexdecuple-",
+		"septendecuple-",
+		"octodecuple-",
+		"novemdecuple-",
+		"like a billion-"
+	};
+	
 	Volume volume;
 	DepthOfField DOF;
 	
 	void Start () {
+		
+		strokes = 0;
 		
 		if (SceneManager.GetActiveScene().name == "Title Screen") {
 			Cursor.visible = true;
@@ -52,11 +88,35 @@ public class Global : MonoBehaviour {
 	}
 	
 	void Update () {
+		
 		if (SceneManager.GetActiveScene().name != "Title Screen") {
+			if (Input.GetButtonDown("R")) {
+				SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+			}
+			// Stroke Text
+			strokesText.text = "<size=40>Strokes:</size>\n"+strokes;
+			int p = strokes-Par;
+			EndText[0].text = "";
+			if (p >= 0) {
+				EndText[0].text = "+";
+			}
+			EndText[0].text += ""+p;
+			if (strokes > 1) {
+				EndText[1].text = "";
+				if (Mathf.Clamp(p+4, 1, 5) != p+4) {
+					EndText[1].text = terms[Mathf.Clamp(Mathf.Abs(Mathf.Clamp(p+4, 1, 5) - (p+4))+5, 6, 24)].ToUpper();
+				}
+				EndText[1].text += terms[Mathf.Clamp(p+4, 1, 5)].ToUpper();
+			} else {
+				EndText[1].text = "HOLE IN ONE !";
+			}
+			//
+			
 			if (touchingHole) {
 				if (!holePlop.isPlaying && !winSound.isPlaying) {
 					holePlop.volume = 0;
 					holePlop.Play();
+					Invoke ("StartAnim", 0.833f);
 					Invoke ("StartSong", 2);
 				}
 				
@@ -138,6 +198,10 @@ public class Global : MonoBehaviour {
 			Controls.SetActive(showControls);
 			
 		} else {
+			if (Input.GetButtonDown("Quit")) {
+				Application.Quit();
+			}
+			
 			Time.timeScale = 1;
 			Cursor.visible = true;
 			Cursor.lockState = CursorLockMode.None;
@@ -147,6 +211,11 @@ public class Global : MonoBehaviour {
 	void StartSong () {
 		if (touchingHole) {
 			winSound.Play();
+		}
+	}
+	
+	void StartAnim () {
+		if (touchingHole) {
 			inHole = true;
 		}
 	}
@@ -156,7 +225,13 @@ public class Global : MonoBehaviour {
 	}
 	
 	void DoNext () {
-		
+		char[] C = SceneManager.GetActiveScene().name.ToCharArray();
+		string N = "";
+		for (int i = 6; i < C.Length; i++) {
+			N += C[i];
+		}
+		int L = int.Parse(N)+1;
+		SceneManager.LoadScene("Level " + L);
 	}
 	
 	void DoControl () {

@@ -26,6 +26,8 @@ public class Gravity : MonoBehaviour {
 	public LayerMask lm;
 	
 	public Vector3 gravVector = new Vector3 (0, 0, 0);
+	Vector3 prevGravLoc = new Vector3 (0, 0, 0);
+	float prevGravAtLoc;
 	
 	[HideInInspector]
 	public bool inBH;
@@ -46,32 +48,36 @@ public class Gravity : MonoBehaviour {
 	void Update () {
 		if (gravityUser) {
 			if (!inBH && inWorld) {
+				
 				RaycastHit H;
 				Physics.gravity = new Vector3 (0, -40, 0);
+				
 				if (Physics.Raycast(transform.position, gravVector, out H, Mathf.Infinity, lm)) {
+					
+					if (onLinePlanet != null) {
+						if (H.collider.gameObject == onLinePlanet && Vector3.Dot(gravVector, -H.normal) > 0.5f) {
+							gravVector = -H.normal;
+						}
+					}
+					
 					gravMulti = Mathf.Clamp((50.0f-H.distance)/50.0f, 0.125f, 1.0f);
+					
+					prevGravLoc = transform.position;
+					prevGravAtLoc = gravMulti;
+					
 				} else {
-					gravMulti = 0.125f;
+					gravMulti = Mathf.Clamp(prevGravAtLoc-(Vector3.Distance(transform.position, prevGravLoc)/50.0f), 0.125f, 1.0f);
 				}
 				
 				if (bgNoise != null) {
 					bgNoise.volume = Mathf.Lerp(bgNoise.volume, gravMulti, Time.deltaTime);
 				}
-				
-				if (onLinePlanet != null) {
-					RaycastHit hit;
-					
-					if (Physics.Raycast(transform.position, gravVector, out hit, Mathf.Infinity, lm)) {
-						if (hit.collider.gameObject == onLinePlanet && Vector3.Dot(gravVector, -hit.normal) > 0.5f) {
-							gravVector = -hit.normal;
-						}
-					}
-				}
 			
 				if (prevGrav != currentGrav) {
-					if (prevGrav != null && currentGrav != null) {
-						if (prevGrav.linkNum != currentGrav.linkNum) {
+					if (currentGrav != null) {
+						if (linkNum != currentGrav.linkNum) {
 							GetComponent<Rigidbody>().velocity = Vector3.ClampMagnitude(GetComponent<Rigidbody>().velocity, GetComponent<Rigidbody>().velocity.magnitude/1.5f);
+							linkNum = currentGrav.linkNum;
 						}
 					}
 					prevGrav = currentGrav;
@@ -141,7 +147,7 @@ public class Gravity : MonoBehaviour {
 								break;
 						}
 						
-						G.linkNum = linkNum;
+						//G.linkNum = linkNum;
 					} else {
 						if (G.currentGrav == null || priority > G.currentGrav.priority) {
 							G.currentGrav = this;
