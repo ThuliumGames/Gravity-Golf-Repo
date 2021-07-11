@@ -7,7 +7,7 @@ public class Squids : MonoBehaviour {
 	public Animator anim;
 	public AudioSource aS;
 	public AudioClip[] aC;
-	int onFrame = 0;
+	int onFrame;
 	int doClap;
 	
 	float rotAng;

@@ -16,21 +16,26 @@ public class Global : MonoBehaviour {
 	public static bool didAGood;
 	
 	public static int strokes;
+	public static int score;
 	public int Par;
 	
 	public AudioSource holePlop;
 	public AudioSource winSound;
 	
 	public GameObject GameUI;
-	public GameObject Controls;
+	public GameObject[] Controls;
 	public Image ControlsTogg;
 	public Sprite[] cToSps;
 	public GameObject[] defSel;
 	public GameObject PauseUI;
 	public GameObject WinUI;
+	public Image[] lockedGraph;
 	
 	public Text strokesText;
+	public Text parText;
 	public Text[] EndText;
+	
+	public static bool shotLocked;
 	
 	string[] terms = {
 		"hole in one !",
@@ -63,9 +68,16 @@ public class Global : MonoBehaviour {
 	Volume volume;
 	DepthOfField DOF;
 	
+	public static int inputMethod;
+	public static int difficulty = 1;
+	public static bool freeCam;
+	
 	void Start () {
 		
+		shotLocked = false;
+		
 		strokes = 0;
+		score = 0;
 		
 		if (SceneManager.GetActiveScene().name == "Title Screen") {
 			Cursor.visible = true;
@@ -89,18 +101,30 @@ public class Global : MonoBehaviour {
 	
 	void Update () {
 		
+		if (Mathf.Abs(Input.GetAxis("Only Mouse")) > 0) {
+			inputMethod = 0;
+		} else if (Mathf.Abs(Input.GetAxis("Only Controller")) > 0) {
+			inputMethod = 1;
+		}
+		
 		if (SceneManager.GetActiveScene().name != "Title Screen") {
+			
+			foreach (Image im in lockedGraph) {
+				im.color = new Color (200.0f/360.0f, 1, 1, Mathf.Lerp(im.color.a, 0.2f*System.Convert.ToInt32(shotLocked), Time.deltaTime*10));
+			}
+			
 			if (Input.GetButtonDown("R")) {
 				SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 			}
 			// Stroke Text
+			parText.text = "<size=40>Par:</size>\n"+Par;
 			strokesText.text = "<size=40>Strokes:</size>\n"+strokes;
 			int p = strokes-Par;
 			EndText[0].text = "";
 			if (p >= 0) {
 				EndText[0].text = "+";
 			}
-			EndText[0].text += ""+p;
+			EndText[0].text += ""+p+"\n<size=25>"+score+"pts</size>";
 			if (strokes > 1) {
 				EndText[1].text = "";
 				if (Mathf.Clamp(p+4, 1, 5) != p+4) {
@@ -164,8 +188,13 @@ public class Global : MonoBehaviour {
 						DOF.focalLength.value = Mathf.Lerp(DOF.focalLength.value, 40, 0.1f);
 					} else {
 						//Cursor
-						Cursor.visible = false;
-						Cursor.lockState = CursorLockMode.Locked;
+						if (!freeCam) {
+							Cursor.visible = false;
+							Cursor.lockState = CursorLockMode.Locked;
+						} else {
+							Cursor.visible = true;
+							Cursor.lockState = CursorLockMode.None;
+						}
 						//
 						DOF.focalLength.value = Mathf.Lerp(DOF.focalLength.value, 20, 0.1f);
 					}
@@ -195,7 +224,19 @@ public class Global : MonoBehaviour {
 			
 			holePlop.volume = Mathf.Clamp(holePlop.volume+0.075f, 0, 1);
 			
-			Controls.SetActive(showControls);
+			if (showControls) {
+				if (inputMethod == 0) {
+					Controls[0].SetActive(true);
+					Controls[1].SetActive(false);
+				} else {
+					Controls[1].SetActive(true);
+					Controls[0].SetActive(false);
+				}
+			} else {
+				foreach (GameObject G in Controls) {
+				G.SetActive(false);
+			}
+			}
 			
 		} else {
 			if (Input.GetButtonDown("Quit")) {
@@ -216,6 +257,7 @@ public class Global : MonoBehaviour {
 	
 	void StartAnim () {
 		if (touchingHole) {
+			score += (int)Mathf.Clamp(((Par-strokes)*10)+50, 0, Mathf.Infinity);
 			inHole = true;
 		}
 	}

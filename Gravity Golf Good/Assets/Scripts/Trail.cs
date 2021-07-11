@@ -19,11 +19,11 @@ public class Trail : MonoBehaviour {
 		gt = GetComponent<Gravity>();
 		//lr = GetComponentInChildren<LineRenderer>();
 		
-		Invoke("Dest", 2);
+		Invoke("Dest", 2*(Global.difficulty+0.1f));
 	}
 	
 	void Update () {
-		if (!Input.GetButton("Fire1") && !ball.shooting) {
+		if (!Input.GetButton("Fire1") && !Global.shotLocked) {
 			Dest ();
 		}
 		

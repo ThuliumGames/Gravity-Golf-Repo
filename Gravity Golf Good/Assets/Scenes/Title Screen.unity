@@ -28214,8 +28214,8 @@ Transform:
   m_LocalPosition: {x: 150, y: 0, z: 0}
   m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_Children:
-  - {fileID: 939501830}
   - {fileID: 1860350371}
+  - {fileID: 939501830}
   - {fileID: 1994720780}
   m_Father: {fileID: 0}
   m_RootOrder: 5
@@ -54518,7 +54518,7 @@ Transform:
   - {fileID: 1811504046}
   - {fileID: 443417192}
   m_Father: {fileID: 1179640915}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 18.85, y: 180, z: 11.13}
 --- !u!1001 &1860671217
 PrefabInstance:
@@ -60632,8 +60632,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_HorizontalAxis: Horizontal
-  m_VerticalAxis: Vertical
+  m_HorizontalAxis: LStick X
+  m_VerticalAxis: LStick Y
   m_SubmitButton: Submit
   m_CancelButton: Cancel
   m_InputActionsPerSecond: 10
@@ -61027,12 +61027,14 @@ MonoBehaviour:
   holePlop: {fileID: 0}
   winSound: {fileID: 0}
   GameUI: {fileID: 0}
-  Controls: {fileID: 0}
+  Controls:
+  - {fileID: 0}
   ControlsTogg: {fileID: 0}
   cToSps: []
   defSel: []
   PauseUI: {fileID: 0}
   WinUI: {fileID: 0}
+  lockedGraph: []
   strokesText: {fileID: 0}
   EndText: []
 --- !u!4 &6488958779588205531

@@ -33,17 +33,17 @@ public class TitleCam : MonoBehaviour {
 			}
 		} else {
 			
-			if (Input.GetButtonDown("A")) {
+			if (Input.GetButtonDown("Submit")) {
 				DoPlay();
 			}
 			
 			bool moving = false;
-			if (Input.GetButton("Fire1") || Mathf.Abs(Input.GetAxis("LStick X")+Input.GetAxis("RStick X")) > 0) {
+			if (Input.GetButton("Fire1") || Mathf.Abs(Input.GetAxis("LStick X")) > 0) {
 				moving = true;
-				movingRFor += Convert.ToInt32(-Input.GetAxis("Mouse X")+Input.GetAxis("LStick X")+Input.GetAxis("RStick X") > 0);
-				movingLFor += Convert.ToInt32(-Input.GetAxis("Mouse X")+Input.GetAxis("LStick X")+Input.GetAxis("RStick X") < 0);
-				transform.position += new Vector3 ((-(Input.GetAxis("Mouse X")-(Input.GetAxis("LStick X")*4f)-(Input.GetAxis("RStick X")*4f)))*Time.deltaTime*150, 0, 0);
-				if (movingLFor > 0 && movingRFor > 0 && Mathf.Abs(Input.GetAxis("LStick X")+Input.GetAxis("RStick X")) > 0) {
+				movingRFor += Convert.ToInt32(-Input.GetAxis("Mouse X")+Input.GetAxis("LStick X") > 0);
+				movingLFor += Convert.ToInt32(-Input.GetAxis("Mouse X")+Input.GetAxis("LStick X") < 0);
+				transform.position += new Vector3 ((-(Input.GetAxis("Mouse X")-(Input.GetAxis("LStick X")*4f)))*Time.deltaTime*150, 0, 0);
+				if (movingLFor > 0 && movingRFor > 0 && Mathf.Abs(Input.GetAxis("LStick X")) > 0) {
 					transform.position += new Vector3 (75*((Convert.ToInt32(movingRFor>movingLFor)*2)-1), 0, 0);
 					movingLFor = 0;
 					movingRFor = 0;
